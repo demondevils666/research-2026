@@ -1,0 +1,15 @@
+# сырые и промежуточные данные не кладем в git (скачиваются scripts/download_data.py)
+data/raw/*
+!data/raw/MANIFEST.json
+data/interim/
+data/processed/
+# код авторов KEFRiN, CANUS, Pattern (скачивается scripts/fetch_external.py)
+third_party/
+# собранный CA-бандл (scripts/build_ca_bundle.py)
+certs/bundle.pem
+# окружение и кэши
+.venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store

@@ -1,0 +1,114 @@
+{
+ "n_mo": 2016,
+ "n_months": 24,
+ "rows": 48384,
+ "other_negative_rows": 0,
+ "other_share_median": 0.2819,
+ "shares_sum_max_abs_err": 2.220446049250313e-16,
+ "clr_rowsum_max_abs": 4.440892098500626e-15,
+ "features_nan": 0,
+ "profile_year": "2024",
+ "rosstat": {
+  "year": 2023,
+  "population": {
+   "period_counts": {
+    "На 1 января": 2552,
+    "Значение показателя за год": 33
+   },
+   "fixed_total": 1,
+   "urban_share_undefined": 100
+  },
+  "population_fixed_ids": [
+   1421
+  ],
+  "urban_share_still_undefined": [
+   181,
+   184,
+   185,
+   188,
+   191,
+   401,
+   402,
+   403,
+   404,
+   405,
+   408,
+   410,
+   413,
+   414,
+   416,
+   1309,
+   1310,
+   1311,
+   1312,
+   1313,
+   1315,
+   1316,
+   1317,
+   1321,
+   1322,
+   1329,
+   1330,
+   1331,
+   2171,
+   2172,
+   2173,
+   2174,
+   2175,
+   2176,
+   2177,
+   2178,
+   2179,
+   2180,
+   2181,
+   2182,
+   2183,
+   2184,
+   2185,
+   2186,
+   2187,
+   2188,
+   2189
+  ],
+  "okved_letters_unmapped": [],
+  "n_mo": 2570
+ },
+ "rosstat_coverage": {
+  "population": 2016,
+  "urban_share": 1969,
+  "wage": 2016,
+  "employees": 2016
+ },
+ "rosstat_coverage_share": 1.0,
+ "emp_covered_median": 0.952,
+ "market_access_missing": 12,
+ "mo_types": {
+  "муниципальный район": 980,
+  "городской округ": 433,
+  "муниципальный округ": 361,
+  "внутригородская территория города федерального значения": 242
+ },
+ "mo_not_active_version": 0,
+ "contiguity": {
+  "pairs": 5042,
+  "isolated": 42,
+  "degree_median": 5.0
+ },
+ "road_knn": {
+  "k": 8,
+  "pairs": 9987,
+  "km_median": 79.5
+ },
+ "ring_pairs_total_active": 146,
+ "ring_pairs_in_panel": 65,
+ "ring_pairs_ring_types": {
+  "муниципальный район": 54,
+  "муниципальный округ": 7,
+  "городской округ": 4
+ },
+ "ring_pairs_city_types": {
+  "городской округ": 64,
+  "внутригородская территория города федерального значения": 1
+ },
+ "ring_pairs_city_is_region_capital": 21
+}

@@ -1,0 +1,303 @@
+[
+ {
+  "key": "borders_meta",
+  "url": "https://www.sberbank.ru/common/img/uploaded/files/pdf/sberindex/metadata_municipal_dict_sberindex_2.pdf",
+  "path": "data/raw/borders/metadata_municipal_dict_sberindex_2.pdf",
+  "bytes": 333567,
+  "sha256": "05707427a64061552d1f23f74f578a99fdabeff69f0c8a0fc99d924210fee0b3"
+ },
+ {
+  "key": "borders",
+  "url": "https://www.sberbank.com/common/files/t_dict_municipal.rar",
+  "path": "data/raw/borders/t_dict_municipal.rar",
+  "bytes": 26925727,
+  "sha256": "319ed22684b77716641bc15b61f7325adc44e9fc47e9be2973d88412d27d21f5"
+ },
+ {
+  "key": "census2010_altai_krai",
+  "url": "https://22.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC%207(2).rar",
+  "path": "data/raw/census2010/altai_krai/altai_krai.rar",
+  "bytes": 6615686,
+  "sha256": "e398e4954284038b74e8ff1f5b794d109a7bb840d8820b8a3c98a251e9148840"
+ },
+ {
+  "key": "census2010_bashkortostan",
+  "url": "https://02.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC+7+%D1%87.2.+%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE-%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8+%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F+%D0%A0%D0%91+%D0%BF%D0%BE+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%BC+%D0%92%D0%9F%D0%9D-2010.pdf",
+  "path": "data/raw/census2010/bashkortostan/bashkortostan.pdf",
+  "bytes": 3443756,
+  "sha256": "24d5d05712465104bc3af3314eec764698c1ef19bc580f108145b8d12f7e9776"
+ },
+ {
+  "key": "census2010_irkutsk",
+  "url": "https://38.rosstat.gov.ru/storage/mediabank/yW7Y0Prk/pub-07-09_Терр=25000000_347783.xlsx",
+  "path": "data/raw/census2010/irkutsk/irkutsk.xlsx",
+  "bytes": 310024,
+  "sha256": "b5fdb88c2b445a63d6f77f09895456c486683f741a38284b6a047a7443403cbc"
+ },
+ {
+  "key": "census2010_ivanovo",
+  "url": "https://37.rosstat.gov.ru/storage/mediabank/tom_8_2014.pdf",
+  "path": "data/raw/census2010/ivanovo/ivanovo.pdf",
+  "bytes": 22520983,
+  "sha256": "82d2bea4f3511066c0432fa2bb6de930ba5c21850236393b93618d56a704372f"
+ },
+ {
+  "key": "census2010_kaliningrad",
+  "url": "https://39.rosstat.gov.ru/storage/mediabank/Итоги+ВПН-2010_том7.xlsx",
+  "path": "data/raw/census2010/kaliningrad/kaliningrad.xlsx",
+  "bytes": 1447952,
+  "sha256": "75f3c0c7e257677fd745ab6f82dac04f1a2e8e0eebbb3fbff42b7cf01b3bfa79"
+ },
+ {
+  "key": "census2010_kemerovo",
+  "url": "https://42.rosstat.gov.ru/storage/mediabank/8.%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.rar",
+  "path": "data/raw/census2010/kemerovo/kemerovo.rar",
+  "bytes": 2917901,
+  "sha256": "d70a164c4469ad49b07da3c5f2583f68ebf148e1525041384c92630db0acc1de"
+ },
+ {
+  "key": "census2010_khabarovsk",
+  "url": "https://27.rosstat.gov.ru/storage/mediabank/Экономически+активное+и+экономически+неактивное+население.pdf",
+  "path": "data/raw/census2010/khabarovsk/khabarovsk.pdf",
+  "bytes": 9930398,
+  "sha256": "cedf1dad45c09e6e33196a25e3a135b788510ff9f92713f8a344a0fd643b2d10"
+ },
+ {
+  "key": "census2010_khakassia",
+  "url": "https://24.rosstat.gov.ru/storage/mediabank/Том+7. Экономически+активное+и+экономически+неактивное+население.zip",
+  "path": "data/raw/census2010/khakassia/khakassia.zip",
+  "bytes": 445748,
+  "sha256": "b7887cc0c8f604ba5f4ff7c1304ede8dda0ea8aef8723852ae5a3b7413f8dee3"
+ },
+ {
+  "key": "census2010_kirov",
+  "url": "https://43.rosstat.gov.ru/storage/mediabank/7_%D1%82%D0%BE%D0%BC.pdf",
+  "path": "data/raw/census2010/kirov/kirov.pdf",
+  "bytes": 6197767,
+  "sha256": "1f193b6758ef655756bccb35e648dc160fcf219ff38a98c4b279cfcfe233c0c5"
+ },
+ {
+  "key": "census2010_kostroma",
+  "url": "https://44.rosstat.gov.ru/storage/mediabank/%D1%82%D0%BE%D0%BC+7.rar",
+  "path": "data/raw/census2010/kostroma/kostroma.rar",
+  "bytes": 5926613,
+  "sha256": "4c9b3c66e731549972ac61ca746ba7cf9dea27967731ec10547ded28791bdcae"
+ },
+ {
+  "key": "census2010_krasnoyarsk",
+  "url": "https://24.rosstat.gov.ru/storage/mediabank/Том+7. Экономически активное и экономически неактивное население.zip",
+  "path": "data/raw/census2010/krasnoyarsk/krasnoyarsk.zip",
+  "bytes": 1219332,
+  "sha256": "5432e29e3f2d874df307d09f6abb9b2e967b46951ecf33c298c0984466326e32"
+ },
+ {
+  "key": "census2010_novgorod",
+  "url": "https://53.rosstat.gov.ru/storage/mediabank/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B0+9.pdf",
+  "path": "data/raw/census2010/novgorod/novgorod.pdf",
+  "bytes": 193140,
+  "sha256": "934cc5f9475a6bca3683687de0533be6d9a9faa945608b60ec2c944c744395e3"
+ },
+ {
+  "key": "census2010_primorye",
+  "url": "https://25.rosstat.gov.ru/storage/mediabank/pub-07-09_%D0%A2%D0%B5%D1%80%D1%80=05000000.pdf",
+  "path": "data/raw/census2010/primorye/primorye.pdf",
+  "bytes": 535800,
+  "sha256": "c8848f794a636738587aff4d1440a33c98dcee4317316ac445afd01ea7e702c4"
+ },
+ {
+  "key": "census2010_pskov",
+  "url": "https://60.rosstat.gov.ru/storage/mediabank/pub-07-05_Терр=58000000.pdf",
+  "path": "data/raw/census2010/pskov/pskov.pdf",
+  "bytes": 228585,
+  "sha256": "ae23566b8887503d79c7658c73ad98654d7d186645cd5603db88e653df5c45b7"
+ },
+ {
+  "key": "census2010_samara",
+  "url": "https://63.rosstat.gov.ru/storage/2018/12-21/E361T8C1/%2B%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%2B%D0%B8%2B%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%2B%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%2B%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%2B%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D1%81%D0%BA%D0%BE%D0%B9%2B%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8.zip",
+  "path": "data/raw/census2010/samara/samara.zip",
+  "bytes": 1708905,
+  "sha256": "0d0d24e5a292c514b784402631e86caf96392b8d6e48b93a0e60f1f325be8d8c"
+ },
+ {
+  "key": "census2010_sverdlovsk",
+  "url": "https://66.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC%207.%20%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5_303131.rar",
+  "path": "data/raw/census2010/sverdlovsk/sverdlovsk.rar",
+  "bytes": 2395859,
+  "sha256": "3c94a3082048bf4f22d2945eedbecf68e06d8ecb6f83c5ce0fea57015d9b0004"
+ },
+ {
+  "key": "census2010_tyva",
+  "url": "https://24.rosstat.gov.ru/storage/mediabank/Том+7.+Экономически+активное+и+экономически+неактивное+население(1)(1).zip",
+  "path": "data/raw/census2010/tyva/tyva.zip",
+  "bytes": 5084999,
+  "sha256": "a55fcd9dd10161a0b4bff4f9804addc60c27347931d26e2fa080976d00f86cb1"
+ },
+ {
+  "key": "census2010_udmurtia",
+  "url": "https://18.rosstat.gov.ru/storage/mediabank/Том+7+Экономически+активное+и++экономически+неактивное+население.zip",
+  "path": "data/raw/census2010/udmurtia/udmurtia.zip",
+  "bytes": 5956665,
+  "sha256": "c65c2ecb4b7f28304e396dcc7f3f22a62ac9c63867759468f30e329e1ca293bb"
+ },
+ {
+  "key": "census2010_vladimir",
+  "url": "https://33.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC+7-%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8+%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5+%D0%B8+%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8+%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5+%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.zip",
+  "path": "data/raw/census2010/vladimir/vladimir.zip",
+  "bytes": 1214606,
+  "sha256": "7baf73862d41f8bfbdf0775dcfefea402f5cde0fb18eb9fc0c1258235320e531"
+ },
+ {
+  "key": "census2010_yaroslavl",
+  "url": "https://76.rosstat.gov.ru/storage/mediabank/%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.zip",
+  "path": "data/raw/census2010/yaroslavl/yaroslavl.zip",
+  "bytes": 11390040,
+  "sha256": "3bc8e4340a49aff48ce98f15598874ec03b1543595a8a9a538a20e0453d19a6e"
+ },
+ {
+  "key": "hackathon",
+  "url": "https://www.sberbank.com/common/img/uploaded/files/pdf/sberindex/hackathonlicence.zip",
+  "path": "data/raw/hackathon/hackathonlicence.zip",
+  "bytes": 19603203,
+  "sha256": "a9f932ff4096a7df797d1547987937f34d3995ac445b4748177114488d12b010"
+ },
+ {
+  "key": "railway",
+  "url": "https://www.sberbank.com/common/img/uploaded/files/pdf/sberindex/t_pairs_distance_railway.zip",
+  "path": "data/raw/railway/t_pairs_distance_railway.zip",
+  "bytes": 8550969,
+  "sha256": "ebed5088cde055b7ff90167d7f2232d9469d3f457ca59229afb504d8f77d9436"
+ },
+ {
+  "key": "rosstat_desc",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/description_bdpmo_v20250918.pdf",
+  "path": "data/raw/rosstat/description_bdpmo_v20250918.pdf",
+  "bytes": 602517,
+  "sha256": "b788bfab01696e6e26b2e33b43aa865ff83412b5c56e5ad1d888ffbce378aa08"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section2_112_v20250918.zip#data_Y48002002_parts/data_Y48002002_year2023_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48002002_year2023_112_v20250918.csv",
+  "bytes": 39736582,
+  "sha256": "1711612dba84e6ae43dd621610c940a5306c94106632b65ee5df5063541f45b1"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section13_112_v20250918.zip#data_Y48013001_parts/data_Y48013001_year2019_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48013001_year2019_112_v20250918.csv",
+  "bytes": 190845899,
+  "sha256": "fa02cd3a1e2cb69acd0bce158aa40dcb3bbe0df66f59f819f2e3d4df9f634706"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section31_112_v20250918.zip#data_Y48112027_parts/data_Y48112027_year2019_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48112027_year2019_112_v20250918.csv",
+  "bytes": 21942246,
+  "sha256": "96beec4b4581c99580a96d5656977f58fe1ba8668c68db0ea3e63b0d63fc28a9"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section31_112_v20250918.zip#data_Y48112027_parts/data_Y48112027_year2022_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48112027_year2022_112_v20250918.csv",
+  "bytes": 20300234,
+  "sha256": "9a99cf21ed523806b946ca35d7576d421ebf085fa16e795a68cc10cababa3963"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section31_112_v20250918.zip#data_Y48112027_parts/data_Y48112027_year2023_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48112027_year2023_112_v20250918.csv",
+  "bytes": 19050462,
+  "sha256": "5941ec6ffba6b0b28c0b7fea6febe357e961787f69fba457babca1496196478e"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section31_112_v20250918.zip#data_Y48112027_parts/data_Y48112027_year2024_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48112027_year2024_112_v20250918.csv",
+  "bytes": 18048132,
+  "sha256": "51c0f94db92e3b7e16b145b67c78fc1ee0367bd1b84a144711dbc2a899d688fc"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section31_112_v20250918.zip#data_Y48112027_parts/data_Y48112027_year2025_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48112027_year2025_112_v20250918.csv",
+  "bytes": 16363873,
+  "sha256": "673299ff7b80b4655cb8fc88579ca6b23477f026052bd975b5f16e9779431e1f"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section2_112_v20250918.zip#data_Y48401003_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48401003_112_v20250918.csv",
+  "bytes": 145676557,
+  "sha256": "4d874ed8e69f06641cec5e6e19260767c13cf91db0edf0bf27523c635f375015"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423005_parts/data_Y48423005_year2022_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423005_year2022_112_v20250918.csv",
+  "bytes": 106090648,
+  "sha256": "45a98421344864fa82848a239346b8b239c21f55257cc2e804f0fbbda2a7a08a"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423005_parts/data_Y48423005_year2023_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423005_year2023_112_v20250918.csv",
+  "bytes": 105430117,
+  "sha256": "e2cc8f029abd940fc301ea6f13e1c565fdd08803d626cc8e3836b3fe64858e42"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423005_parts/data_Y48423005_year2024_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423005_year2024_112_v20250918.csv",
+  "bytes": 99464119,
+  "sha256": "cdde683ec93bd434554ad6f6c09ab13a155e5b56c74a38fd7c9d7d92670567af"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423005_parts/data_Y48423005_year2025_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423005_year2025_112_v20250918.csv",
+  "bytes": 16907766,
+  "sha256": "7ae91c3b7a75e0f8993b01b3f1096f59a1626094a9f157ec8bd61856f0b92650"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423007_parts/data_Y48423007_year2022_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423007_year2022_112_v20250918.csv",
+  "bytes": 143859007,
+  "sha256": "7ad38d1e9e9daf6946b11b22957c6561f1d2e98105790d7dda8b61a3e8e9cce2"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423007_parts/data_Y48423007_year2023_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423007_year2023_112_v20250918.csv",
+  "bytes": 143584586,
+  "sha256": "23c8c6635e6d7d7d2e34ef6894c0ad9f56648b2436f61802a9842c4ee080a86c"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423007_parts/data_Y48423007_year2024_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423007_year2024_112_v20250918.csv",
+  "bytes": 100993168,
+  "sha256": "78477a030f2bc4d17d0152eaf25b9c4bcd8decabe0252154d12a3306d0d4f922"
+ },
+ {
+  "key": "rosstat",
+  "url": "https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section32_112_v20250918.zip#data_Y48423007_parts/data_Y48423007_year2025_112_v20250918.csv",
+  "path": "data/raw/rosstat/indicators/data_Y48423007_year2025_112_v20250918.csv",
+  "bytes": 17189424,
+  "sha256": "074f46557d274511a8a9de5700798628c7f9ef51f2b9f18699620b780778e213"
+ },
+ {
+  "key": "api_mobility",
+  "url": "https://sberindex.ru/api/dataset/v1/download/indeks-mobilnosti/parquet",
+  "path": "data/raw/sberindex_api/indeks-mobilnosti.parquet",
+  "bytes": 7959,
+  "sha256": "f16f7d8088c7d0a02ea770915c512343807e65fc5bcc177af3bd64512add5708"
+ },
+ {
+  "key": "api_consumption",
+  "url": "https://sberindex.ru/api/dataset/v1/download/potrebitelskie-beznalicnye-rashody-na-urovne-munizipalnyh-obrazovanij/parquet",
+  "path": "data/raw/sberindex_api/potrebitelskie-beznalicnye-rashody-na-urovne-munizipalnyh-obrazovanij.parquet",
+  "bytes": 1364792,
+  "sha256": "dbe07d6a3a974ab4fd13258a36382a3b056aa35d12ed6c2b132ae5775115e0f1"
+ }
+]

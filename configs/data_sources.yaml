@@ -1,0 +1,141 @@
+# Источники данных. Все скачивается scripts/download_data.py в data/raw/ (в git не попадает).
+# Перед запуском: python scripts/build_ca_bundle.py (сертификаты для сайтов Сбера и Росстата).
+
+# Цитирование по требованиям лицензий (формат — из описания набора СберИндекса в архиве хакатона).
+# downloaded — дата, когда скачаны данные, на которых посчитаны отчет и лендинг; контрольные суммы — data/raw/MANIFEST.json.
+citation:
+  downloaded: "04.10.2026"
+  sberindex_url: https://sberindex.ru/ru/research/data-sense-opisanie-nabora-dannikh-khakatona-sberindeksa-po-munitsipalnim-dannim
+  sberindex:
+    - Потребительские безналичные расходы на уровне муниципальных образований по категориям трат
+    - Индекс доступности рынков на уровне муниципальных образований
+    - Автодорожные и железнодорожные связи между муниципальными образованиями
+  borders: Версионный справочник муниципальных образований России. СберИндекс
+  borders_url: https://sberindex.ru/ru/research/dataset-borders-and-changes-of-municipalities
+  rosstat: База данных показателей муниципальных образований Росстата в обработке проекта «Если быть точным» (CC BY 4.0)
+  rosstat_url: https://tochno.st/datasets/bdmo
+  rosstat_primary: База данных показателей муниципальных образований (БД ПМО). Росстат
+  rosstat_primary_url: https://rosstat.gov.ru/dbscripts/munst/
+  rosstat_downloaded: "04–05.10.2026"
+
+files:
+  # Перепись 2010 (ВПН-2010), региональные издания «Том 7»: занятые по территории нахождения работы, по МО
+  # (этап 4, scripts/commute_check.py). Регионы, где таблица опубликована по районам и есть в данных СберИндекса.
+  census2010_irkutsk:
+    url: https://38.rosstat.gov.ru/storage/mediabank/yW7Y0Prk/pub-07-09_Терр=25000000_347783.xlsx
+    dest: census2010/irkutsk/irkutsk.xlsx
+  census2010_khabarovsk:
+    url: https://27.rosstat.gov.ru/storage/mediabank/Экономически+активное+и+экономически+неактивное+население.pdf
+    dest: census2010/khabarovsk/khabarovsk.pdf
+  # Красноярскстат публикует три региона на одной странице (https://24.rosstat.gov.ru/folder/39102): край, Хакасия, Тыва
+  census2010_krasnoyarsk:
+    url: https://24.rosstat.gov.ru/storage/mediabank/Том+7. Экономически активное и экономически неактивное население.zip
+    dest: census2010/krasnoyarsk/krasnoyarsk.zip
+    extract: true
+  census2010_khakassia:
+    url: https://24.rosstat.gov.ru/storage/mediabank/Том+7. Экономически+активное+и+экономически+неактивное+население.zip
+    dest: census2010/khakassia/khakassia.zip
+    extract: true
+  census2010_tyva:
+    url: https://24.rosstat.gov.ru/storage/mediabank/Том+7.+Экономически+активное+и+экономически+неактивное+население(1)(1).zip
+    dest: census2010/tyva/tyva.zip
+    extract: true
+  census2010_udmurtia:
+    url: https://18.rosstat.gov.ru/storage/mediabank/Том+7+Экономически+активное+и++экономически+неактивное+население.zip
+    dest: census2010/udmurtia/udmurtia.zip
+    extract: true
+  census2010_kaliningrad:
+    url: https://39.rosstat.gov.ru/storage/mediabank/Итоги+ВПН-2010_том7.xlsx
+    dest: census2010/kaliningrad/kaliningrad.xlsx
+  census2010_pskov:
+    url: https://60.rosstat.gov.ru/storage/mediabank/pub-07-05_Терр=58000000.pdf
+    dest: census2010/pskov/pskov.pdf
+  # Второй набор (5.10): регионы с наибольшим числом «бубликов» и скрытых спутников, где таблица опубликована по МО
+  census2010_sverdlovsk:      # https://66.rosstat.gov.ru/folder/34568
+    url: https://66.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC%207.%20%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5_303131.rar
+    dest: census2010/sverdlovsk/sverdlovsk.rar
+    extract: true
+  census2010_ivanovo:         # https://37.rosstat.gov.ru/folder/37180 (в Ивановской области это том 8)
+    url: https://37.rosstat.gov.ru/storage/mediabank/tom_8_2014.pdf
+    dest: census2010/ivanovo/ivanovo.pdf
+  census2010_kostroma:        # https://44.rosstat.gov.ru/folder/30818
+    url: https://44.rosstat.gov.ru/storage/mediabank/%D1%82%D0%BE%D0%BC+7.rar
+    dest: census2010/kostroma/kostroma.rar
+    extract: true
+  census2010_kirov:           # https://43.rosstat.gov.ru/folder/31532
+    url: https://43.rosstat.gov.ru/storage/mediabank/7_%D1%82%D0%BE%D0%BC.pdf
+    dest: census2010/kirov/kirov.pdf
+  census2010_samara:          # https://63.rosstat.gov.ru/national_census_2010 (документ Word, сохраненный как HTML)
+    url: https://63.rosstat.gov.ru/storage/2018/12-21/E361T8C1/%2B%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%2B%D0%B8%2B%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%2B%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%2B%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%2B%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D1%81%D0%BA%D0%BE%D0%B9%2B%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8.zip
+    dest: census2010/samara/samara.zip
+    extract: true
+  census2010_bashkortostan:   # https://02.rosstat.gov.ru/folder/31967 (том 7, ч. 2: одна строка на МО)
+    url: https://02.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC+7+%D1%87.2.+%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE-%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+%D1%85%D0%B0%D1%80%D0%B0%D0%BA%D1%82%D0%B5%D1%80%D0%B8%D1%81%D1%82%D0%B8%D0%BA%D0%B8+%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F+%D0%A0%D0%91+%D0%BF%D0%BE+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%BC+%D0%92%D0%9F%D0%9D-2010.pdf
+    dest: census2010/bashkortostan/bashkortostan.pdf
+  census2010_vladimir:        # https://33.rosstat.gov.ru/perepis2010
+    url: https://33.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC+7-%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8+%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5+%D0%B8+%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8+%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5+%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.zip
+    dest: census2010/vladimir/vladimir.zip
+    extract: true
+  census2010_primorye:        # https://25.rosstat.gov.ru/folder/31189
+    url: https://25.rosstat.gov.ru/storage/mediabank/pub-07-09_%D0%A2%D0%B5%D1%80%D1%80=05000000.pdf
+    dest: census2010/primorye/primorye.pdf
+  census2010_novgorod:        # https://53.rosstat.gov.ru/VPN_2010
+    url: https://53.rosstat.gov.ru/storage/mediabank/%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D0%B0+9.pdf
+    dest: census2010/novgorod/novgorod.pdf
+  census2010_yaroslavl:       # https://76.rosstat.gov.ru/folder/39215
+    url: https://76.rosstat.gov.ru/storage/mediabank/%D0%AD%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%20%D0%B8%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%20%D0%BD%D0%B5%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B5%20%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5.zip
+    dest: census2010/yaroslavl/yaroslavl.zip
+    extract: true
+  census2010_altai_krai:      # https://22.rosstat.gov.ru/folder/36867
+    url: https://22.rosstat.gov.ru/storage/mediabank/%D0%A2%D0%BE%D0%BC%207(2).rar
+    dest: census2010/altai_krai/altai_krai.rar
+    extract: true
+  census2010_kemerovo:        # https://42.rosstat.gov.ru/vpn2010
+    url: https://42.rosstat.gov.ru/storage/mediabank/8.%D0%97%D0%B0%D0%BD%D1%8F%D1%82%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D1%8D%D0%BA%D0%BE%D0%BD%D0%BE%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D1%81%D1%82%D1%8C%20%D0%BD%D0%B0%D1%81%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F.rar
+    dest: census2010/kemerovo/kemerovo.rar
+    extract: true
+  # Архив хакатона СберИндекса: траты по МО, доступность рынков, связи МО (ссылка со страницы конкурса)
+  hackathon:
+    url: https://www.sberbank.com/common/img/uploaded/files/pdf/sberindex/hackathonlicence.zip
+    dest: hackathon/hackathonlicence.zip
+    extract: true
+  # Справочник границ и преобразований МО СберИндекса (страница: sberindex.ru/ru/research/dataset-borders-and-changes-of-municipalities)
+  borders:
+    url: https://www.sberbank.com/common/files/t_dict_municipal.rar
+    dest: borders/t_dict_municipal.rar
+    extract: true
+  borders_meta:
+    url: https://www.sberbank.ru/common/img/uploaded/files/pdf/sberindex/metadata_municipal_dict_sberindex_2.pdf
+    dest: borders/metadata_municipal_dict_sberindex_2.pdf
+  # Железнодорожные расстояния между МО (страница: sberindex.ru/ru/research/jeleznodorojnye-rasstoania-mejdu-munizipalitetami-rossii)
+  railway:
+    url: https://www.sberbank.com/common/img/uploaded/files/pdf/sberindex/t_pairs_distance_railway.zip
+    dest: railway/t_pairs_distance_railway.zip
+    extract: true
+  # Наборы с дашбордов СберИндекса (API сайта)
+  api_consumption:
+    url: https://sberindex.ru/api/dataset/v1/download/potrebitelskie-beznalicnye-rashody-na-urovne-munizipalnyh-obrazovanij/parquet
+    dest: sberindex_api/potrebitelskie-beznalicnye-rashody-na-urovne-munizipalnyh-obrazovanij.parquet
+  api_mobility:
+    url: https://sberindex.ru/api/dataset/v1/download/indeks-mobilnosti/parquet
+    dest: sberindex_api/indeks-mobilnosti.parquet
+  # Росстат БД ПМО в обработке «Если быть точным» (tochno.st/datasets/bdmo), описание набора
+  rosstat_desc:
+    url: https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/description_bdpmo_v20250918.pdf
+    dest: rosstat/description_bdpmo_v20250918.pdf
+
+rosstat:
+  # Разделы по показателям; файлы достаются из zip по HTTP Range, архив целиком не качается
+  section_url: https://storage.yandexcloud.net/tochno-st-catalog/Rosstat/data_bdmo_118_v20250918/by_indicator/data_section{section}_112_v20250918.zip
+  sections: [1, 2, 3, 5, 6, 7, 8, 9, 12, 13, 16, 18, 19, 20, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+  # Показатели, которые достаем для инвентаризации: {section: [код показателя]} (годы 2022-2025 из частей *_yearYYYY)
+  indicators:
+    31: [Y48112027, {code: Y48112027, years: [2019]}]   # численность населения на 1 января; 2019 — для бюджета
+    32: [Y48423007, Y48423005]  # зарплата и численность работников по ОКВЭД2 (уточнить по indicator_name)
+    # торговля (этап 3b, проверка онлайна в аграрных районах): площадь торговых залов (по кварталам, разбивка по типам объектов)
+    # и оборот розничной торговли без малого бизнеса (ОКВЭД2, один файл на все годы)
+    2: [{code: Y48002002, years: [2023]}, Y48401003]
+    # местный бюджет (этап 4, «фискальный след»): доходы по видам, в т. ч. НДФЛ; ряды в БД ПМО заканчиваются 2020 г.,
+    # берем 2019 (до ковида) и население на 1 января 2019 г.
+    13: [{code: Y48013001, years: [2019]}]
+  years: [2022, 2023, 2024, 2025]

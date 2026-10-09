@@ -1,0 +1,29 @@
+{
+ "definition": "Сверка наших реализаций с кодом авторов и библиотекой жюри — числа для отчета (то же, что проверяют тесты).\n\n1) KEFRiN: наша реализация (k-means в пространстве [√ρ·Y | √ξ·P]) против кода авторов (KEFRiNe) на всех МО\n   при выбранном K, сырая сеть с модулярной стандартизацией, как у авторов: ARI разбиений, отношение критериев, время.\n2) Сетевые ICVI (AVI, AVU, ANUI, Q, density modularity) против Pattern (AdjacencyClusteringMetrics) на 5 случайных\n   графах: максимальное относительное расхождение.\n3) S_Dbw: вариант пакета s-dbw против самого пакета; вариант по статье Halkidi предпочитает истинное разбиение.\nКод авторов и Pattern скачивает scripts/fetch_external.py в third_party/ (в репозиторий не входят).",
+ "kefrin": {
+  "n_mo": 2016,
+  "K": 6,
+  "alpha": 0.3,
+  "ari_ours_vs_authors": 0.959,
+  "criterion_ratio_ours_to_authors": 0.9998,
+  "time_s_ours": 2.37,
+  "time_s_authors": 46.34,
+  "speedup": 19.6
+ },
+ "graph_icvi_vs_pattern": {
+  "n_graphs": 5,
+  "indices": [
+   "AVI",
+   "AVU",
+   "ANUI",
+   "Q (modularity)",
+   "density modularity"
+  ],
+  "max_relative_difference": 5.42e-14
+ },
+ "s_dbw": {
+  "package_variant_relative_difference": 0.0,
+  "paper_variant_true_partition": 0.0355,
+  "paper_variant_shuffled": 0.9995
+ }
+}

@@ -1,0 +1,1737 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Город больше своих границ</title>
+<meta name="description" content="__DESC__">
+<style>
+/*__FONTS__*/
+/* Макет: тезис и механизм сверху, затем главная находка, типы, рабочая карта с паспортом МО, метод, качество, динамика, ограничения. */
+:root {
+  --paper: #f4f5f2; --card: #ffffff; --ink: #14171a; --ink-2: #474d53; --muted: #767c83; --rule: #d9dcd7;
+  --accent: #2a78d6; --accent-soft: #e3edf9; --sat: #eb6834; --city: #1d2125;
+  --map-base: #d6d9d4; --map-none: #ebece8; --map-line: #f4f5f2; --bar-2: #cfd3cd;
+  --t1: #2a78d6; --t2: #eb6834; --t3: #1baf7a; --t4: #eda100; --t5: #e87ba4; --t6: #008300;
+  --ramp-1: #d7e6f7; --ramp-2: #a9c9ee; --ramp-3: #6fa3e2; --ramp-4: #2a78d6; --ramp-5: #184f95;
+  --oramp-1: #fbe3d4; --oramp-2: #f5b48d; --oramp-3: #ec8550; --oramp-4: #d9592a; --oramp-5: #9c3a13;
+  --font-display: "Onest", "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-body: "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --step--1: 0.84rem; --step-0: 1rem; --step-1: 1.2rem; --step-2: 1.5rem; --step-3: 2.1rem; --step-4: clamp(2.3rem, 5.6vw, 3.9rem);
+  --gutter: clamp(16px, 4vw, 40px); --maxw: 1240px; --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111518; --card: #181d21; --ink: #eef1f3; --ink-2: #b5bcc3; --muted: #8b939b; --rule: #2a3137;
+    --accent: #3987e5; --accent-soft: #1b2a3b; --sat: #d95926; --city: #f2f4f5;
+    --map-base: #333a40; --map-none: #20262b; --map-line: #111518; --bar-2: #4b545c;
+    --t1: #3987e5; --t2: #d95926; --t3: #199e70; --t4: #c98500; --t5: #d55181; --t6: #008300;
+    --ramp-1: #1d2f45; --ramp-2: #22487a; --ramp-3: #2f66ad; --ramp-4: #3987e5; --ramp-5: #8fbaf0;
+    --oramp-1: #3b2216; --oramp-2: #6e3518; --oramp-3: #a84d22; --oramp-4: #d9692f; --oramp-5: #f3a273;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111518; --card: #181d21; --ink: #eef1f3; --ink-2: #b5bcc3; --muted: #8b939b; --rule: #2a3137;
+  --accent: #3987e5; --accent-soft: #1b2a3b; --sat: #d95926; --city: #f2f4f5;
+  --map-base: #333a40; --map-none: #20262b; --map-line: #111518; --bar-2: #4b545c;
+  --t1: #3987e5; --t2: #d95926; --t3: #199e70; --t4: #c98500; --t5: #d55181; --t6: #008300;
+  --ramp-1: #1d2f45; --ramp-2: #22487a; --ramp-3: #2f66ad; --ramp-4: #3987e5; --ramp-5: #8fbaf0;
+  --oramp-1: #3b2216; --oramp-2: #6e3518; --oramp-3: #a84d22; --oramp-4: #d9692f; --oramp-5: #f3a273;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0);
+       line-height: 1.55; font-variant-numeric: tabular-nums; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gutter); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.12; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: var(--step-3); font-weight: 700; }
+h3 { font-size: var(--step-1); font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.muted { color: var(--muted); }
+.small { font-size: var(--step--1); }
+/* шапка */
+.top { border-bottom: 1px solid var(--rule); }
+.top .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; justify-content: space-between; padding-block: 12px; }
+.top nav { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font-size: var(--step--1); }
+.top nav a { color: var(--ink-2); text-decoration: none; }
+.top nav a:hover { color: var(--accent); }
+.themebtn { font: inherit; font-size: var(--step--1); background: none; border: 1px solid var(--rule); color: var(--ink-2); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+/* первый экран */
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px 48px; padding-block: 40px 36px; align-items: start; }
+.hero h1 { font-size: var(--step-4); font-weight: 700; margin-top: 10px; }
+.hero .lead { font-size: var(--step-1); color: var(--ink-2); margin-top: 18px; }
+.facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 20px; border-top: 2px solid var(--ink); }
+.fact { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; padding: 14px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.fact b { font-family: var(--font-display); font-size: var(--step-2); font-weight: 700; white-space: nowrap; }
+.fact span { color: var(--ink-2); font-size: var(--step--1); }
+.fact span strong { display: block; color: var(--ink); font-weight: 600; font-size: var(--step-0); margin-bottom: 2px; }
+.fact .k { grid-column: 1 / -1; font-style: normal; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+/* линзы: район вокруг города глазами статистики, трат и переписи */
+.lens { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.lens h2 { font-size: var(--step-1); font-weight: 600; }
+/* три строки-полосы: одна шкала 0–100%, у каждой одна цифра и одна отметка для сравнения */
+.lbars { display: grid; gap: 16px; }
+.lrow { display: grid; grid-template-columns: minmax(0, 1fr) 6.2em; gap: 2px 12px; align-items: center; }
+.lrow .lt { grid-column: 1 / -1; font-size: var(--step--1); color: var(--ink-2); }
+.lrow .lt b { color: var(--ink); font-weight: 600; }
+.ltrack { position: relative; height: 14px; background: var(--map-none); border-radius: 3px; margin-bottom: 18px; }
+.ltrack .f { position: absolute; inset: 0 auto 0 0; border-radius: 3px; background: var(--accent); }
+.ltrack .f.neutral { background: var(--muted); }
+.ltrack .r { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--ink); }
+.ltrack .rl { position: absolute; top: 20px; font-size: 0.74rem; color: var(--ink-2); white-space: nowrap; }
+.lrow .lv { font-size: var(--step--1); color: var(--ink-2); line-height: 1.2; align-self: start; }
+.lrow .lv b { display: block; font-family: var(--font-display); font-size: var(--step-2); font-weight: 700; color: var(--ink); }
+.lmap { display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 12px; }
+/* схема механизма: где живут — где работают — кто что считает */
+.mech { display: grid; gap: 8px; background: var(--accent-soft); border-radius: var(--radius); padding: 12px 14px; }
+.mech h3 { font-size: var(--step-0); }
+.mech .flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; align-items: center; }
+.mech .node { background: var(--card); border-radius: var(--radius); padding: 8px 10px; display: grid; gap: 2px; min-width: 0; }
+.mech .node .k { font-size: 0.74rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.mech .node b { font-family: var(--font-display); font-size: var(--step-0); }
+.mech .node .s { font-size: var(--step--1); color: var(--ink-2); }
+.mech .arrow { font-size: var(--step--1); color: var(--ink-2); text-align: center; line-height: 1.2; }
+.mech p { font-size: var(--step--1); color: var(--ink); max-width: none; }
+.sowhat { display: grid; gap: 6px; }
+.sowhat h3 { font-size: var(--step-0); }
+.sowhat p { font-size: var(--step--1); color: var(--ink-2); }
+.mech .ar-v { display: none; }
+@media (max-width: 520px) { .mech .flow { grid-template-columns: minmax(0, 1fr); } .mech .ar-h { display: none; } .mech .ar-v { display: inline; } }
+.lmap-head { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; font-size: var(--step--1); color: var(--ink-2); }
+.lens svg { width: 100%; height: auto; max-height: 340px; display: block; background: var(--card); }
+.lens svg path { stroke: var(--map-line); stroke-width: 0.8; vector-effect: non-scaling-stroke; fill-opacity: 0.45; fill-rule: evenodd; }
+.lens svg path.city, .lens svg path.ring { fill-opacity: 1; stroke: var(--ink); stroke-width: 1.6; }
+.lens svg text { font-family: var(--font-body); font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--card); stroke-linejoin: round; }
+.lens .scale { display: flex; gap: 2px; align-items: center; font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; }
+.lens .scale i { width: 26px; height: 10px; display: inline-block; margin-right: 2px; }
+.lens .scale .sw { white-space: nowrap; display: inline-flex; align-items: center; }
+.hero .left { display: grid; gap: 22px; align-content: start; }
+/* три вопроса */
+.qa .wrap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding-block: 8px 40px; }
+.q { padding: 18px 20px 18px 0; border-top: 1px solid var(--rule); }
+.q + .q { padding-left: 20px; border-left: 1px solid var(--rule); }
+.q h3 { font-size: var(--step-0); margin-bottom: 8px; }
+.q p { font-size: var(--step--1); color: var(--ink-2); }
+.q a { font-size: var(--step--1); }
+.q ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: var(--step--1); color: var(--ink-2); }
+.q li a { white-space: nowrap; }
+/* атлас */
+.atlas { background: var(--card); border-block: 1px solid var(--rule); }
+.atlas .wrap { padding-block: 36px 40px; display: grid; gap: 18px; }
+.atlas-head { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; }
+.atlas-grid { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 24px; align-items: start; }
+.modes { display: inline-flex; flex-wrap: wrap; justify-self: start; border: 1px solid var(--rule); border-radius: 22px; padding: 3px; gap: 2px; background: var(--paper); }
+.modes button { font: inherit; font-size: var(--step--1); border: 0; background: none; color: var(--ink-2); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.modes button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; min-height: 36px; font-size: var(--step--1); }
+.controls input[type=range] { width: min(320px, 70vw); accent-color: var(--accent); }
+.controls .readout { color: var(--ink-2); }
+.btn { font: inherit; font-size: var(--step--1); border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+.btn[aria-pressed="true"] { border-color: var(--ink); }
+.search { display: flex; gap: 8px; align-items: center; }
+.search input { font: inherit; font-size: var(--step--1); padding: 6px 10px; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--paper); color: var(--ink); width: min(300px, 80vw); }
+.mapbox { position: relative; min-width: 0; display: grid; gap: 8px; }
+.views { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; font-size: var(--step--1); }
+.views button { font: inherit; border: 1px solid transparent; background: none; color: var(--ink-2); padding: 2px 8px; border-radius: 999px; cursor: pointer; }
+.views button[aria-pressed="true"] { border-color: var(--rule); background: var(--paper); color: var(--ink); }
+.views button:disabled { opacity: .45; cursor: default; }
+.views .maphelp { margin-left: auto; font-size: 0.78rem; }
+/* свободный масштаб: один палец листает страницу, пока видна вся страна; на приближенной карте — двигает карту */
+.mapwrap { position: relative; min-width: 0; }
+#map { width: 100%; height: auto; display: block; touch-action: pan-x pan-y; user-select: none; -webkit-user-select: none; background: var(--card); }
+#map.zoomed { touch-action: none; }
+#map.drag, #map.drag path { cursor: grabbing; }
+.zoombtns { position: absolute; top: 8px; right: 8px; display: grid; gap: 4px; z-index: 2; }
+.zoombtns button { font: inherit; font-size: 18px; line-height: 1; width: 32px; height: 32px; padding: 0; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+.zoombtns button:disabled { opacity: .4; cursor: default; }
+.maphint { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 16px; text-align: center; font-size: var(--step-1); font-weight: 600; background: color-mix(in srgb, var(--ink) 55%, transparent); color: var(--paper); opacity: 0; pointer-events: none; transition: opacity .2s; }
+.maphint.on { opacity: 1; }
+#map path { stroke: var(--map-line); stroke-width: 0.6; vector-effect: non-scaling-stroke; cursor: pointer; fill-rule: evenodd; pointer-events: fill; }   /* клик — только по заливке: Chromium завышает зону попадания по обводке с non-scaling-stroke на мелкой карте */
+#map path.ring { stroke: var(--accent); stroke-width: 1.4; }
+#map path.hid { stroke: var(--sat); stroke-width: 1.4; }
+#map path.sel { stroke: var(--ink); stroke-width: 2.2; }
+#map .edges { pointer-events: none; }
+#map.netview > path { fill-opacity: .28 !important; }   /* с ребрами заливка бледнее, иначе ребра своего типа сливаются с ней */
+#map .edges path { fill: none; cursor: default; vector-effect: non-scaling-stroke; stroke-linecap: round; pointer-events: none; }
+#map .edges path.within { stroke-width: 1.1; opacity: .9; }
+#map .edges path.between { stroke: var(--muted); stroke-width: .7; opacity: .6; }
+.tip { position: absolute; pointer-events: none; background: var(--card); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius); padding: 6px 9px; font-size: var(--step--1); box-shadow: 0 4px 14px rgba(0,0,0,.12); max-width: 260px; z-index: 3; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 8px; font-size: var(--step--1); }
+.chip { display: inline-flex; gap: 7px; align-items: center; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 999px; padding: 3px 10px 3px 7px; font: inherit; font-size: var(--step--1); cursor: pointer; }
+.chip i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+.chip[aria-pressed="false"] { opacity: .45; }
+.chip.static { cursor: default; }
+.passport { border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; background: var(--paper); display: grid; gap: 12px; min-width: 0; }
+.passport h3 { font-size: var(--step-1); }
+.kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: var(--step--1); }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; text-align: right; }
+.strip { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; }
+.strip i { height: 14px; border-radius: 2px; display: block; }
+.twins { display: grid; gap: 6px; padding: 0; margin: 0; list-style: none; font-size: var(--step--1); }
+.lnk { font: inherit; background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-align: left; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.tags { display: grid; gap: 6px; justify-items: start; }
+.tag { display: inline-block; font-size: var(--step--1); border-radius: 12px; padding: 2px 10px; background: var(--accent-soft); color: var(--ink); }
+.prof { display: grid; gap: 8px; }
+.prof .key { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.78rem; color: var(--muted); }
+.prof .key span { display: inline-flex; gap: 6px; align-items: center; }
+.prof .key i { display: inline-block; width: 14px; border-radius: 2px; }
+/* полосы «чем отличается от среднего МО России, %»: ноль посередине, вправо — больше среднего, влево — меньше */
+.dev { display: grid; gap: 6px; }
+.dvr, .dvaxis { display: grid; grid-template-columns: 8.6em minmax(0, 1fr) 3.4em; gap: 8px; align-items: center; font-size: var(--step--1); }
+.dvh { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.dvr .v { text-align: right; color: var(--ink); }
+.dvr.sum { padding-bottom: 7px; border-bottom: 1px solid var(--rule); font-weight: 600; }
+.dvt { position: relative; height: 16px; }
+.dvt::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--ink-2); }
+.dvt i { position: absolute; top: 2px; height: 10px; border-radius: 2px; }
+.dvt i.c { top: 13px; height: 3px; border-radius: 1px; background: var(--ink-2); }
+.dvt i.clip { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%); }
+.dvt i.clip.neg { clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%); }
+.dvnote { font-size: 0.74rem; color: var(--muted); }
+.dvaxis { font-size: 0.74rem; color: var(--muted); }
+.dvr.lo > span:first-child, .dvr.lo .v { color: var(--muted); }
+.dvr.lo .dvt i.m { opacity: 0.45; }
+.dvr.hl > span:first-child, .dvr.hl .v { font-weight: 600; color: var(--ink); }
+.card .portrait { font-size: var(--step--1); color: var(--ink-2); }
+.rule-lab { font-size: 0.78rem; color: var(--muted); margin-bottom: -6px; }
+.dvaxis span:nth-child(2) { display: flex; justify-content: space-between; }
+.tag.sat { background: color-mix(in srgb, var(--sat) 18%, transparent); }
+/* листы */
+.sheet .wrap { padding-block: 56px 8px; display: grid; gap: 22px; }
+.sheet-head { display: grid; gap: 10px; max-width: 72ch; }
+.sheet-head p { color: var(--ink-2); }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card .head { display: flex; gap: 10px; align-items: center; }
+.card .head i { width: 14px; height: 14px; border-radius: 3px; flex: none; }
+.card .num { font-size: var(--step--1); color: var(--muted); }
+.rule-box { font-family: var(--font-mono); font-size: 0.78rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 6px 8px; color: var(--ink-2); }
+.two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+/* метод в шести шагах */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.step { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.step .n { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-size: var(--step-1); line-height: 1; }
+.step h3 { font-size: var(--step-0); }
+.step p { font-size: var(--step--1); color: var(--ink-2); }
+.step code { font-family: var(--font-mono); font-size: 0.8rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 5px 7px; display: block; overflow-wrap: anywhere; color: var(--ink); }
+table.narrow { min-width: 0; }
+table.narrow td, table.narrow th { white-space: normal; }
+#icvi-table th:nth-child(2), #icvi-table td:nth-child(2) { text-align: left; }
+.panel { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 18px; min-width: 0; }
+svg text { font-family: var(--font-body); fill: var(--ink-2); font-size: 12px; }
+svg .ttl { fill: var(--ink); font-weight: 600; font-size: 13px; }
+.chart { width: 100%; height: auto; display: block; }
+#flow-chart .fl { opacity: .32; transition: opacity .15s; }
+#flow-chart .fl.ch { opacity: .78; }
+#flow-chart:hover .fl { opacity: .12; }
+#flow-chart:hover .fl:hover { opacity: 1; }
+.list { margin: 0; padding-left: 18px; display: grid; gap: 4px; color: var(--ink-2); font-size: var(--step--1); }
+/* применение и ограничения: короткий заголовок пункта и подписи частей */
+.items { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 18px 28px; }
+.items li { display: grid; gap: 4px; align-content: start; font-size: var(--step--1); color: var(--ink-2); min-width: 0; }
+.items li b { color: var(--ink); font-size: var(--step-0); font-weight: 600; }
+.items .lbl { color: var(--ink); font-weight: 600; }
+.tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: var(--step--1); min-width: 640px; }
+th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--card); }
+thead th { color: var(--muted); font-weight: 600; }
+tr.me td { font-weight: 600; }
+.note { font-size: var(--step--1); color: var(--muted); max-width: 90ch; }
+/* переходы по ссылкам внутри страницы: цель — в верхней трети экрана; плавающая кнопка возврата */
+.sheet, .atlas, #checks, #ext, #rob, #use, #lim { scroll-margin-top: 12vh; }
+.backbtn { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; font: inherit; font-size: var(--step--1); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--rule); background: var(--ink); color: var(--paper); box-shadow: 0 4px 14px rgba(0,0,0,.18); cursor: pointer; }
+/* атлас «Статистика против трат»: штриховка «нет данных Росстата», группа шкалы близости, плашка цвета в подсказке */
+.chip i.hatch { background: repeating-linear-gradient(45deg, var(--map-none) 0 3px, var(--muted) 3px 4px); }
+.cscale { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.tip .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+/* короткие пункты вместо длинного абзаца и «Подробнее» для технических деталей */
+.points { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink-2); max-width: 90ch; }
+.points.small { font-size: var(--step--1); gap: 4px; }
+.more { font-size: var(--step--1); color: var(--ink-2); max-width: 90ch; }
+.more summary { cursor: pointer; color: var(--accent); width: max-content; max-width: 100%; }
+.more[open] summary { margin-bottom: 6px; }
+pre { font-family: var(--font-mono); font-size: 0.8rem; background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 12px 14px; overflow-x: auto; margin: 0; }
+footer { border-top: 1px solid var(--rule); margin-top: 56px; }
+footer .wrap { padding-block: 24px 40px; display: grid; gap: 8px; font-size: var(--step--1); color: var(--muted); }
+@media (max-width: 980px) {
+  .hero .wrap, .two { grid-template-columns: minmax(0, 1fr); }
+  .atlas-grid { grid-template-columns: minmax(0, 1fr); }
+  .qa .wrap { grid-template-columns: minmax(0, 1fr); }
+  .q + .q { border-left: 0; padding-left: 0; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .qa .wrap, .cards, .steps { grid-template-columns: minmax(0, 1fr); }
+  .q + .q { border-left: 0; padding-left: 0; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .fact { row-gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="small muted">СберИндекс 2026 · номинация «Кластеризация» · <span id="author"></span></span>
+    <nav aria-label="Разделы">
+      <a href="#city">Главное</a><a href="#types">Типы</a><a href="#atlas">Карта</a><a href="#how">Метод</a>
+      <a href="#methods">Качество</a><a href="#dyn">Динамика</a><a href="#lim">Ограничения</a>
+      <a href="report_short.pdf">Кратко (PDF)</a><a href="report.pdf">Отчет (PDF)</a><a href="__REPO__">Код</a>
+      <button class="themebtn" id="themebtn" type="button">Тема</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="left">
+      <div>
+        <div class="eyebrow">Типы локальных экономик России по тратам жителей</div>
+        <h1>Город больше своих границ</h1>
+        <p class="lead" id="lead"></p>
+      </div>
+      <div class="facts" id="facts"></div>
+      <div class="sowhat"><h3>Что из этого следует</h3><p id="sowhat"></p></div>
+    </div>
+    <figure class="lens" id="lens" style="margin:0">
+      <h2 id="lens-title"></h2>
+      <div class="lbars" id="lens-bars"></div>
+      <div class="mech" id="lens-mech"></div>
+      <div class="lmap">
+        <div class="lmap-head"><span>Раскрасить карту:</span><div class="modes" role="group" aria-label="Что показать на карте" id="lens-modes"></div></div>
+        <svg id="lens-map" role="img" aria-label="Карта: город, район вокруг него и соседние МО"></svg>
+        <div class="scale" id="lens-scale"></div>
+      </div>
+      <figcaption class="note" id="lens-note"></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="qa" aria-label="Три вопроса конкурса">
+  <div class="wrap" id="qa"></div>
+</section>
+
+<section class="sheet" id="city">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Главная находка</div>
+      <h2>Пригород живет как город</h2>
+      <p id="city-lead"></p>
+      <ul class="points" id="city-points"></ul>
+    </div>
+    <div class="two">
+      <div class="panel" style="display:grid;gap:14px">
+        <svg class="chart" id="agg-chart" viewBox="0 0 560 330" role="img" aria-label="Три меры: «бублик» против обычного соседнего района"></svg>
+        <p class="note" id="agg-note"></p>
+        <div><button class="btn" type="button" id="show-spend">Показать на карте, на кого похожи районы у городов</button></div>
+      </div>
+      <div class="panel" style="display:grid;gap:12px">
+        <h3>Скрытые спутники</h3>
+        <p class="small" id="sat-lead"></p>
+        <ol class="list" id="sat-list"></ol>
+        <p class="note">«Свой город» кандидата — ближайший по дороге граничащий с ним городской округ своего региона, не обязательно центр агломерации, поэтому некоторые пары выглядят странно. Это кандидаты для проверки, а не вывод.</p>
+        <p class="note" id="sat-note"></p>
+      </div>
+    </div>
+    <div class="two" id="checks">
+      <div class="panel" style="display:grid;gap:12px">
+        <h3>Проверка переписью 2010 года</h3>
+        <svg class="chart" id="census-chart" viewBox="0 0 560 220" role="img" aria-label="Доля работающих в другом населенном пункте: отклонение от медианы районов региона"></svg>
+        <p class="note" id="census-note"></p>
+      </div>
+      <div class="panel" style="display:grid;gap:10px">
+        <h3>Что видит сама лаборатория СберИндекса</h3>
+        <ul class="list" id="lab-list"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="types">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Что мы узнали об экономике</div>
+      <h2>Шесть типов местных экономик</h2>
+      <p id="types-lead"></p>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div style="display:grid;gap:8px"><h3>Что видно по типам</h3><ul class="points small" id="types-note"></ul></div>
+  </div>
+</section>
+
+<section class="atlas" id="atlas">
+  <div class="wrap">
+    <div class="atlas-head">
+      <div class="sheet-head">
+        <div class="eyebrow">Карта</div>
+        <h2>Атлас типов</h2>
+      </div>
+      <div class="search">
+        <label class="small muted" for="find">Найти МО</label>
+        <input id="find" list="mo-list" placeholder="Например, Томский р-н" autocomplete="off">
+        <datalist id="mo-list"></datalist>
+      </div>
+    </div>
+    <div class="modes" role="group" aria-label="Что показать на карте">
+      <button type="button" data-mode="types" aria-pressed="true">Типы, 2024</button>
+      <button type="button" data-mode="months" aria-pressed="false">По месяцам</button>
+      <button type="button" data-mode="alpha" aria-pressed="false">Вес географии α</button>
+      <button type="button" data-mode="edge" aria-pressed="false">Правило ребра</button>
+      <button type="button" data-mode="stats" aria-pressed="false">Статистика против трат</button>
+    </div>
+    <div class="controls" id="controls"></div>
+    <div class="legend" id="legend"></div>
+    <div class="atlas-grid">
+      <div class="mapbox" id="mapbox">
+        <div class="views" id="views" role="group" aria-label="Масштаб карты"></div>
+        <div class="mapwrap">
+          <svg id="map" role="img" aria-label="Карта муниципальных образований России"></svg>
+          <div class="zoombtns"><button type="button" id="zoom-in" aria-label="Приблизить карту">+</button><button type="button" id="zoom-out" aria-label="Отдалить карту">−</button></div>
+          <div class="maphint" id="maphint" aria-hidden="true"></div>
+        </div>
+        <div class="tip" id="tip" hidden></div>
+        <p class="note" id="mapnote"></p>
+        <p class="note" id="edgenote" hidden></p>
+      </div>
+      <aside class="passport" id="passport" aria-live="polite"></aside>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="how">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Как это сделано</div>
+      <h2>Метод в шести шагах</h2>
+      <p id="how-lead"></p>
+    </div>
+    <ol class="steps" id="steps"></ol>
+  </div>
+</section>
+
+<section class="sheet" id="geo">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Как это сделано · вес сети</div>
+      <h2>Сколько географии нужно типологии</h2>
+      <p id="geo-lead"></p>
+      <p id="geo-move"></p>
+    </div>
+    <div class="panel" style="display:grid;gap:12px">
+      <svg class="chart" id="alpha-chart" viewBox="0 0 960 250" role="img" aria-label="Связность, компактность и устойчивость в зависимости от веса сети"></svg>
+      <p class="note" id="alpha-note"></p>
+    </div>
+    <div style="display:grid;gap:10px">
+      <h3>Правило ребра: KEFRiN на шести сетях</h3>
+      <p class="small" id="edge-lead"></p>
+      <div class="tablewrap"><table id="etable"></table></div>
+      <p class="note" id="edge-note"></p>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="methods">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Почему этому можно доверять</div>
+      <h2>Качество: индексы, сравнение методов, проверки</h2>
+      <p id="methods-lead"></p>
+    </div>
+    <div class="tablewrap"><table id="mtable"></table></div>
+    <div style="display:grid;gap:8px"><p class="note" id="methods-note"></p></div>
+    <div class="two">
+      <div style="display:grid;gap:10px;min-width:0">
+        <h3>Что меряет каждый индекс</h3>
+        <div class="tablewrap"><table id="icvi-table" class="narrow"></table></div>
+      </div>
+      <div style="display:grid;gap:10px;min-width:0" id="ext">
+        <h3>Тип против простой базы</h3>
+        <p class="small" id="ext-lead"></p>
+        <div class="tablewrap"><table id="ext-table" class="narrow"></table></div>
+        <p class="note" id="ext-note"></p>
+      </div>
+    </div>
+    <div class="panel" style="display:grid;gap:10px" id="rob">
+      <h3>Надежность: что будет, если изменить условия</h3>
+      <ul class="list" id="rob-list"></ul>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="dyn">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Как типы меняются во времени</div>
+      <h2>Динамика: ядро устойчиво, граница подвижна</h2>
+      <p id="dyn-text"></p>
+      <ul class="points" id="dyn-list"></ul>
+    </div>
+    <div class="two">
+      <div class="panel" style="display:grid;gap:10px"><h3>Кто меняет тип</h3><p class="small" id="stay-lead"></p><svg class="chart" id="stay-chart" viewBox="0 0 520 250" role="img" aria-label="Вероятность сменить тип за месяц"></svg></div>
+      <div class="panel" style="display:grid;gap:10px"><h3>Что меняется внутри типов</h3><p class="small" id="mp-lead"></p><svg class="chart" id="mp-chart" viewBox="0 0 520 250" role="img" aria-label="Доля маркетплейсов по типам за два года"></svg><p class="note" id="mp-note"></p></div>
+    </div>
+    <div class="panel" style="display:grid;gap:10px;margin-top:18px">
+      <h3>Переходы между типами за два года</h3>
+      <p class="small" id="flow-lead"></p>
+      <svg class="chart" id="flow-chart" viewBox="0 0 900 340" role="img" aria-label="Аллювиальная диаграмма: типы МО по месяцам и переходы между ними"></svg>
+      <p class="note" id="flow-note"></p>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="limits">
+  <div class="wrap">
+    <div class="sheet-head">
+      <div class="eyebrow">Где это пригодится и чего мы не утверждаем</div>
+      <h2>Применение и ограничения</h2>
+    </div>
+    <div class="panel" style="display:grid;gap:14px" id="use"><h3>Применение</h3><ul class="items" id="use-list"></ul></div>
+    <div class="panel" style="display:grid;gap:14px" id="lim"><h3>Ограничения: чего мы не утверждаем и почему</h3><ul class="items" id="lim-list"></ul></div>
+    <div style="display:grid;gap:10px">
+      <h3>Как воспроизвести</h3>
+<pre>uv venv .venv --python 3.11
+uv pip install --python .venv/bin/python --index-strategy unsafe-best-match -r requirements.lock.txt
+.venv/bin/python scripts/build_ca_bundle.py   # сертификаты (TLS не отключается)
+.venv/bin/python scripts/download_data.py     # сырые данные в data/raw/
+.venv/bin/python scripts/run_all.py           # анализ, рисунки, отчет, лендинг, тесты</pre>
+      <p class="note">Все параметры — в <code>configs/base.yaml</code>, seed фиксирован. Время и пиковая память каждого шага
+        записываются в <code>outputs/run_timings.json</code>.</p>
+    </div>
+  </div>
+</section>
+
+<button type="button" class="backbtn" id="backbtn" hidden></button>
+<footer>
+  <div class="wrap">
+    <span id="cite"></span>
+    <span>Все числа на странице посчитаны кодом из репозитория. Шрифты Onest и Golos Text — SIL OFL 1.1.</span>
+  </div>
+</footer>
+
+<script>
+const D = /*__DATA__*/null;
+const PATHS = /*__PATHS__*/null;
+const fmt = (x, d = 0) => (x === null || x === undefined || Number.isNaN(x)) ? "—" :
+  new Intl.NumberFormat("ru-RU", { minimumFractionDigits: d, maximumFractionDigits: d }).format(x).replace("-", "−");
+const pct = (x, d = 0) => fmt(x * 100, d) + "%";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const TYPES = D.types;
+const tColor = (d) => `var(--t${d})`;
+const tByDigit = (d) => TYPES[Number(d) - 1];
+const MONTHS = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+const monthLabel = (s) => `${MONTHS[Number(s.slice(5, 7)) - 1]} ${s.slice(0, 4)}`;
+const region = (r) => r >= 0 ? D.meta.regions[r] : "";
+const plural = (n, one, few, many) => {
+  const a = Math.abs(n) % 100, b = a % 10;
+  return a > 10 && a < 20 ? many : b === 1 ? one : b >= 2 && b <= 4 ? few : many;
+};
+/* длинные пояснения: главное — на виду, технические детали (тесты, выборки, сверки) — под «Подробнее» сразу после элемента;
+   повторный вызов (графики перерисовываются при смене ширины) заменяет блок, а не добавляет второй */
+const lis = (items) => items.filter(Boolean).map((x) => `<li>${x}</li>`).join("");
+function more(id, items, label = "Подробнее") {
+  const host = $(id);
+  let d = host.nextElementSibling;
+  if (!d || !d.classList.contains("more")) { d = document.createElement("details"); d.className = "more"; host.after(d); }
+  d.innerHTML = `<summary>${label}</summary><ul class="list">${lis(items)}</ul>`;
+}
+
+/* тема */
+(function theme() {
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  $("themebtn").addEventListener("click", () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+})();
+
+/* переходы по ссылкам внутри страницы: цель — в верхней трети экрана; откуда пришли — в истории браузера,
+   поэтому «Назад» на странице и в браузере возвращает туда, где нажали ссылку */
+const motion = () => matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+let fallbackFrom = null;   // если история браузера недоступна (например, у страницы, открытой как файл)
+function jumpTo(el) {
+  const from = scrollY, top = Math.max(0, Math.round(el.getBoundingClientRect().top + scrollY - innerHeight * 0.12));
+  try {
+    history.replaceState({ y: from }, "");
+    history.pushState({ y: top, from }, "", `#${el.id}`);
+    fallbackFrom = null;
+  } catch (e) { fallbackFrom = from; }
+  scrollTo({ top, behavior: motion() });
+  backButton();
+}
+document.addEventListener("click", (e) => {
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const el = document.getElementById(a.getAttribute("href").slice(1));
+  if (!el) return;
+  e.preventDefault();
+  jumpTo(el);
+});
+addEventListener("popstate", (e) => {
+  if (e.state && typeof e.state.y === "number") scrollTo({ top: e.state.y, behavior: motion() });
+  backButton();
+});
+/* кнопка: «Назад» — если пришли по ссылке; «Наверх» — если ушли дальше двух экранов */
+function backButton() {
+  const b = $("backbtn"), back = typeof (history.state || {}).from === "number" || fallbackFrom !== null;
+  b.hidden = !back && scrollY < innerHeight * 2;
+  b.textContent = back ? "↩ Назад" : "↑ Наверх";
+  b.setAttribute("aria-label", back ? "Вернуться туда, где вы нажали ссылку" : "Наверх страницы");
+}
+$("backbtn").addEventListener("click", () => {
+  if (typeof (history.state || {}).from === "number") history.back();
+  else if (fallbackFrom !== null) { scrollTo({ top: fallbackFrom, behavior: motion() }); fallbackFrom = null; backButton(); }
+  else scrollTo({ top: 0, behavior: motion() });
+});
+let backTick = 0;
+addEventListener("scroll", () => { if (!backTick) backTick = requestAnimationFrame(() => { backTick = 0; backButton(); }); }, { passive: true });
+
+/* тексты из данных */
+$("author").textContent = D.meta.author;
+const C = D.meta.cite;
+$("cite").innerHTML = `Данные: <a href="${C.sberindex_url}">СберИндекс</a> (CC BY-SA 4.0; скачаны ${C.downloaded}), ` +
+  `<a href="${C.rosstat_primary_url}">Росстат, база данных показателей муниципальных образований (БД ПМО)</a> — выгрузка <a href="${C.rosstat_url}">«Если быть точным»</a> (CC BY 4.0); ` +
+  `перепись 2010 года — региональные издания тома 7 (адреса в configs/data_sources.yaml). Производные данные — CC BY-SA 4.0.`;
+const A = D.agg, F = D.fc, CEN = D.census, NM = D.meta.months.length;
+const pv = (p) => p < 0.001 ? "p < 0,001" : `p = ${fmt(p, 3)}`;
+const sgn = (x, d = 1) => (x > 0 ? "+" : "") + fmt(x, d);
+const pm = (x) => { const t = fmt(x, 0); return t.replace("−", "") === "0" ? "0" : (x > 0 ? "+" : "") + t; };   // целое со знаком, «0» без минуса
+const hiddenOk = CEN && CEN.tests.hidden_vs_control.p_value < 0.05;
+const censusGap = `${Number(D.meta.months[0].slice(0, 4)) - 2010}–${Number(D.meta.months[D.meta.months.length - 1].slice(0, 4)) - 2010}`;   // лет между переписью и тратами
+$("lead").textContent = `${fmt(D.meta.n_mo)} муниципалитетов, ${NM} ${plural(NM, "месяц", "месяца", "месяцев")} безналичных трат жителей по данным СберИндекса. ` +
+  `Главный вывод — о «бубликах», районах вокруг города с общим центром, например Иркутском вокруг Иркутска: ` +
+  `по статистике это село, а тратят они как свой город, потому что многие их жители работают в городе.`;
+const CG = CEN ? CEN.groups : null;
+$("facts").innerHTML = [
+  ["Факт", pct(A.closer_ring), "«бубликов» по профилю трат ближе к своему городу, чем к районам своего региона",
+    `У обычных районов, граничащих с городом своего региона, — ${pct(A.closer_ctrl)} (${A.n_pairs} ${plural(A.n_pairs, "пара", "пары", "пар")} «бубликов», ${A.n_ctrl_prof} — контроля). ` +
+    `Сильнее всего это у столиц регионов (${Math.round(D.cap.capital.ring * D.cap.capital.n)} из ${D.cap.capital.n}), у остальных городов различие незначимо. По Росстату ${pct(A.ring_rural)} жителей «бубликов» — сельские.`],
+  ...(CG ? [["Причина", `${fmt(CG.ring.median_share_pct, 0)}%`, "занятых жителей «бубликов» работают в другом поселке или городе",
+    `У обычных соседей города — ${fmt(CG.control.median_share_pct, 0)}%, в остальных районах — ${fmt(CG.other.median_share_pct, 0)}% (медианы; перепись 2010 года, ${CEN.n_reg} ${plural(CEN.n_reg, "регион", "региона", "регионов")}). ` +
+    `Разница с обычными соседями проверена внутри регионов: ${pv(CEN.tests.ring_vs_control.p_value)}.`]] : []),
+  ["Масштаб", `+${fmt(F.ring_pop, 1)} млн`, "человек живут в «бубликах» — за официальной границей своего города",
+    `«Бублики» находим по справочнику СберИндекса: административный центр района — в соседнем городе. Всего таких пар ${A.ring_total}, в них ${fmt(A.ring_pop, 1)} млн человек; данные о тратах есть у ${A.ring_n_data} (${fmt(F.ring_pop, 1)} млн). ` +
+    `С ними население ${F.n_cities} ${plural(F.n_cities, "города", "городов", "городов")} — ${fmt(F.official + F.ring_pop, 1)} млн вместо официальных ${fmt(F.official, 1)} млн. Это оценка сверху: прибавлено все население районов.`],
+].map(([k, b, h, t]) => `<div class="fact"><i class="k">${k}</i><b>${b}</b><span><strong>${h}</strong>${t}</span></div>`).join("");
+$("sowhat").textContent = `Официальная статистика не видит пригородную экономику: жители «бубликов» считаются сельскими, а их зарплата — заработком города. ` +
+  `Поэтому города больше своих официальных границ. Для поддержки районов, транспорта и планирования агломераций нужен взгляд по месту жительства — его дают траты СберИндекса.`;
+$("qa").innerHTML = [
+  ["Что именно найдено?", [
+    [`${D.meta.K} типов местных экономик — от крупных городов до аграрных районов, где доля маркетплейсов выше всего.`, "#types", "Типы"],
+    ["Пригороды тратят как свой город, хотя статистика считает их селом.", "#city", "Главная находка"],
+    [`Поведение важнее географии: сеть передвинула лишь ${D.netmove.n_moved} МО из ${fmt(D.netmove.n)} — пограничных — и типов не создает.`, "#geo", "Вес сети"]]],
+  ["Почему этому можно доверять?", [
+    ["Находку подтверждает перепись 2010 года — данные, которые в расчет не входили; с ней согласуется отчет лаборатории.", "#checks", "Проверки"],
+    [`Из ${D.extc.n} внешних показателей (${D.extc.rosstat_n} Росстата и ${D.extc.n - D.extc.rosstat_n} индекса СберИндекса, в расчет не входили) тип надежно сильнее простой базы — групп по уровню трат — по ${D.extc.win}: это размер, положение и отрасли. Доход уровень трат объясняет и сам.`, "#ext", "Тип против базы"],
+    ["Типы воспроизводятся при смене seed и сети; между годами устойчиво ядро.", "#rob", "Надежность"],
+    ["Что не подтвердилось, тоже показываем.", "#lim", "Ограничения"]]],
+  ["Как это использовать дальше?", [
+    ["Сверять зарплату Росстата с тратами СберИндекса — чтобы не принять пригород за бедное село.", "#use", "Применение"],
+    ["Похожие МО из других регионов — для поиска применимого опыта.", "#atlas", "Найти свой МО"]]],
+].map(([q, items]) => `<div class="q"><h3>${q}</h3><ul>${items.map(([t, h, l]) => `<li>${t} <a href="${h}">${l}&nbsp;→</a></li>`).join("")}</ul></div>`).join("");
+
+/* первый экран: район вокруг города в трех «линзах» — три полосы с одной шкалой и карта соседей */
+const SH = D.show, NS = "http://www.w3.org/2000/svg";
+const LENSES = SH ? [
+  ["wage", "Зарплата", SH.wage, [50, 100], "ramp", "Зарплата, % к городу"],
+  ["spend", "Траты", SH.spend, [50, 100], "ramp", "Траты жителя, % к городу"],
+  ["census", "Поездки на работу", SH.census, [0, 60], "oramp", "Работают в другом поселке или городе, %"],
+] : [];
+let lensMode = 1;
+function lensBin(v, [lo, hi]) { return Math.min(5, Math.max(1, Math.floor((v - lo) / (hi - lo) * 5) + 1)); }
+function lensInit() {
+  if (!SH) { $("lens").hidden = true; return; }
+  $("lens-title").textContent = `Пример. ${SH.district}: по официальной статистике — бедное село, по тратам и поездкам на работу — часть города ${SH.city}`;
+  const rows = [
+    [`<b>Росстат:</b> средняя зарплата тех, кто работает в районе, ${SH.wage_year}`, SH.wage_pct_of_city, "neutral", "от городской", 100, `${SH.city} = 100%`],
+    [`<b>СберИндекс:</b> траты тех, кто живет в районе, ${SH.year}`, SH.spend_pct_of_city, "", "от городских", 100, `${SH.city} = 100%`],
+    [`<b>Перепись 2010:</b> работают в другом населенном пункте`, SH.commute_pct, "", "занятых", SH.region_median_pct, `типичный район области — ${fmt(SH.region_median_pct, 0)}%`],
+  ];
+  $("lens-bars").innerHTML = rows.map(([t, v, cls, unit, ref, refl]) =>
+    `<div class="lrow"><div class="lt">${t}</div>` +
+    `<div class="ltrack" role="img" aria-label="${fmt(v, 0)}%; ${esc(refl)}"><i class="f ${cls}" style="width:${Math.min(v, 100)}%"></i>` +
+    `<i class="r" style="left:${ref}%"></i><span class="rl" style="${ref > 70 ? "right:0" : `left:${ref}%;transform:translateX(-${ref < 15 ? 0 : 50}%)`}">${esc(refl)}</span></div>` +
+    `<div class="lv"><b>${fmt(v, 0)}%</b>${unit}</div></div>`).join("");
+  const m = $("lens-map");
+  m.setAttribute("viewBox", SH.box.join(" "));
+  const order = SH.ids.filter((id) => id !== SH.district_id && id !== SH.city_id).concat([SH.district_id, SH.city_id]);
+  for (const id of order) {
+    if (!PATHS[id]) continue;
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", PATHS[id]); p.dataset.id = id;
+    if (id === SH.city_id) p.classList.add("city");
+    if (id === SH.district_id) p.classList.add("ring");
+    m.appendChild(p);
+  }
+  for (const [id, name] of [[SH.district_id, SH.district], [SH.city_id, SH.city]]) {
+    if (!SH.pts[id]) continue;
+    const t = document.createElementNS(NS, "text");
+    t.setAttribute("text-anchor", "middle"); t.dataset.id = id;
+    t.textContent = name;
+    m.appendChild(t);
+  }
+  lensLabels();
+  addEventListener("resize", lensLabels);
+  $("lens-modes").innerHTML = LENSES.map(([k, name], i) => `<button type="button" data-i="${i}" aria-pressed="${i === lensMode}">${name}</button>`).join("");
+  for (const b of $("lens-modes").querySelectorAll("button")) b.addEventListener("click", () => { lensMode = Number(b.dataset.i); lensPaint(); });
+  $("lens-mech").innerHTML = `<h3>Почему так</h3><div class="flow">` +
+    `<div class="node"><span class="k">живут</span><b>${esc(SH.district)}</b><span class="s">траты считаются здесь — СберИндекс</span></div>` +
+    `<div class="arrow" aria-hidden="true">едут<br>на работу<br><span class="ar-h">→</span><span class="ar-v">↓</span></div>` +
+    `<div class="node"><span class="k">работают</span><b>${esc(SH.city)}</b><span class="s">зарплата считается здесь — Росстат</span></div></div>` +
+    `<p>Росстат считает «среднемесячную заработную плату работников организаций» (без малого бизнеса) по отчетам организаций района. ` +
+    `Житель района, который работает в городе, попадает в зарплату города, а его траты — в траты района; по переписи 2010 года в другом населенном пункте работали ${fmt(SH.commute_pct)}% занятых жителей района.</p>` +
+    `<p>Поэтому по зарплате район выглядит бедным селом (${fmt(SH.district_rural_pct)}% жителей — сельские), а по тратам — частью города.</p>`;
+  lensPaint();
+}
+/* подписи города и района: 13 px на экране при любом размере карты (вид вписан в окно с сохранением пропорций) */
+function lensLabels() {
+  const m = $("lens-map"), r = m.getBoundingClientRect();
+  if (!r.width) return;
+  const k = Math.min(r.width / SH.box[2], r.height / SH.box[3]), fs = 13 / k;
+  for (const t of m.querySelectorAll("text")) {
+    const [x, y] = SH.pts[t.dataset.id];
+    t.setAttribute("x", x); t.setAttribute("y", y + (Number(t.dataset.id) === SH.city_id ? -fs * 0.9 : fs * 0.35));
+    t.style.fontSize = `${fs}px`; t.style.strokeWidth = 3.5 / k;
+  }
+}
+function lensPaint() {
+  const [k, name, vals, rng, ramp, unit] = LENSES[lensMode];
+  for (const b of $("lens-modes").querySelectorAll("button")) b.setAttribute("aria-pressed", Number(b.dataset.i) === lensMode);
+  for (const p of $("lens-map").querySelectorAll("path")) {
+    const v = vals[p.dataset.id];
+    p.style.fill = v === undefined ? "var(--map-none)" : `var(--${ramp}-${lensBin(v, rng)})`;
+  }
+  const step = (rng[1] - rng[0]) / 5;
+  $("lens-scale").innerHTML = `<span>${unit}:&nbsp;</span><span class="sw">меньше ${fmt(rng[0] + step)}&nbsp;` +
+    [1, 2, 3, 4, 5].map((i) => `<i style="background:var(--${ramp}-${i})"></i>`).join("") +
+    `&nbsp;${fmt(rng[1] - step)} и больше</span>`;
+  const what = {
+    wage: `Росстат: средняя зарплата тех, кто работает в каждом МО (${SH.wage_year}), в % к городу ${SH.city}: у района — ${fmt(SH.wage_pct_of_city, 0)}%.`,
+    spend: `СберИндекс: траты тех, кто живет в каждом МО (${SH.year}), в % к городу ${SH.city}: у района — ${fmt(SH.spend_pct_of_city, 0)}%.`,
+    census: `Перепись 2010 года: доля занятых, которые работают в другом поселке или городе своего региона. У района — ${fmt(SH.commute_pct, 0)}%, у типичного района области — ${fmt(SH.region_median_pct, 0)}%.`,
+  }[k];
+  $("lens-note").textContent = `${what} Город и район выделены, соседние МО приглушены; серым — нет данных.`;
+}
+lensInit();
+
+/* карта */
+const svg = $("map");
+svg.setAttribute("viewBox", `0 0 ${D.geo.w} ${D.geo.h}`);
+svg.style.aspectRatio = `${D.geo.w} / ${D.geo.h}`;
+const missingRegions = D.meta.regions_total - D.meta.regions_panel;
+const ids = Object.keys(PATHS);
+const pathEl = {};
+const frag = document.createDocumentFragment();
+for (const id of ids) {
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("d", PATHS[id]);
+  p.dataset.id = id;
+  pathEl[id] = p;
+  frag.appendChild(p);
+}
+svg.appendChild(frag);
+/* ребра физической сети поверх карты (кнопка «Ребра сети»): цвет — тип, если оба МО одного типа в текущем режиме,
+   серые — между типами. Под картой — доля веса ребер внутри типов против случайной раскладки типов тех же размеров */
+const NET = D.net, edgeG = document.createElementNS("http://www.w3.org/2000/svg", "g"), edgePath = {};
+edgeG.setAttribute("class", "edges");
+edgeG.style.display = "none";
+for (const k of ["x", "1", "2", "3", "4", "5", "6"]) {         // «x» — ребра между типами, они снизу
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("class", k === "x" ? "between" : "within");
+  if (k !== "x") p.style.stroke = tColor(k);
+  edgeG.appendChild(p);
+  edgePath[k] = p;
+}
+svg.appendChild(edgeG);
+// штриховка «нет данных Росстата»: узор в единицах карты, размер пересчитывается под масштаб в applyView
+const hatch = document.createElementNS(NS, "defs");
+hatch.innerHTML = `<pattern id="hatch" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect fill="var(--map-none)"></rect><line stroke="var(--muted)"></line></pattern>`;
+svg.prepend(hatch);
+const state = { mode: "types", month: D.meta.months.length - 1, alpha: D.meta.alphas.indexOf(D.meta.alpha), stats: "rosstat", edge: 0, only: null, sel: null, timer: null, edges: false };
+const E = D.edge;
+const NET_NAME = { physical: "Граница × расстояние", cosine: "Сходство профиля", corr: "Синхронность", lagcorr: "Синхронность с лагом", dtw: "DTW", road: "Ближайшие по дороге" };
+const typeDigit = (m) => state.mode === "months" ? m.m[state.month] : state.mode === "alpha" ? m.a[state.alpha] : state.mode === "edge" ? (m.e ? m.e[state.edge] : m.t) : m.t;
+
+function rampColor(u) {
+  if (u === null || u === undefined) return "var(--map-none)";
+  const k = u < 0.2 ? 1 : u < 0.4 ? 2 : u < 0.6 ? 3 : u < 0.8 ? 4 : 5;
+  return `var(--ramp-${k})`;
+}
+/* близость профиля района к своему городу: d_peer / d_city (во сколько раз ближе к городу, чем к районам региона) */
+const CLOSE_BINS = [[0, 0.8, 1, "ближе к районам своего региона"], [0.8, 1.25, 2, "примерно поровну"], [1.25, 2, 4, "ближе к городу"], [2, Infinity, 5, "в 2+ раза ближе к городу"]];
+const PARTNER = new Set(Object.values(D.mo).filter((m) => m.c).map((m) => String(m.c[0])));
+function closeColor(r) { const b = CLOSE_BINS.find(([lo, hi]) => r >= lo && r < hi); return `var(--ramp-${b[2]})`; }
+function fillFor(id) {
+  const m = D.mo[id];
+  if (!m) return "var(--map-none)";
+  if (state.mode === "stats") {
+    if (state.stats === "rosstat") return !m.t ? "var(--map-none)" : m.u === null || m.u === undefined ? "url(#hatch)" : rampColor(m.u);
+    if (m.c) return closeColor(m.c[1]);
+    if (m.city || PARTNER.has(id)) return "var(--city)";
+    return m.t ? "var(--map-base)" : "var(--map-none)";
+  }
+  if (!m.t) {
+    if (state.mode === "types" && partTyped(m)) return state.only && m.tp[0] !== state.only ? "var(--map-base)" : tColor(m.tp[0]);
+    return "var(--map-none)";
+  }
+  const d = typeDigit(m);
+  if (d === "0") return "var(--map-base)";
+  if (state.only && d !== state.only) return "var(--map-base)";
+  return tColor(d);
+}
+function paint() {
+  for (const id of ids) {
+    const el = pathEl[id], m = D.mo[id];
+    el.style.fill = fillFor(id);
+    el.style.fillOpacity = state.mode === "types" && m && !m.t && partTyped(m) ? "0.45" : "";
+    el.classList.toggle("ring", state.mode === "stats" && !!(m && m.ring && m.t));   // «бублик» без данных о тратах не выделяем
+    el.classList.toggle("hid", state.mode === "stats" && !!(m && m.sat));
+  }
+  if (state.mode !== "stats") legendCounts();
+  drawEdges();
+}
+function drawEdges() {
+  const btn = $("edges-btn");
+  if (btn) btn.disabled = state.mode === "stats";                // в «Статистике против трат» цвет — не тип
+  const on = state.edges && state.mode !== "stats";
+  edgeG.style.display = on ? "" : "none";
+  svg.classList.toggle("netview", on);
+  $("edgenote").hidden = !on;
+  if (!on) return;
+  const d = {}, cnt = {};
+  let wIn = 0, wAll = 0;
+  for (let i = 0; i < NET.a.length; i++) {
+    const ma = D.mo[NET.a[i]], mb = D.mo[NET.b[i]], pa = NET.xy[NET.a[i]], pb = NET.xy[NET.b[i]];
+    if (!ma || !mb || !ma.t || !mb.t || !pa || !pb) continue;
+    const da = typeDigit(ma), k = da === typeDigit(mb) ? da : "x";
+    (d[k] = d[k] || []).push(`M${pa[0]} ${pa[1]}L${pb[0]} ${pb[1]}`);
+    wAll += NET.w[i];
+    if (k !== "x") wIn += NET.w[i];
+  }
+  for (const k in edgePath) edgePath[k].setAttribute("d", (d[k] || []).join(""));
+  for (const m of Object.values(D.mo)) if (m.t) { const c = typeDigit(m); cnt[c] = (cnt[c] || 0) + 1; }
+  const nk = Object.values(cnt), n = nk.reduce((s, v) => s + v, 0), rnd = nk.reduce((s, v) => s + v * (v - 1), 0) / (n * (n - 1));
+  $("edgenote").textContent = `Ребра физической сети: соседи по границе. Цвет — тип, если оба МО одного типа, серые — между типами. ` +
+    `Внутри типов ${pct(wIn / wAll)} веса ребер; при случайной раскладке типов тех же размеров было бы ${pct(rnd)}.`;
+}
+
+/* легенда и управление */
+function legendTypes() {
+  $("legend").innerHTML = TYPES.map((t, i) => {
+    const d = String(i + 1);
+    const on = !state.only || state.only === d;
+    return `<button class="chip" type="button" data-d="${d}" aria-pressed="${on}"><i style="background:${tColor(d)}"></i>${t.code} ${esc(t.short)} · <span class="cnt">${t.n}</span></button>`;
+  }).join("") + `<span class="small muted" style="align-self:center">Нажмите на тип, чтобы выделить только его</span>`;
+  for (const b of $("legend").querySelectorAll("button")) b.addEventListener("click", () => {
+    state.only = state.only === b.dataset.d ? null : b.dataset.d; legendTypes(); paint();
+  });
+}
+/* числа у типов в легенде — для того среза, который показан: месяц, вес сети или правило ребра (в «Типах» — годовые) */
+function legendCounts() {
+  const cnt = {};
+  if (state.mode !== "types") for (const m of Object.values(D.mo)) if (m.t) { const d = typeDigit(m); cnt[d] = (cnt[d] || 0) + 1; }
+  for (const b of $("legend").querySelectorAll("button.chip")) {
+    const c = b.querySelector(".cnt");
+    if (c) c.textContent = state.mode === "types" ? TYPES[Number(b.dataset.d) - 1].n : (cnt[b.dataset.d] || 0);
+  }
+}
+function legendStats() {
+  const chip = (c, l, cls = "") => `<span class="chip static"><i class="${cls}" style="${c ? `background:${c}` : ""}"></i>${l}</span>`;
+  const tail = chip("var(--map-none)", "нет данных о тратах") +
+    `<span class="small muted" style="align-self:center">Обводка (только МО с данными о тратах): синяя — «бублик», оранжевая — кандидат в скрытые спутники</span>`;
+  $("legend").innerHTML = state.stats === "rosstat"
+    ? [["var(--ramp-1)", "до 20% горожан"], ["var(--ramp-2)", "20–40%"], ["var(--ramp-3)", "40–60%"], ["var(--ramp-4)", "60–80%"], ["var(--ramp-5)", "от 80%"]]
+      .map(([c, l]) => chip(c, l)).join("") + chip(null, "нет данных Росстата", "hatch") + tail
+    : `<span class="cscale"><span class="small muted">Профиль трат района:</span>${CLOSE_BINS.map(([, , k, l]) => chip(`var(--ramp-${k})`, l)).join("")}</span>` +
+      chip("var(--city)", "город") + chip("var(--map-base)", "не граничит с городом своего региона") + tail;
+}
+function controls() {
+  stopPlay();
+  const c = $("controls");
+  if (state.mode === "types") {
+    c.innerHTML = `<span class="readout">Годовой профиль ${D.meta.profile_year} года, KEFRiN на физической сети, K = ${D.meta.K}, α = ${fmt(D.meta.alpha, 1)}.</span>`;
+  } else if (state.mode === "months") {
+    c.innerHTML = `<button class="btn" type="button" id="play">▶ Проиграть</button>
+      <input type="range" id="month" min="0" max="${D.meta.months.length - 1}" value="${state.month}" aria-label="Месяц">
+      <span class="readout" id="month-l"></span>`;
+    const upd = () => { $("month-l").textContent = `${monthLabel(D.meta.months[state.month])} · эволюционный KEFRiN, β = ${fmt(D.meta.beta, 1)}`; };
+    upd();
+    $("month").addEventListener("input", (e) => { state.month = Number(e.target.value); upd(); paint(); });
+    $("play").addEventListener("click", () => state.timer ? stopPlay() : startPlay(upd));
+  } else if (state.mode === "alpha") {
+    c.innerHTML = `<input type="range" id="alpha" min="0" max="${D.meta.alphas.length - 1}" value="${state.alpha}" aria-label="Вес сети α">
+      <span class="readout" id="alpha-l"></span>`;
+    const upd = () => {
+      const a = D.meta.alphas[state.alpha], r = D.sweep[state.alpha];
+      $("alpha-l").innerHTML = `α = ${fmt(a, 2)}${a === D.meta.alpha ? " (выбрано)" : ""} · силуэт ${fmt(r.SW, 3)} · AVI ${fmt(r.AVI, 3)} · устойчивость: ARI ${fmt(r.boot, 2)}${r.jac !== null && r.jac !== undefined ? `, Жаккар ${fmt(r.jac, 2)}` : ""}${r.ok === false ? " — ниже порога" : ""}`;
+    };
+    upd();
+    $("alpha").addEventListener("input", (e) => { state.alpha = Number(e.target.value); upd(); paint(); });
+  } else if (state.mode === "edge") {
+    c.innerHTML = `<div class="modes" role="group" aria-label="Правило ребра">` +
+      E.nets.map((n, i) => `<button type="button" data-e="${i}" aria-pressed="${i === state.edge}">${NET_NAME[n] || n}</button>`).join("") +
+      `</div><span class="readout" id="edge-l"></span>`;
+    const upd = () => {
+      const n = E.nets[state.edge];
+      $("edge-l").textContent = (n === "physical" ? "Главное правило, итоговые типы" : `Совпадение с итоговыми типами ARI ${fmt(E.ari[n], 2)}`) +
+        ` · «бублик» в типе своего города ${pct(E.ring[n])} пар против ${pct(E.ctrl[n])} у обычных соседей · α = ${fmt(E.alpha[n], 2)}`;
+    };
+    upd();
+    for (const b of c.querySelectorAll("button[data-e]")) b.addEventListener("click", () => {
+      state.edge = Number(b.dataset.e);
+      for (const x of c.querySelectorAll("button[data-e]")) x.setAttribute("aria-pressed", x === b);
+      upd(); paint();
+    });
+  } else {
+    c.innerHTML = `<div class="modes" role="group" aria-label="Источник">
+      <button type="button" data-s="rosstat" aria-pressed="${state.stats === "rosstat"}">Росстат: доля горожан</button>
+      <button type="button" data-s="spend" aria-pressed="${state.stats === "spend"}">Траты: на кого похож профиль района</button></div>`;
+    for (const b of c.querySelectorAll("button")) b.addEventListener("click", () => {
+      state.stats = b.dataset.s; controls(); legendStats(); paint();
+    });
+  }
+  const notes = {
+    types: (PT ? `Бледнее — тип по неполным данным (${PT.typed} МО: ближайший тип по профилю трат; на полных МО так угадывается ${pct(PT.acc6)} типов). ` +
+      `Серым — тип не определен; почему — в подсказке и паспорте МО. `
+      : `Серым показаны МО без полной панели трат: в данных нет ${missingRegions} ${plural(missingRegions, "региона", "регионов", "регионов")}, у ${D.meta.n_gap} МО пропуски в рядах. `) +
+      `Мелкие МО — приблизьте карту или найдите поиском.`,
+    months: "Тип каждого месяца — эволюционный KEFRiN: признаки сглаживаются с прошлым месяцем, поэтому смена цвета — устойчивое смещение, а не шум.",
+    alpha: `Сдвиньте вес сети: до α ≈ ${fmt(D.meta.alpha, 1)} сеть почти не меняет типы, дальше разбиение все больше задает сеть, и типы перестают воспроизводиться на подвыборках.`,
+    stats: state.stats === "rosstat"
+      ? `Насколько это город по Росстату: темнее — больше горожан. Районы вокруг городов светлые — по статистике это село. Штриховка — у Росстата нет согласованной разбивки город/село.`
+      : `Насколько это город по тратам: профиль трат района сравниваем с городом своего региона и с районами региона; темнее — ближе к городу (отсюда «${pct(A.closer_ring)} против ${pct(A.closer_ctrl)}» на первом экране). ` +
+        `Районы, которые не граничат с городом своего региона, сравнивать не с чем.`,
+    edge: "Та же модель KEFRiN с тем же правилом выбора веса сети, но ребра построены по другому правилу. Типы меняются умеренно, а «бублики» при любом правиле чаще попадают в тип своего города, чем обычные соседи.",
+  };
+  $("mapnote").textContent = notes[state.mode];
+}
+function startPlay(upd) {
+  $("play").textContent = "❚❚ Пауза";
+  state.timer = setInterval(() => {
+    state.month = (state.month + 1) % D.meta.months.length;
+    $("month").value = state.month; upd(); paint();
+  }, 650);
+}
+function stopPlay() {
+  if (state.timer) { clearInterval(state.timer); state.timer = null; }
+  const p = $("play"); if (p) p.textContent = "▶ Проиграть";
+}
+for (const b of document.querySelectorAll(".atlas > .wrap > .modes button")) b.addEventListener("click", () => {
+  state.mode = b.dataset.mode;
+  for (const x of document.querySelectorAll(".atlas > .wrap > .modes button")) x.setAttribute("aria-pressed", x === b);
+  controls(); state.mode === "stats" ? legendStats() : legendTypes(); paint();
+});
+
+/* МО без полной панели: тип по неполным данным, нетипичный профиль, мало данных или регион без данных */
+const PT = D.partial;
+const partTyped = (m) => !!(m.tp && m.tp[0] && m.tp[0] !== "0");
+function gapLine(m) {
+  if (m.tp && PT) {
+    const [d, n] = m.tp, mon = `${n} ${plural(n, "месяц", "месяца", "месяцев")} ${PT.year} года`;
+    if (partTyped(m)) { const t = tByDigit(d); return `тип по неполным данным: ${t.code} · ${t.name} (${mon})`; }
+    return d === "0" ? `профиль не похож ни на один тип (${mon})` : `мало данных для типа: ${mon}`;
+  }
+  return PT && PT.absent.includes(region(m.r)) ? "СберИндекс не публикует траты по МО этого региона" : "нет данных о тратах";
+}
+function gapText(m) {
+  if (m.tp && PT) {
+    const [d, n, tot] = m.tp, NMo = D.meta.months.length;
+    const have = `Данные о тратах есть за ${tot} ${plural(tot, "месяц", "месяца", "месяцев")} из ${NMo}, из них ${n} — в ${PT.year} году`;
+    if (partTyped(m)) return `${have}, поэтому в кластеризации МО не участвовал. Тип — ближайший по профилю трат ${PT.year} года; ` +
+      `на полных МО такое правило уже при ${PT.min} месяцах угадывает тип в ${pct(PT.acc6)} случаев.`;
+    if (d === "0") return `${have}, но профиль трат не похож ни на один тип: до ближайшего дальше, чем у 95% МО панели. Тип не присваиваем.`;
+    return `${have} (для типа нужно не меньше ${PT.min}). Тип не определен.`;
+  }
+  return PT && PT.absent.includes(region(m.r)) ? "СберИндекс не публикует траты по МО этого региона — ни в архиве хакатона, ни в API. Тип не определен."
+    : "Для этого МО нет данных о тратах, поэтому тип не определен.";
+}
+/* подсказка и выбор */
+/* направление — первым и словами легенды, с плашкой того же цвета, что на карте; у «бублика» город свой, у обычного района — соседний */
+function closeLine(m, id) {
+  if (m.c) {
+    const r = m.c[1], b = CLOSE_BINS.find(([lo, hi]) => r >= lo && r < hi), city = esc((D.mo[m.c[0]] || {}).n || "город");
+    const to = m.ring ? "своему городу" : "соседнему городу";
+    const how = r >= 1.25 ? `профиль трат в ${fmt(r, 1)} раза ближе к ${to} (${city}), чем к районам своего региона`
+      : r < 0.8 ? `профиль трат в ${fmt(1 / r, 1)} раза ближе к районам своего региона, чем к ${to} (${city})`
+      : `профиль трат почти одинаково близок к ${to} (${city}) и к районам своего региона`;
+    return `<i class="sw" style="background:var(--ramp-${b[2]})"></i><b>${b[3]}</b><br>${how}`;
+  }
+  return m.city || PARTNER.has(id) ? "город: с ним сравниваем районы, которые с ним граничат" : "не граничит с городом своего региона — сравнивать не с чем";
+}
+function urbanLine(m) {
+  if (m.u === null || m.u === undefined) return "доля горожан: у Росстата нет согласованной разбивки город/село";
+  return m.u === 0 ? "доля горожан 0%: по Росстату все жители сельские — в районе нет городов и пгт" : `доля горожан ${pct(m.u)}`;
+}
+const cityName = (t) => esc((D.mo[t] || {}).n || "");
+const roleLine = (m) => m.ring ? `«бублик» города ${cityName(m.ring)}<br>` : m.sat ? `кандидат в скрытые спутники города ${cityName(m.sat[0])}<br>` : "";
+const tip = $("tip"), box = $("mapbox");
+svg.addEventListener("pointermove", (e) => {
+  const id = e.target.dataset && e.target.dataset.id;
+  if (!id || svg.classList.contains("drag")) { tip.hidden = true; return; }
+  const m = D.mo[id] || {};
+  let line = (state.mode === "stats" && m.ring ? `«бублик» города ${cityName(m.ring)}; ` : "") + gapLine(m);
+  if (m.t) {
+    const d = typeDigit(m);
+    line = state.mode === "stats" && state.stats === "rosstat" ? roleLine(m) + urbanLine(m)
+      : state.mode === "stats" ? roleLine(m) + closeLine(m, id)
+      : d === "0" ? "вне типов (мелкий кластер)" : `${tByDigit(d).code} · ${tByDigit(d).name}`;
+  }
+  tip.innerHTML = `<b>${esc(m.n || id)}</b><br><span class="muted">${esc(region(m.r))}</span><br>${line}`;
+  const r = box.getBoundingClientRect();
+  let x = e.clientX - r.left + 14, y = e.clientY - r.top + 14;
+  tip.hidden = false;
+  if (x + tip.offsetWidth > r.width) x = e.clientX - r.left - tip.offsetWidth - 10;
+  if (y + tip.offsetHeight > r.height) y = e.clientY - r.top - tip.offsetHeight - 10;
+  tip.style.left = `${Math.max(0, x)}px`; tip.style.top = `${Math.max(0, y)}px`;
+});
+svg.addEventListener("pointerleave", () => { tip.hidden = true; });
+svg.addEventListener("click", (e) => {
+  if (dragged) { dragged = false; return; }   // карту перетаскивали — это не выбор МО
+  const id = e.target.dataset && e.target.dataset.id;
+  if (id) select(id);
+});
+
+/* масштаб карты: предустановленные виды, «к выбранному МО» и свободный масштаб, как в онлайн-картах:
+   Ctrl/⌘ + колесико (и щипок на тачпаде) — вокруг курсора, перетаскивание — сдвиг, двойной щелчок и кнопки +/−,
+   на сенсорном экране — двумя пальцами. viewBox — целевой вид в единицах карты; на экран он попадает раз в кадр. */
+const VIEWS = D.geo.views, GW = D.geo.w, GH = D.geo.h, MIN_W = GW / 120;
+const MAC = /Mac|iPhone|iPad/.test(navigator.platform), COARSE = matchMedia("(pointer: coarse)").matches;
+let viewBox = VIEWS[0].box.slice(), frame = 0, dragged = false, gesture = null, hintTimer = null;
+const ptrs = new Map();   // нажатые указатели: id → [x, y] на экране
+// видимая область: SVG вписывает viewBox в пропорции карты (meet), поэтому видно больше по одной из осей
+function fitAspect([x, y, w, h]) {
+  const a = GW / GH;
+  return w / h > a ? [x, y - (w / a - h) / 2, w, w / a] : [x - (h * a - w) / 2, y, h * a, h];
+}
+// отдалить можно до всей страны; вид шире страны (предустановленный «Дальний Восток») жест не расширяет и не сжимает рывком
+const clampW = (w, cur) => Math.min(Math.max(w, MIN_W), Math.max(GW, cur));
+// центр вида не уходит за край карты: карту нельзя «потерять», а с предустановленных видов нет скачков
+const clampPos = ([x, y, w, h]) => [Math.min(Math.max(x, -w / 2), GW - w / 2), Math.min(Math.max(y, -h / 2), GH - h / 2), w, h];
+function applyView() {
+  const w = fitAspect(viewBox)[2], k = w / (svg.clientWidth || GW), h = +(7 * k).toFixed(3);
+  svg.setAttribute("viewBox", viewBox.map((v) => +v.toFixed(2)).join(" "));
+  const pat = $("hatch"), [rect, line] = pat.children;
+  for (const [el, a] of [[pat, { width: h, height: h }], [rect, { width: h, height: h }], [line, { x1: 0, y1: 0, x2: 0, y2: h, "stroke-width": +(2 * k).toFixed(3) }]])
+    for (const [n, v] of Object.entries(a)) el.setAttribute(n, v);
+  svg.classList.toggle("zoomed", w < GW * 0.98);
+  $("zoom-in").disabled = w <= MIN_W * 1.001;
+  $("zoom-out").disabled = w >= GW * 0.999;
+}
+function setView(box, key) {
+  viewBox = box.slice();
+  applyView();
+  for (const b of $("views").querySelectorAll("button[data-v]")) b.setAttribute("aria-pressed", b.dataset.v === key);
+}
+function freeView(box) {   // ручной масштаб: ни один предустановленный вид не подсвечен
+  viewBox = box;
+  for (const b of $("views").querySelectorAll("button[data-v]")) b.setAttribute("aria-pressed", "false");
+  if (!frame) frame = requestAnimationFrame(() => { frame = 0; applyView(); });
+}
+// k > 1 — приблизить; точка экрана (cx, cy) остается на месте
+function zoomAt(k, cx, cy) {
+  const r = svg.getBoundingClientRect();
+  if (!r.width) return;
+  const b = fitAspect(viewBox), fx = (cx - r.left) / r.width, fy = (cy - r.top) / r.height;
+  const w = clampW(b[2] / k, b[2]), h = w * GH / GW;
+  freeView(clampPos([b[0] + fx * b[2] - fx * w, b[1] + fy * b[3] - fy * h, w, h]));
+}
+function zoomCenter(k) { const r = svg.getBoundingClientRect(); zoomAt(k, r.left + r.width / 2, r.top + r.height / 2); }
+function viewsBar() {
+  $("views").innerHTML = `<span class="muted">Масштаб:</span>` +
+    VIEWS.map((v, i) => `<button type="button" data-v="${i}" aria-pressed="${i === 0}">${esc(v.name)}</button>`).join("") +
+    `<button type="button" id="zoom-sel" disabled>К выбранному МО</button>` +
+    `<button type="button" id="edges-btn" aria-pressed="false" title="Показать ребра физической сети">Ребра сети</button>` +
+    `<span class="maphelp muted">${COARSE ? "Два пальца — приблизить и сдвинуть" : `${MAC ? "⌘" : "Ctrl"} + колесико — приблизить, перетаскивание — сдвинуть`}</span>`;
+  for (const b of $("views").querySelectorAll("button[data-v]")) b.addEventListener("click", () => setView(VIEWS[Number(b.dataset.v)].box, b.dataset.v));
+  $("zoom-sel").addEventListener("click", () => state.sel && zoomTo(state.sel));
+  $("edges-btn").addEventListener("click", () => { state.edges = !state.edges; $("edges-btn").setAttribute("aria-pressed", state.edges); drawEdges(); });
+  $("zoom-in").addEventListener("click", () => zoomCenter(2));
+  $("zoom-out").addEventListener("click", () => zoomCenter(0.5));
+  applyView();
+}
+function zoomTo(id) {
+  const el = pathEl[id];
+  if (!el) return;
+  const bb = el.getBBox(), side = Math.max(bb.width, bb.height) * 4;
+  const w = Math.max(side * GW / GH, MIN_W), h = w * GH / GW;
+  setView([Math.round(bb.x + bb.width / 2 - w / 2), Math.round(bb.y + bb.height / 2 - h / 2), Math.round(w), Math.round(h)], "sel");
+}
+function inView(id) {
+  const el = pathEl[id];
+  if (!el) return true;
+  const bb = el.getBBox(), [x, y, w, h] = fitAspect(viewBox);
+  return bb.x + bb.width > x && bb.x < x + w && bb.y + bb.height > y && bb.y < y + h;
+}
+// колесико: с Ctrl/⌘ — масштаб; без — страница листается, а на карте ненадолго появляется подсказка
+svg.addEventListener("wheel", (e) => {
+  if (!(e.ctrlKey || e.metaKey)) {
+    const h = $("maphint");
+    tip.hidden = true;
+    h.textContent = MAC ? "⌘ + прокрутка — приблизить карту" : "Ctrl + колесико — приблизить карту";
+    h.classList.add("on");
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => h.classList.remove("on"), 1500);
+    return;
+  }
+  e.preventDefault();
+  const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1);
+  zoomAt(Math.exp(-Math.max(-300, Math.min(300, dy)) * 0.0025), e.clientX, e.clientY);
+}, { passive: false });
+svg.addEventListener("dblclick", (e) => { e.preventDefault(); zoomAt(e.shiftKey ? 0.5 : 2, e.clientX, e.clientY); });
+// перетаскивание и щипок: от начала жеста точка карты под центром пальцев (или курсором) идет за ними
+function gestureStart(touch) {
+  const pts = [...ptrs.values()], r = svg.getBoundingClientRect(), b = fitAspect(viewBox);
+  const c = [pts.reduce((s, p) => s + p[0], 0) / pts.length, pts.reduce((s, p) => s + p[1], 0) / pts.length];
+  return { r, b, c, d: pts.length > 1 ? Math.hypot(pts[0][0] - pts[1][0], pts[0][1] - pts[1][1]) : 0,
+    p: [b[0] + (c[0] - r.left) / r.width * b[2], b[1] + (c[1] - r.top) / r.height * b[3]],
+    moved: gesture ? gesture.moved : false, touch };
+}
+svg.addEventListener("pointerdown", (e) => {
+  if (e.pointerType === "mouse" && e.button !== 0) return;
+  if (!ptrs.size) { gesture = null; dragged = false; }
+  ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+  // один палец двигает карту, только когда она приближена; иначе он листает страницу
+  gesture = gestureStart(e.pointerType === "touch");
+});
+svg.addEventListener("pointermove", (e) => {
+  if (!ptrs.has(e.pointerId) || !gesture) return;
+  ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+  const g = gesture, pts = [...ptrs.values()];
+  if (g.touch && pts.length < 2 && !svg.classList.contains("zoomed")) return;
+  const c = [pts.reduce((s, p) => s + p[0], 0) / pts.length, pts.reduce((s, p) => s + p[1], 0) / pts.length];
+  const d = pts.length > 1 ? Math.hypot(pts[0][0] - pts[1][0], pts[0][1] - pts[1][1]) : 0;
+  if (!g.moved) {
+    if (Math.hypot(c[0] - g.c[0], c[1] - g.c[1]) < 4 && Math.abs(d - g.d) < 4) return;   // дрожание руки — еще щелчок
+    g.moved = dragged = true;
+    for (const id of ptrs.keys()) { try { svg.setPointerCapture(id); } catch (err) { /* указатель уже отпущен */ } }
+    svg.classList.add("drag");
+    tip.hidden = true;
+  }
+  const w = clampW(g.b[2] * (g.d && d ? g.d / d : 1), g.b[2]), h = w * GH / GW;
+  freeView(clampPos([g.p[0] - (c[0] - g.r.left) / g.r.width * w, g.p[1] - (c[1] - g.r.top) / g.r.height * h, w, h]));
+});
+function pointerEnd(e) {
+  if (!ptrs.delete(e.pointerId)) return;
+  if (ptrs.size) gesture = gestureStart(gesture ? gesture.touch : false);   // один палец из двух поднят — жест продолжается
+  else { gesture = null; svg.classList.remove("drag"); }
+}
+// отпускание ловим на всем окне: кнопку мыши могли отпустить и за пределами карты
+addEventListener("pointerup", pointerEnd);
+addEventListener("pointercancel", pointerEnd);
+svg.addEventListener("gesturestart", (e) => e.preventDefault());   // Safari: щипок по карте не масштабирует страницу
+
+function link(id) {
+  const m = D.mo[id];
+  return m ? `<button class="lnk" type="button" data-go="${id}">${esc(m.n)}</button>` : esc(id);
+}
+const CAT = { "Продовольствие": "продукты", "Здоровье": "здоровье", "Маркетплейсы": "маркетплейсы", "Общественное питание": "общепит", "Транспорт": "транспорт", "Прочее": "прочее" };
+/* полосы «± % к среднему МО России» для паспорта и карточек типов: (x − среднее по всем МО) / среднее × 100 —
+   то же правило Миркина, что у типов. rows: [подпись, значение, значение города или null, итоговая строка?] */
+function devRows(rows, color, lim) {
+  const bar = (v, cls, col) => {
+    const w = Math.min(Math.abs(v), lim) / lim * 50;
+    return `<i class="${cls}${Math.abs(v) > lim ? " clip" : ""}${v < 0 ? " neg" : ""}" style="${v < 0 ? "right" : "left"}:50%;width:${w}%${col ? `;background:${col}` : ""}"></i>`;
+  };
+  return `<div class="dev">` + rows.map(([k, v, c, sum]) => `<div class="dvr${sum ? " sum" : ""}${Math.abs(v) >= D.meta.hl ? " hl" : " lo"}"><span>${k}</span>` +
+    `<span class="dvt">${bar(v, "m", color)}${c === null || c === undefined ? "" : bar(c, "c")}</span><span class="v">${pm(v)}%</span></div>` +
+    (sum ? `<div class="dvh">доля категории в тратах</div>` : "")).join("") +
+    `<div class="dvaxis" aria-hidden="true"><span></span><span><span>−${lim}%</span><span>0</span><span>+${lim}%</span></span><span></span></div>` +
+    (rows.some(([, v, c]) => Math.abs(v) > lim || (c !== null && c !== undefined && Math.abs(c) > lim)) ?
+      `<div class="dvnote">Острый конец — значение не помещается в шкалу ±${lim}%; точное число справа.</div>` : "") + `</div>`;
+}
+const devLim = (vals) => Math.max(50, Math.min(150, Math.ceil(Math.max(...vals.map(Math.abs)) / 25) * 25));
+function profile(m, city) {
+  const cats = D.meta.cats, mv = m.d, cv = city ? city.d : null;   // отклонения посчитаны в build_landing.py
+  const rows = ["траты на жителя", ...cats.map((c) => CAT[c])].map((k, i) => [k, mv[i], cv ? cv[i] : null, i === 0]);
+  const key = `<span><i style="height:10px;background:${tColor(m.t)}"></i>этот МО</span>` +
+    (city ? `<span><i style="height:3px;background:var(--ink-2)"></i>${esc(city.n)}</span>` : "");
+  const spend = `Траты на жителя: <b>${fmt(m.sp)} ₽/мес.</b> <span class="muted">(среднее МО — ${fmt(D.meta.avg_spend)}${city ? `, ${esc(city.n)} — ${fmt(city.sp)}` : ""})</span>`;
+  return `<div class="prof"><span class="small muted">Чем отличается от среднего МО России, % (${D.meta.profile_year} год; 0 — как у среднего МО)</span>
+    <div class="key">${key}</div>${devRows(rows, tColor(m.t), devLim(mv.concat(cv || [])))}<span class="small">${spend}</span></div>`;
+}
+function select(id, opt = {}) {
+  if (!opt.fromSearch) { $("find").value = ""; lastFind = ""; }
+  if (state.sel && pathEl[state.sel]) pathEl[state.sel].classList.remove("sel");
+  state.sel = id;
+  const el = pathEl[id];
+  if (el) { el.classList.add("sel"); el.parentNode.appendChild(el); }
+  const zb = $("zoom-sel"); if (zb) zb.disabled = !el;
+  if (opt.zoom) zoomTo(id);
+  else if (!opt.keepView && !inView(id)) viewBox[2] < D.geo.w ? zoomTo(id) : setView(VIEWS[0].box, "0");
+  const m = D.mo[id] || {};
+  let html = `<div><div class="eyebrow">${esc(region(m.r))}</div><h3>${esc(m.n || id)}</h3></div>`;
+  if (!m.t) {
+    if (partTyped(m)) {
+      const t = tByDigit(m.tp[0]);
+      html += `<div><span class="chip static"><i style="background:${tColor(m.tp[0])};opacity:.45"></i>${t.code} · ${esc(t.name)} · по неполным данным</span></div>`;
+    }
+    html += `<p class="small muted">${gapText(m)}</p>`;
+  } else {
+    const t = tByDigit(m.t);
+    html += `<div><span class="chip static"><i style="background:${tColor(m.t)}"></i>${t.code} · ${esc(t.name)}</span></div>`;
+    const tags = [];
+    if (m.ring) tags.push(`<span class="tag">«Бублик» города ${link(String(m.ring))}</span>`);
+    if (m.sat) tags.push(`<span class="tag sat">Кандидат в скрытые спутники города ${link(String(m.sat[0]))}${m.sat[1] !== null ? ` · в ${pct(m.sat[1])} бутстрап-выборок` : ""}</span>`);
+    if (m.city) tags.push(`<span class="tag">Центр функционального города</span>`);
+    if (tags.length) html += `<div class="tags">${tags.join("")}</div>`;
+    const cid = m.ring || (m.sat && m.sat[0]);
+    const city = cid && D.mo[cid] && D.mo[cid].s ? D.mo[cid] : null;
+    html += profile(m, city);
+    html += `<dl class="kv"><dt>Население (Росстат)</dt><dd>${fmt(m.p)}</dd><dt>Зарплата, ₽/мес.</dt><dd>${fmt(m.w)}</dd>
+      <dt>Доля горожан</dt><dd>${m.u === null || m.u === undefined ? "нет данных Росстата" : m.u === 0 ? "0% (нет городов и пгт)" : pct(m.u)}</dd></dl>`;
+    html += `<div style="display:grid;gap:4px"><span class="small muted">Тип по месяцам, ${monthLabel(D.meta.months[0])} — ${monthLabel(D.meta.months[D.meta.months.length - 1])}</span>
+      <div class="strip">${[...m.m].map((d, i) => `<i title="${monthLabel(D.meta.months[i])}: ${tByDigit(d).code}" style="background:${tColor(d)}"></i>`).join("")}</div></div>`;
+    if (m.tw) {
+      // вывод — с поправкой на рост своего региона: двойники из других регионов, общий рост региона в сравнение не входит
+      const verdict = Math.abs(m.ga) < 1 ? "растет как похожие территории" : m.ga > 0 ? `растет быстрее похожих территорий (${sgn(m.ga)} п. п.)` : `отстает от похожих территорий (${sgn(m.ga)} п. п.)`;
+      html += `<div style="display:grid;gap:6px"><span class="small muted">Двойники — ${m.tw.length} МО из других регионов с самым похожим профилем трат ${D.meta.twins_year} года (доли категорий и уровень трат)</span>
+        <ul class="twins">${m.tw.map((x) => { const tm = D.mo[x] || {}; return `<li>${link(String(x))} <span class="muted">· ${esc(region(tm.r))}${tm.t ? " · " + tByDigit(tm.t).code : ""}${tm.sp ? ` · <span style="white-space:nowrap">${fmt(tm.sp)} ₽/мес.</span>` : ""}</span></li>`; }).join("")}</ul>
+        <span class="small">Траты на жителя за ${D.meta.profile_year} год выросли на <b>${fmt(m.g, 1)}%</b>: у двойников (медиана) — на ${fmt(m.gt, 1)}%, по своему региону — на ${fmt(m.gr, 1)}%. ` +
+        `С поправкой на рост региона МО ${verdict}.</span></div>`;
+    }
+  }
+  $("passport").innerHTML = html;
+  for (const b of $("passport").querySelectorAll("[data-go]")) b.addEventListener("click", () => select(b.dataset.go));
+}
+/* поиск */
+const byLabel = {};
+$("mo-list").innerHTML = ids.filter((id) => D.mo[id]).map((id) => {
+  const m = D.mo[id]; const label = `${m.n} — ${region(m.r)}`; byLabel[label] = id;
+  return `<option value="${esc(label)}"></option>`;
+}).join("");
+let lastFind = "";
+const onFind = (e) => {
+  const v = e.target.value;
+  if (v === lastFind || !byLabel[v]) return;
+  lastFind = v;
+  select(byLabel[v], { zoom: true, fromSearch: true });
+};
+$("find").addEventListener("input", onFind);
+$("find").addEventListener("change", onFind);
+
+/* листы: типы */
+{
+  const T = Object.fromEntries(TYPES.map((t) => [t.code, t])), t6 = T.T6, f6 = t6 ? t6.rule.rule.map((r) => r.feature) : [];
+  const ex = t6 && T.T4 && T.T5 && !f6.includes("Маркетплейсы") ?
+    ` Пример — T6: маркетплейсов в нем больше всего (медиана ${fmt(t6.shares["Маркетплейсы"], 1)}%), но много их и у T4 (${fmt(T.T4.shares["Маркетплейсы"], 1)}%) и T5 (${fmt(T.T5.shares["Маркетплейсы"], 1)}%), ` +
+    `поэтому от соседей T6 отделяют ${[...new Set(f6)].map((f) => ({ "Продовольствие": "продукты", "Здоровье": "здоровье", "Общественное питание": "общепит", "Транспорт": "транспорт", "Прочее": "«прочее»", "Все категории": "уровень трат" })[f] || f).join(", ")}.` : "";
+  $("types-lead").textContent = `Типы нашел KEFRiN по структуре и уровню трат жителей. Полосы — чем тип отличается от среднего МО России, в процентах: ` +
+    `вправо — больше среднего, влево — меньше, жирным — отличия больше ${D.meta.hl}%; по ним даны названия. Рамка внизу карточки — короткое правило, которое лучше всего отличает тип от остальных МО.`;
+  more("types-lead", [
+    `Отличия от среднего — правило Миркина: (значение типа − среднее по всем МО) / среднее × 100. Шкала у всех карточек одна.`,
+    `Правило в рамке — самое короткое из 1–3 условий, которое лучше всего отделяет тип от всех других МО. F1 — точность правила на отложенных МО, устойчивость — совпадение охвата правила на бутстрап-выборках (1 — полное).`,
+    `Поэтому в правило попадают не самые большие отличия от среднего, а те, что отделяют тип от соседних.${ex}`,
+  ]);
+}
+const lab = { "Продовольствие": "продукты", "Здоровье": "здоровье", "Маркетплейсы": "маркетплейсы", "Общественное питание": "общепит", "Транспорт": "транспорт", "Прочее": "прочее", "Все категории": "траты" };
+$("cards").innerHTML = TYPES.map((t, i) => {
+  const d = String(i + 1);
+  const by = {};
+  for (const r of t.rule.rule) (by[r.feature] = by[r.feature] || {})[r.op] = r.threshold;
+  const num = (f, x) => f === "Все категории" ? fmt(x) : fmt(x, 1), unit = (f) => f === "Все категории" ? " ₽" : "%";
+  const rule = Object.entries(by).map(([f, o]) => {
+    const name = lab[f] || f;
+    if (">=" in o && "<=" in o) return `${name} ${num(f, o[">="])}–${num(f, o["<="])}${unit(f)}`;
+    const op = ">=" in o ? ">=" : "<=";
+    return `${name} ${op === ">=" ? "≥" : "≤"} ${num(f, o[op])}${unit(f)}`;
+  }).join(" и ");
+  const bars = devRows([["траты на жителя", t.mirkin_spend, null, true]].concat(D.meta.cats.map((k) => [lab[k], t.mirkin[k], null])), tColor(d), 75);
+  const shares = D.meta.cats.map((k) => `${lab[k]} ${fmt(t.shares[k], 1)}%`).join(" · ");
+  return `<article class="card"><div class="head"><i style="background:${tColor(d)}"></i><h3>${t.code} ${esc(t.name)}</h3></div>
+    <div class="portrait">${esc(t.note)}</div>
+    <div class="num">${t.n} МО · ${fmt(t.pop, 1)} млн жителей · траты ${fmt(t.spend)} ₽/мес.</div>
+    ${bars}
+    <div class="num">Доли в тратах (медиана): ${shares}</div>
+    <div class="rule-lab">Как отличить от других типов (правило из 1–3 условий)</div>
+    <div class="rule-box">${esc(rule)} · F1 ${fmt(t.rule.f1_cv_mean, 2)}${t.stab !== null ? ` · устойчивость ${fmt(t.stab, 2)}` : ""}</div>
+    <div class="num">${t.largest.map(esc).join(", ")}</div></article>`;
+}).join("");
+$("types-note").innerHTML = lis([
+  `Закон Энгеля: от T1 к T6 траты падают, а доля продуктов растет.`,
+  `Общепит — услуга «высшего порядка» крупных центров.`,
+  D.pat ? `T3 почти совпадает с T1 по знакам попарных сравнений долей (различаются ${D.pat.t1t3} из ${D.pat.n} ${plural(D.pat.n, "сравнения", "сравнений", "сравнений")}): средние города — уменьшенные крупные.` : "",
+  `Маркетплейсов больше всего в аграрных районах T6, где меньше всего торговых площадей (${fmt(D.cash.area.T6)} м² на 1 000 жителей у T6): это согласуется с замещением офлайн-торговли онлайном. В сельских типах версию «это артефакт безнала» проверка не подтверждает, по всем МО есть слабый сигнал в ее пользу.`,
+  `T1 — это прежде всего Москва и Петербург: ${D.t1.fed} из ${D.t1.n} МО типа — их внутригородские территории.`,
+  `Траты номинальные, поэтому высокие траты Севера (T2) отчасти ценовые.`,
+  ...D.shock.map((s) => `${esc(s.n)} попал в ${s.t} по годовому профилю, а помесячно почти всегда ${s.m} (${s.k} из ${s.of} месяцев): вероятно, сказался ${s.why}.`),
+]);
+
+/* лист: город и пригород */
+$("city-lead").textContent = `«Бублик» — район вокруг города с общим административным центром, например Томский вокруг Томска. ` +
+  `Сравниваем его с обычными районами, которые тоже граничат с городом своего региона.`;
+$("city-points").innerHTML = lis([
+  `Росстат считает зарплату по месту работы, а СберИндекс — траты по месту жительства. ` +
+    (CEN ? `Перепись 2010 года подтверждает: из «бубликов» ездят на работу в другой населенный пункт на ${fmt(CEN.tests.ring_vs_control.diff_pp, 0)} п. п. чаще, чем из обычных соседей города.`
+      : `Если жители «бублика» работают в городе, их траты живут как городские.`),
+  SH && A.lvl ? `${SH.district} на первом экране — крайний случай: траты — ${fmt(SH.spend_pct_of_city, 0)}% от городских, зарплата — ${fmt(SH.wage_pct_of_city, 0)}% от городской. ` +
+    `Разрыв в 20 п. п. и больше — лишь у ${pct(A.lvl.ring[4])} «бубликов»; у типичного зарплата — ${fmt(A.lvl.ring[0], 0)}% от городской, траты — ${fmt(A.lvl.ring[1], 0)}%. ` +
+    `Сравнивать эти уровни напрямую нельзя: зарплата Росстата — это зарплата тех, кто работает в районе, а не доход тех, кто в нем живет.` : "",
+  `Общее для всех «бубликов» — три меры ниже: структура трат как у своего города, траты движутся вместе с городом и не следуют за местной зарплатой.`,
+]);
+/* графики строятся в пикселях контейнера: подписи не мельчают на телефоне */
+const svgW = (s) => Math.max(280, Math.round(s.getBoundingClientRect().width));
+function wrap(str, maxPx, charPx) {
+  const lines = [], words = str.split(" ");
+  let cur = "";
+  for (const w of words) {
+    if (cur && (cur.length + 1 + w.length) * charPx > maxPx) { lines.push(cur); cur = w; } else cur = cur ? cur + " " + w : w;
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+function aggChart() {
+  const s = $("agg-chart"), W = svgW(s);
+  const rows = [
+    ["Профиль трат ближе к своему городу (доля пар)", [["«Бублик» — свой город", A.closer_ring, A.closer_ring_ci, true], ["Обычный район — город", A.closer_ctrl, null, false]], (v) => pct(v)],
+    ["Синхронность месячных изменений трат с городом", [["«Бублик» — свой город", A.corr_ring, A.corr_ring_ci, true], ["Обычный район — город", A.corr_ctrl, A.corr_ctrl_ci, false], ["Район — чужой город", A.corr_rand, null, false]], (v) => fmt(v, 2)],
+    ["Траты идут за местной зарплатой? (корреляция: район к городу по тратам и по зарплате Росстата)", [["«Бублик» — свой город", A.wage_ring, A.wage_ring_ci, true], ["Обычный район — город", A.wage_ctrl, A.wage_ctrl_ci, false]], (v) => fmt(v, 2)],
+  ];
+  const x0 = Math.min(200, Math.round(W * 0.45)), x1 = W - 50, sx = (v) => x0 + (v + 0.5) / 1.5 * (x1 - x0);
+  let y = 0, out = "", zero = "";
+  for (const [title, bars, f] of rows) {
+    for (const line of wrap(title, W, 7.6)) { y += 17; out += `<text class="ttl" x="0" y="${y}">${esc(line)}</text>`; }
+    const top = y + 8;
+    y += 6;
+    for (const [l, v, ci, me] of bars) {
+      y += 24;
+      out += `<text x="0" y="${y + 4}">${l}</text>`;
+      out += `<rect x="${Math.min(sx(0), sx(v))}" y="${y - 7}" width="${Math.abs(sx(v) - sx(0))}" height="13" rx="3" fill="${me ? "var(--accent)" : "var(--bar-2)"}"></rect>`;
+      if (ci) out += `<line x1="${sx(ci[0])}" x2="${sx(ci[1])}" y1="${y - 0.5}" y2="${y - 0.5}" stroke="var(--ink)" stroke-width="1.5"></line>`;
+      out += `<text x="${Math.max(sx(v), ci ? sx(ci[1]) : sx(v), sx(0)) + 6}" y="${y + 4}" style="fill:var(--ink)">${f(v)}</text>`;
+    }
+    zero += `<line x1="${sx(0)}" x2="${sx(0)}" y1="${top}" y2="${y + 10}" stroke="var(--muted)"></line>`;
+    y += 30;
+  }
+  s.setAttribute("viewBox", `0 0 ${W} ${y - 14}`);
+  s.innerHTML = zero + out;
+}
+$("agg-note").textContent = `Как читать третью меру: у обычного района, где зарплата Росстата выше (относительно города), выше и траты — связь ${fmt(A.wage_ctrl, 2)}: жители работают там же, где живут. ` +
+  `У «бубликов» связи нет (${fmt(A.wage_ring, 2)}, интервал включает ноль): зарплату их жителям платят в городе. Черта — 95%-интервал (бутстрап).`;
+more("agg-note", [
+  `Пар «бублик — свой город»: ${A.n_pairs} для профиля (вместе с МО, у которых не все ${NM} ${plural(NM, "месяц", "месяца", "месяцев")}), ${A.n_pairs_panel} для синхронности и зарплаты.`,
+  `«Обычный район — город» — контроль: районы, которые граничат с городом своего региона, но общего центра с ним не имеют (${A.n_ctrl} ${plural(A.n_ctrl, "пара", "пары", "пар")}; ` +
+    `для профиля — ${A.n_ctrl_prof}: профиль сравнивается с районами своего региона, и нужны хотя бы три таких района).`,
+  `Город для контроля берем из того же региона, что и район, как у «бубликов»: город другого региона отличается уже из-за региона, и контроль выглядел бы менее городским` +
+    (A.closer_ctrl_any !== undefined ? ` (${pct(A.closer_ctrl_any)} «ближе к городу» вместо ${pct(A.closer_ctrl)}).` : "."),
+  `«Район — чужой город» — «бублик» в паре со случайным городом другого региона: так выглядит синхронность трат без всякой связи.`,
+]);
+$("show-spend").addEventListener("click", () => {
+  state.stats = "spend";
+  document.querySelector('.atlas > .wrap > .modes button[data-mode="stats"]').click();
+  jumpTo($("atlas"));
+});
+$("sat-lead").textContent = `Кандидаты — обычные районы, которые по тратам ведут себя как «бублики». ` +
+  `Их ${F.hidden_n}${F.unc ? ` (95%-интервал ${fmt(F.unc.n_hidden_ci95[0])}–${fmt(F.unc.n_hidden_ci95[1])})` : ""}; они ближе к городу (${fmt(F.valid.road_km[0])} км против ${fmt(F.valid.road_km[1])}) и медленнее теряют население. ` +
+  (CEN && !hiddenOk ? `Но перепись 2010 года их не подтверждает: оттуда ездили на работу не чаще, чем из обычных соседей города.` : "");
+more("sat-lead", [`Отбор: индекс из трех мер не ниже медианы «бубликов». Индекс отличает «бублики» от обычных соседей города с AUC ${fmt(F.auc, 2)}` +
+  (F.auc < F.auc_thr ? ` — ниже заранее заданного порога ${fmt(F.auc_thr, 1)}, поэтому найденные районы — только кандидаты.` : ` при заранее заданном пороге ${fmt(F.auc_thr, 1)}.`)]);
+
+/* перепись 2010 и сверка с лабораторией */
+function censusChart() {
+  const s = $("census-chart");
+  if (!CEN) { s.closest(".two").hidden = true; return; }
+  const W = svgW(s), G = CEN.groups;
+  const rows = [["ring", "«Бублики»", "var(--accent)"], ["hidden", "Скрытые спутники", "var(--sat)"], ["control", "Обычные соседи города", "var(--bar-2)"], ["other", "Остальные МО", "var(--bar-2)"]];
+  const vals = rows.map(([g]) => G[g].mean_dev_pp), lo = Math.min(0, ...vals) - 2, hi = Math.max(...vals) + 6;
+  const x0 = Math.min(190, Math.round(W * 0.42)), x1 = W - 54, sx = (v) => x0 + (v - lo) / (hi - lo) * (x1 - x0);
+  let out = "", y0 = 0;
+  for (const line of wrap("Работают в другом населенном пункте: отклонение от медианы районов своего региона, п. п.", W, 7.6)) {
+    y0 += 17; out += `<text class="ttl" x="0" y="${y0}">${esc(line)}</text>`;
+  }
+  rows.forEach(([g, label, col], i) => {
+    const y = y0 + 26 + i * 34, v = G[g].mean_dev_pp;
+    out += `<text x="0" y="${y + 4}">${label}</text><text x="0" y="${y + 18}" style="font-size:11px;fill:var(--muted)">${G[g].n} МО</text>`;
+    out += `<rect x="${Math.min(sx(0), sx(v))}" y="${y - 7}" width="${Math.abs(sx(v) - sx(0))}" height="13" rx="3" fill="${col}"></rect>`;
+    out += `<text x="${Math.max(sx(v), sx(0)) + 6}" y="${y + 4}" style="fill:var(--ink)">${sgn(v)}</text>`;
+  });
+  out += `<line x1="${sx(0)}" x2="${sx(0)}" y1="${y0 + 12}" y2="${y0 + 26 + rows.length * 34 - 14}" stroke="var(--muted)"></line>`;
+  s.setAttribute("viewBox", `0 0 ${W} ${y0 + 26 + rows.length * 34}`);
+  s.innerHTML = out;
+  const tr = CEN.tests.ring_vs_control, th = CEN.tests.hidden_vs_control, ex = CEN.rho;
+  $("census-note").textContent = `Медианная доля работающих в другом населенном пункте: «бублики» ${fmt(G.ring.median_share_pct, 0)}%, обычные соседи ${fmt(G.control.median_share_pct, 0)}%, остальные МО ${fmt(G.other.median_share_pct, 0)}%. ` +
+    `${hiddenOk ? "" : "Скрытых спутников перепись не подтверждает. "}Перепись старше трат на ${censusGap} лет и учитывает поездки в любой населенный пункт, включая свой райцентр.`;
+  more("census-note", [
+    `Всероссийская перепись 2010 года, том 7: занятые по территории нахождения работы, ${CEN.n_reg} ${plural(CEN.n_reg, "регион", "региона", "регионов")}, ${fmt(CEN.n)} МО.`,
+    `«Бублики» против обычных соседей: ${sgn(tr.diff_pp)} п. п., ${pv(tr.p_value)}; скрытые спутники: ${sgn(th.diff_pp)} п. п., ${pv(th.p_value)} (перестановки меток внутри региона).`,
+    hiddenOk ? "" : `Индекс спутника поездки не предсказывает (ранговая корреляция у обычных соседей ${fmt(ex.rho, 2)}), поэтому спутники — только кандидаты.`,
+  ]);
+}
+if (D.lab) {
+  const L = D.lab;
+  $("lab-list").innerHTML = [
+    `В отчете о Дальнем Востоке (4.09.2025) лаборатория назвала ${L.n_named} ${plural(L.n_named, "район", "района", "районов")} «пригородами» своего центра. В наших данных ${L.n_in}, и ${L.n_city === L.n_in ? "все" : L.n_city} — в «городских» типах T1 и T3 (${L.rows.map((r) => `${esc(r.n)}, ${r.t}`).join("; ")}), хотя среди всех районов в этих типах лишь ${pct(L.base)}.`,
+    `Районов мало${L.n_nocity ? `, у ${L.n_nocity} нет города в данных` : ""}: это согласие с лабораторией, а не строгая проверка.`,
+    `Лаборатория строит траты по «домашней локации клиента» и предлагает прогнозировать «домашний муниципалитет»; в отчете «Дальний Восток в движении» жители Артёма тратят во Владивостоке пятую часть денег. Мы проверяем этот механизм по всей стране, с контрольной группой и переписью.`,
+    `Рост трат за год: «бублики» ${sgn(L.g_ring)}%, их города ${sgn(L.g_city)}%, обычные соседи ${sgn(L.g_ctrl)}%. Пригороды растут вместе со своим городом и быстрее обычных районов — как «быстрорастущие пригороды агломераций» в типологии лаборатории.`,
+  ].map((x) => `<li>${x}</li>`).join("");
+}
+$("sat-list").innerHTML = F.top.map((x) => `<li>${esc(x.n)} <span class="muted">· ${esc(x.c)}, ${fmt(x.km)} км</span></li>`).join("");
+$("sat-note").textContent = `По ${F.n_cities} городам: официально ${fmt(F.official, 1)} млн жителей, вместе со всеми «бубликами», где есть данные о тратах, — ${fmt(F.official + F.ring_pop, 1)} млн` +
+  `, вместе с кандидатами в спутники — ${fmt(F.functional, 1)} млн` +
+  `${F.unc ? ` (разведочная оценка сверху; 95%-интервал по месяцам ${fmt(F.unc.functional_pop_mln_ci95[0], 1)}–${fmt(F.unc.functional_pop_mln_ci95[1], 1)})` : ""}. ` +
+  `В сети сходства по месяцам «бублик» ближе к своему городу, чем обычный район, ${D.mn.months === D.meta.months.length ? `во всех ${D.mn.months} месяцах` : `в ${D.mn.months} месяцах из ${D.meta.months.length}`}.`;
+
+/* лист: вес географии */
+$("geo-lead").textContent = `KEFRiN смешивает траты и физическую сеть (граница × расстояние по дороге) с весом α. ` +
+  `Вес выбран правилом: максимум связности при потере силуэта не больше ${pct(D.sw_loss)} и при той же устойчивости, что требуется при выборе K ` +
+  `(на ${D.thr.n_sub} подвыборках медианный ARI не ниже ${fmt(D.thr.boot, 1)} и Жаккар каждого типа не ниже ${fmt(D.thr.jac, 2)}). Тип задает поведение, сеть почти не меняет типы.`;
+{
+  const M = D.netmove;
+  $("geo-move").textContent = `Что сеть сделала на деле: передвинула ${M.n_moved} ${plural(M.n_moved, "МО", "МО", "МО")} из ${fmt(M.n)} (${pct(M.n_moved / M.n, 1)}). Это пограничные МО: по тратам они были между типами, ` +
+    `и сеть отнесла их к соседям — доля их связей внутри своего типа выросла с ${pct(M.own_before)} до ${pct(M.own_after)}. Остальных сеть не тронула.`;
+  more("geo-move", [`Почему не больше: типы раскиданы по всей стране, а сеть знает только ближайших соседей, поэтому двигать она может лишь тех, кто по тратам на границе типов. ` +
+    `Сети дали самый большой вес, при котором типы еще воспроизводятся, и она все равно почти ничего не поменяла: тип задают траты жителей, а не соседство.`,
+    `Сети, построенные из самих трат (сходство профилей, синхронность), меняют типы сильнее — таблица ниже. Но они повторяют признаки, поэтому главной оставлена независимая физическая сеть.`]);
+}
+function alphaChart() {
+  const s = $("alpha-chart"), W = svgW(s);
+  const panels = [["Связность в сети (AVI)", "AVI", null], ["Компактность по тратам (силуэт)", "SW", D.thr.sw], ["Устойчивость (Жаккар худшего типа)", "jac", D.thr.jac]];
+  const cols = W >= 720 ? 3 : 1, gap = 32, pw = (W - (cols - 1) * gap) / cols, ph = cols === 3 ? 160 : 120, ox = 40, block = ph + 62;
+  let out = "";
+  panels.forEach(([title, key, thr], k) => {
+    const px = (k % cols) * (pw + gap), py = Math.floor(k / cols) * block, oy = py + 30;
+    const x0 = px + ox, vals = D.sweep.map((r) => r[key]);
+    const lo = Math.min(...vals, thr ?? Infinity), hi = Math.max(...vals, thr ?? -Infinity), pad = (hi - lo) * 0.12 || 0.05;
+    const sx = (a) => x0 + a / 0.95 * (pw - ox - 12), sy = (v) => oy + ph - (v - (lo - pad)) / ((hi + pad) - (lo - pad)) * ph;
+    out += `<text class="ttl" x="${px}" y="${py + 14}">${title}</text>`;
+    out += `<rect x="${sx(D.meta.alpha + 0.025)}" y="${oy}" width="${sx(0.95) - sx(D.meta.alpha + 0.025)}" height="${ph}" fill="var(--map-none)"></rect>`;
+    out += `<line x1="${sx(0)}" x2="${sx(0.95)}" y1="${oy + ph}" y2="${oy + ph}" stroke="var(--rule)"></line>`;
+    [0, 0.5, 0.95].forEach((a) => { out += `<text x="${sx(a)}" y="${oy + ph + 16}" text-anchor="middle">${fmt(a, a === 0 ? 0 : 2)}</text>`; });
+    [lo, hi].forEach((v) => { out += `<text x="${x0 - 6}" y="${sy(v) + 4}" text-anchor="end">${fmt(v, 2)}</text>`; });
+    if (thr !== null) out += `<line x1="${sx(0)}" x2="${sx(0.95)}" y1="${sy(thr)}" y2="${sy(thr)}" stroke="var(--muted)" stroke-dasharray="4 3"></line><text x="${sx(0) + 4}" y="${sy(thr) - 5}">порог</text>`;
+    out += `<line x1="${sx(D.meta.alpha)}" x2="${sx(D.meta.alpha)}" y1="${oy}" y2="${oy + ph}" stroke="var(--ink-2)"></line>`;
+    out += `<polyline fill="none" stroke="var(--accent)" stroke-width="2" points="${D.sweep.map((r) => `${sx(r.a)},${sy(r[key])}`).join(" ")}"></polyline>`;
+    D.sweep.forEach((r) => { out += `<circle cx="${sx(r.a)}" cy="${sy(r[key])}" r="4" fill="var(--accent)" stroke="var(--card)" stroke-width="2"></circle>`; });
+  });
+  s.setAttribute("viewBox", `0 0 ${W} ${Math.ceil(3 / cols) * block - 8}`);
+  s.innerHTML = out;
+}
+$("alpha-note").textContent = `По горизонтали — вес сети α (0 — только траты). Серая зона — α, где правило выбора нарушено; вертикаль — выбранный α = ${fmt(D.meta.alpha, 1)}. ` +
+  `Справа от нее связность растет, но типы перестают воспроизводиться на подвыборках.` +
+  ((D.sweep.find((r) => Math.abs(r.a - D.meta.alpha) < 1e-9) || {}).a0 != null ? ` При выбранном α разбиение почти совпадает с разбиением только по тратам (ARI ${fmt(D.sweep.find((r) => Math.abs(r.a - D.meta.alpha) < 1e-9).a0, 2)}): вес ${fmt(D.meta.alpha, 1)} — не «${fmt(D.meta.alpha * 100)}% географии».` : "");
+if (E) {
+  $("edge-lead").textContent = `Условие просит показать, как правило ребра влияет на кластеризацию. Для каждой сети повторили главный эксперимент: тот же K, ` +
+    `тот же перебор веса сети и то же правило выбора. Переключать сети можно на карте (режим «Правило ребра»).`;
+  $("etable").innerHTML = `<thead><tr><th>Правило ребра</th><th>α</th><th>Совпадение с итоговыми типами, ARI</th><th>AVI на физической сети</th><th>«Бублик» в типе города</th><th>Обычный сосед в типе города</th></tr></thead><tbody>` +
+    E.nets.map((n) => `<tr class="${n === "physical" ? "me" : ""}"><td>${esc(NET_NAME[n] || n)}</td><td>${fmt(E.alpha[n], 2)}</td><td>${n === "physical" ? "—" : fmt(E.ari[n], 2)}</td><td>${fmt(E.avi[n], 3)}</td><td>${pct(E.ring[n])}</td><td>${pct(E.ctrl[n])}</td></tr>`).join("") + "</tbody>";
+  const others = E.nets.filter((n) => n !== "physical").map((n) => E.ari[n]);
+  $("edge-note").textContent = `Правило ребра меняет типы умеренно: ARI с итоговыми типами от ${fmt(Math.min(...others), 2)} до ${fmt(Math.max(...others), 2)}. ` +
+    `Агломерации видны при любом правиле. Сеть «ближайшие по дороге» по связности не хуже главной — главное правило мы зафиксировали заранее и не меняли.`;
+}
+
+/* лист: методы */
+const S = D.seeds, FM = D.fm;
+const rankOf = (m) => FM ? FM.rank[m.key] : (m.rank10 ?? m.rank1);
+const BEST = D.methods.slice().sort((a, b) => rankOf(a) - rankOf(b))[0];
+$("methods-lead").textContent = `${D.methods.length} методов при K = ${D.meta.K}. Шесть индексов конкурса работают как шесть судей: каждый ставит методы по местам. ` +
+  `${BEST.name} — первый, среднее место ${fmt(rankOf(BEST), 1)} (1 — лучшее). ` +
+  (FM ? (FM.p < FM.alpha ? `Тест Фридмана подтверждает, что методы различаются неслучайно (${pv(FM.p)}).` :
+    `Но судей всего ${FM.n}, и тест Фридмана не исключает, что такой порядок сложился случайно (${pv(FM.p)}). ` +
+    `Поэтому KEFRiN выбран не за место, а за устройство: он учитывает и траты, и сеть.`) : "");
+more("methods-lead", [
+  `SW, CH/N, S_Dbw считаются по тратам; AVI, AVU, MQ — по физической сети. Значения в таблице — итоговый прогон (seed ${D.meta.seed})` +
+    (S ? `; средний ранг — по ${S.n} запускам с разным seed, поэтому из одной строки значений его не получить.` : "."),
+  FM && FM.p >= FM.alpha ? `Порог теста — ${fmt(FM.alpha, 2)}. KEFRiN по индексам трат почти равен k-means, а по связности в сети выше; доказать превосходство можно только на других данных — других годах или странах.` : "",
+]);
+$("mtable").innerHTML = `<thead><tr><th>Метод</th><th>SW ↑</th><th>CH/N ↑</th><th>S_Dbw ↓</th><th>AVI ↑</th><th>AVU ↓</th><th>MQ ↑</th><th>${FM ? `Средний ранг по ${FM.n} индексам (среднее по ${S.n} seed)` : "Средний ранг"}</th><th>Бутстрап-ARI</th></tr></thead><tbody>` +
+  D.methods.slice().sort((a, b) => rankOf(a) - rankOf(b)).map((m) => `<tr class="${m.key === "kefrin_phys" ? "me" : ""}"><td>${esc(m.name)}</td><td>${fmt(m.SW, 3)}</td><td>${fmt(m.CHN, 2)}</td><td>${fmt(m.S_Dbw, 2)}</td><td>${fmt(m.AVI, 3)}</td><td>${fmt(m.AVU, 3)}</td><td>${fmt(m.Q, 3)}</td><td>${fmt(rankOf(m), 2)}</td><td>${m.boot === null ? "—" : fmt(m.boot, 2)}</td></tr>`).join("") + "</tbody>";
+$("methods-note").textContent = `Силуэт и CH/N ниже ориентиров «сильной» структуры у всех методов: территории лежат на непрерывном спектре, поэтому типы подтверждаем устойчивостью и внешней проверкой.`;
+more("methods-note", [
+  S ? `${S.ref} — первый по среднему рангу. Тесты, где каждая пара «seed × индекс» — отдельный блок, завышают значимость (блоки зависимы), поэтому в отчете они в приложении.` : "",
+  S ? `Пороговое агрегирование, где провал по одному индексу не покрывается другими, ставит наверх ${S.ta[0]}, затем ${S.ta[1]}.` : "",
+  `Leiden на физической сети вырожден: подбор разрешения под K дает ${D.leiden.n} ${plural(D.leiden.n, "кластер", "кластера", "кластеров")}, и в одном из них ${fmt(D.leiden.big)} из ${fmt(D.meta.n_mo)} МО. ` +
+    `Сеть состоит из ${D.leiden.n_cc} несвязанных кусков, и каждый малый кусок Leiden выделяет отдельно — одна сеть типов не дает.`,
+  D.panel ? `Связность KEFRiN в ${fmt(D.panel.avi_k, 1)} раза выше уровня случайного разбиения 1/K.` : "",
+  `Сетевые индексы сверены с библиотекой жюри Pattern, S_Dbw — с пакетом s-dbw. KEFRiN — своя реализация; ядро сверено с кодом авторов на сырой смежности, диффузионная матрица — наша модификация.`,
+]);
+function mpChart() {
+  const s = $("mp-chart");
+  if (!MN) { s.closest(".panel").hidden = true; return; }
+  const W = svgW(s), P = MN.mp, [ya, yb] = MN.years;
+  const vals = TYPES.flatMap((t) => P[t.code]), lo = Math.floor(Math.min(...vals) * 20) / 20, hi = Math.ceil(Math.max(...vals) * 20) / 20;
+  const x0 = Math.min(170, Math.round(W * 0.42)), x1 = W - 82, sx = (v) => x0 + (v - lo) / (hi - lo) * (x1 - x0), yAxis = 34 + TYPES.length * 30;
+  let out = `<text class="ttl" x="0" y="14">Доля маркетплейсов в тратах, ${ya} → ${yb}</text>`;
+  for (let v = lo; v <= hi + 1e-9; v += 0.05) {
+    out += `<line x1="${sx(v)}" x2="${sx(v)}" y1="26" y2="${yAxis - 6}" stroke="var(--rule)"></line>`;
+    out += `<text x="${sx(v)}" y="${yAxis + 8}" text-anchor="middle">${pct(v)}</text>`;
+  }
+  TYPES.forEach((t, i) => {
+    const d = String(i + 1), y = 40 + i * 30, [a, b] = P[t.code];
+    out += `<text x="0" y="${y + 4}">${t.code} ${esc(t.short)}</text>`;
+    out += `<line x1="${sx(a)}" x2="${sx(b)}" y1="${y}" y2="${y}" stroke="${tColor(d)}" stroke-width="3"></line>`;
+    out += `<circle cx="${sx(a)}" cy="${y}" r="4.5" fill="var(--card)" stroke="${tColor(d)}" stroke-width="2"></circle>`;
+    out += `<circle cx="${sx(b)}" cy="${y}" r="5" fill="${tColor(d)}"></circle>`;
+    out += `<text x="${sx(b) + 9}" y="${y + 4}" style="fill:var(--ink)">+${fmt((b - a) * 100, 1)} п. п.</text>`;
+  });
+  s.setAttribute("viewBox", `0 0 ${W} ${yAxis + 16}`);
+  s.innerHTML = out;
+  $("mp-note").textContent = `Медиана доли по МО типа за год; состав типов один и тот же (типы ${D.meta.profile_year} года). Пустой кружок — ${ya}, полный — ${yb}. ` +
+    `Общая волна онлайна тип не меняет: признаки типологии сравниваются внутри месяца.`;
+}
+function stayChart() {
+  const s = $("stay-chart"), W = svgW(s);
+  const keys = TYPES.map((t, i) => [t, String(i + 1)]);
+  const top = Math.ceil(Math.max(...keys.map(([t]) => 1 - D.stay[t.code])) * 20) / 20;
+  const x0 = Math.min(170, Math.round(W * 0.42)), x1 = W - 56, sx = (v) => x0 + v / top * (x1 - x0), yAxis = 34 + keys.length * 30;
+  let out = `<text class="ttl" x="0" y="14">Вероятность сменить тип за месяц</text>`;
+  [0, top / 2, top].forEach((v) => {
+    out += `<line x1="${sx(v)}" x2="${sx(v)}" y1="26" y2="${yAxis - 6}" stroke="var(--rule)"></line>`;
+    out += `<text x="${sx(v)}" y="${yAxis + 8}" text-anchor="middle">${pct(v, 1)}</text>`;
+  });
+  keys.forEach(([t, d], i) => {
+    const y = 34 + i * 30, v = 1 - D.stay[t.code];
+    out += `<text x="0" y="${y + 10}">${t.code} ${esc(t.short)}</text>`;
+    out += `<rect x="${x0}" y="${y}" width="${sx(v) - x0}" height="13" rx="3" fill="${tColor(d)}"></rect>`;
+    out += `<text x="${sx(v) + 6}" y="${y + 10}" style="fill:var(--ink)">${pct(v, 1)}</text>`;
+  });
+  s.setAttribute("viewBox", `0 0 ${W} ${yAxis + 16}`);
+  s.innerHTML = out;
+}
+/* переходы типов: аллювиальная диаграмма, столбцы — месяцы из configs/base.yaml (report.alluvial_months) */
+const MON_RU = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+const monRu = (m) => `${MON_RU[Number(m.slice(5, 7)) - 1]} ${m.slice(0, 4)}`;
+const MON_PREP = ["январе", "феврале", "марте", "апреле", "мае", "июне", "июле", "августе", "сентябре", "октябре", "ноябре", "декабре"];
+const monIn = (m) => `${MON_PREP[Number(m.slice(5, 7)) - 1]} ${m.slice(0, 4)} года`;
+function flowChart() {
+  const s = $("flow-chart"), AM = (D.meta.alluvial || []).filter((m) => D.meta.months.includes(m));
+  if (AM.length < 2) { s.closest(".panel").hidden = true; return; }
+  const W = svgW(s), idx = AM.map((m) => D.meta.months.indexOf(m));
+  const rows = Object.values(D.mo).filter((r) => r.m).map((r) => idx.map((i) => r.m[i]));
+  const N = rows.length, digits = TYPES.map((t, i) => String(i + 1));
+  const narrow = W < 600, lab = narrow ? 30 : 168, right = 40, top = 30, H = narrow ? 300 : 340, gapPx = 7;
+  const k = (H - top - 6 - gapPx * (digits.length - 1)) / N, nw = 8;
+  const xs = idx.map((_, j) => lab + j * (W - lab - right) / (idx.length - 1));
+  const cnt = idx.map((_, j) => { const c = Object.fromEntries(digits.map((d) => [d, 0])); rows.forEach((r) => c[r[j]]++); return c; });
+  const tops = cnt.map((c) => { let y = top; return Object.fromEntries(digits.map((d) => { const y0 = y; y += c[d] * k + gapPx; return [d, y0]; })); });
+  let out = "";
+  for (let j = 0; j + 1 < idx.length; j++) {
+    const ct = {};
+    rows.forEach((r) => { ct[r[j] + r[j + 1]] = (ct[r[j] + r[j + 1]] || 0) + 1; });
+    const oy = { ...tops[j] }, iy = { ...tops[j + 1] }, x0 = xs[j] + nw / 2, x1 = xs[j + 1] - nw / 2, xm = (x0 + x1) / 2;
+    for (const a of digits) for (const b of digits) {
+      const v = ct[a + b] || 0;
+      if (!v) continue;
+      const h = v * k, ya = oy[a], yb = iy[b], ta = TYPES[+a - 1], tb = TYPES[+b - 1];
+      out += `<path class="fl${a === b ? "" : " ch"}" fill="${tColor(a)}" d="M${x0},${ya}C${xm},${ya} ${xm},${yb} ${x1},${yb}L${x1},${yb + h}C${xm},${yb + h} ${xm},${ya + h} ${x0},${ya + h}Z">` +
+        `<title>${a === b ? `${ta.code} ${esc(ta.short)}: остались ${fmt(v)} МО` : `${ta.code} → ${tb.code}: ${fmt(v)} МО`} (${monRu(AM[j])} → ${monRu(AM[j + 1])})</title></path>`;
+      oy[a] += h; iy[b] += h;
+    }
+  }
+  idx.forEach((_, j) => {
+    out += `<text x="${xs[j]}" y="14" text-anchor="middle">${monRu(AM[j])}</text>`;
+    for (const d of digits) {
+      const y = tops[j][d], h = cnt[j][d] * k, t = TYPES[+d - 1];
+      out += `<rect x="${xs[j] - nw / 2}" y="${y}" width="${nw}" height="${Math.max(h, 0.5)}" fill="${tColor(d)}"><title>${t.code} ${esc(t.short)}: ${fmt(cnt[j][d])} МО (${monRu(AM[j])})</title></rect>`;
+      if (j === 0) out += `<text x="${xs[j] - nw / 2 - 6}" y="${y + h / 2 + 4}" text-anchor="end">${narrow ? t.code : `${t.code} ${esc(t.short)} · ${fmt(cnt[j][d])}`}</text>`;
+      if (j === idx.length - 1) out += `<text x="${xs[j] + nw / 2 + 6}" y="${y + h / 2 + 4}">${fmt(cnt[j][d])}</text>`;
+    }
+  });
+  s.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  s.innerHTML = out;
+  // подпись: доля МО в том же типе в первом и последнем столбце, доля смен между сельскими типами, сезонность размера
+  const R = new Set(D.rob.rural.map((c) => String(TYPES.findIndex((t) => t.code === c) + 1)));
+  const last = idx.length - 1, ch = rows.filter((r) => r[0] !== r[last]);
+  const rr = ch.filter((r) => R.has(r[0]) && R.has(r[last])).length / Math.max(ch.length, 1);
+  $("flow-lead").textContent = `В ${monIn(AM[last])} в том же типе, что в ${monIn(AM[0])}, ${pct(1 - ch.length / N)} МО. ` +
+    `Из ${fmt(ch.length)} сменивших тип ${pct(rr)} переходят между ${D.rob.rural.slice(0, -1).join(", ")} и ${D.rob.rural[D.rob.rural.length - 1]} — малыми городами и селом.`;
+  const jan = idx.map((_, j) => j).filter((j) => AM[j].endsWith("-01")), jul = idx.map((_, j) => j).filter((j) => AM[j].endsWith("-07"));
+  let season = "";
+  if (jan.length && jul.length) {
+    const avg = (js, d) => js.reduce((a, j) => a + cnt[j][d], 0) / js.length;
+    const d = digits.reduce((best, x) => Math.abs(avg(jan, x) - avg(jul, x)) > Math.abs(avg(jan, best) - avg(jul, best)) ? x : best, digits[0]);
+    season = ` Размер ${TYPES[+d - 1].code} колеблется по сезону: в январе ${jan.map((j) => fmt(cnt[j][d])).join(" и ")} МО, в июле — ${jul.map((j) => fmt(cnt[j][d])).join(" и ")}; ` +
+      `смены у одних и тех же МО в одни и те же месяцы случаются не чаще случайного.`;
+  }
+  $("flow-note").textContent = `Высота блока — число МО типа в месяце; лента — МО, перешедшие из типа в тип между соседними столбцами, цвет — тип, из которого ушли (бледные — оставшиеся). Наведите на ленту — увидите число МО.` + season;
+}
+const MN = D.monic;
+/* лист: динамика — три уровня отслеживания (отдельные МО, типы целиком по MONIC, содержание типов) */
+$("dyn-text").textContent = `Изменения отслеживаем на трех уровнях: отдельные МО, типы целиком и их содержание. ` +
+  `Итог: состав типов устойчив, а содержание меняется — растет доля онлайна.`;
+$("dyn-list").innerHTML = lis([
+  `<b>Отдельные МО.</b> Эволюционный KEFRiN меняет тип у ${pct(D.changed, 1)} МО в месяц (при независимой кластеризации каждого месяца — у ${pct(D.changed_ind, 1)}); ` +
+    `${pct(D.boundary)} МО «пограничные», чаще всего между сельскими типами. На карте — режим «По месяцам».`,
+  MN ? `<b>Типы целиком (схема MONIC).</b> Тип «выживает», если через месяц вместе остаются не меньше ${MN.match === 0.5 ? "половины" : pct(MN.match)} его МО. ` +
+    `Все ${D.meta.K} типов выжили на каждом из ${MN.n_steps} ${plural(MN.n_steps, "шага", "шагов", "шагов")} (вместе оставались не меньше ${pct(MN.overlap_min)} МО типа); ` +
+    `${MN.other === 0 ? "расщеплений, слияний, рождений и исчезновений нет" : `других переходов — ${MN.other}`}. ` +
+    `При фиксированном K и сглаживании это ожидаемо: MONIC здесь — проверка согласованности, а не открытие.` : "",
+  MN ? `<b>Содержание типов.</b> Доля маркетплейсов выросла во всех типах — правый график ниже.` : "",
+]);
+more("dyn-list", [
+  `Устойчивость T1 во многом дают районы Москвы и Петербурга: за месяц они остаются в типе в ${pct(D.t1.stay_fed, 1)} случаев, остальные МО типа — в ${pct(D.t1.stay_rest, 1)}.`,
+  `Сезонности в сменах отдельных МО почти нет: в те же месяцы обоих лет — ${fmt(D.season.same_month_both_years)} смен при ${fmt(D.season.expected_if_random)} ожидаемых случайно. Размер сельских типов по сезону колеблется (диаграмма переходов ниже).`,
+]);
+{
+  // кто меняет тип: сельские типы чаще (если данные это показывают), крупные города реже всего
+  const ch = TYPES.map((t) => [t.code, 1 - D.stay[t.code]]).sort((a, b) => b[1] - a[1]), R = D.rob.rural;
+  const top = ch.slice(0, R.length), rural = top.every(([c]) => R.includes(c)), last = ch[ch.length - 1];
+  $("stay-lead").textContent = `Доля МО типа, которые за месяц переходят в другой тип. ` +
+    (rural ? `Чаще всего тип меняют МО сельских типов (${R.join(", ")}: ${fmt(top[top.length - 1][1] * 100)}–${pct(top[0][1])} в месяц) — граница между ними размыта; `
+      : `Чаще всего тип меняют МО ${ch[0][0]} (${pct(ch[0][1], 1)} в месяц); `) +
+    `реже всего — ${last[0]} (${pct(last[1], 1)}).`;
+}
+if (MN && MN.cat) {
+  // что меняется внутри типов: почему на графике маркетплейсы — сравнение с изменением остальных категорий
+  const C = MN.cat, pp = (x) => fmt(Math.abs(x) * 100, 1);
+  const name = (k) => k === "Прочее" ? "«прочее»" : CAT[k] || k;
+  const others = Object.keys(C).filter((k) => k !== MN.mp_cat).map((k) => [k, Math.max(Math.abs(C[k][0]), Math.abs(C[k][1])), Math.min(Math.abs(C[k][0]), Math.abs(C[k][1]))]);
+  const big = others.filter(([, hi]) => hi >= 0.01), small = others.filter(([, hi]) => hi < 0.01);
+  const down = big.every(([k]) => C[k][1] < 0), bigNames = big.map(([k]) => name(k)).join(" и ");
+  const g = TYPES.map((t) => [t.code, MN.mp[t.code][1] - MN.mp[t.code][0]]).sort((a, b) => b[1] - a[1]), R = D.rob.rural;
+  const ruralTop = g.slice(0, R.length).every(([c]) => R.includes(c));
+  $("mp-lead").textContent = `Состав типов устойчив, а содержание меняется. Главная перемена за два года — маркетплейсы: их доля выросла во всех типах, на ${pp(C[MN.mp_cat][0])}–${pp(C[MN.mp_cat][1])} п. п. ` +
+    (big.length ? `${bigNames.charAt(0).toUpperCase() + bigNames.slice(1)} ${down ? "потеряли по" : "сдвинулись на"} ${pp(Math.min(...big.map((x) => x[2])))}–${pp(Math.max(...big.map((x) => x[1])))} п. п.` : "") +
+    (small.length ? `${big.length ? ", остальные" : "Остальные"} категории — не больше ${fmt(Math.ceil(Math.max(...small.map((x) => x[1])) * 1000 - 1e-9) / 10, 1)} п. п. ` : ". ") +   // «не больше» — с округлением вверх
+    (ruralTop ? `Сильнее всего онлайн растет в сельских типах (${R.join(", ")}), слабее всего — в ${g[g.length - 1][0]}.`
+      : `Сильнее всего — в ${g[0][0]}, слабее всего — в ${g[g.length - 1][0]}.`);
+}
+
+/* применение и ограничения */
+/* лист: метод в шести шагах */
+$("how-lead").textContent = `Как из трат ${fmt(D.meta.n_mo)} муниципалитетов получаются типы и как мы проверяем, что они не случайны. ` +
+  `Формулы — в отчете (раздел 1 и приложение А), все параметры — в configs/base.yaml.`;
+$("steps").innerHTML = [
+  ["Данные", `${fmt(D.meta.n_mo)} МО × ${NM} ${plural(NM, "месяц", "месяца", "месяцев")}`,
+    `Безналичные траты жителей по ${D.meta.cats.length} категориям — данные СберИндекса. Росстат, перепись 2010 года и работы лаборатории в расчет типов не входят: ими типы только проверяются.`],
+  ["Признаки", "CLR шести долей + ln(траты) − медиана месяца",
+    "Структура трат — доли категорий в лог-отношениях (CLR), чтобы рост одной доли не «уменьшал» остальные. Уровень — относительно медианы страны в том же месяце: так уходят инфляция и сезонность. " +
+    "Берем только траты: они есть помесячно у всех МО, а Росстат оставлен для независимой проверки (почему так — отчет, раздел 1.2)."],
+  ["Сеть", `w = общая граница × e^(−км/τ), τ = ${fmt(D.meta.tau, 1)} км`,
+    "Ребро соединяет соседей по границе; чем ближе их центры по дороге, тем сильнее связь — как в гравитационной модели поездок. Район вокруг города связан с ним с весом 1. Сеть не зависит от трат, поэтому не подсказывает ответ."],
+  ["KEFRiN", `K = ${D.meta.K}, α = ${fmt(D.meta.alpha, 1)}`,
+    "Совместная кластеризация признаков и сети (Shalileh, Mirkin 2022): k-means, где близость МО учитывает и траты, и соседей по сети с весом α (0 — только траты, 1 — только сеть). K выбран по воспроизводимости на подвыборках, α — правилом при этом K с той же проверкой устойчивости (график ниже)."],
+  ["Динамика", `Ỹₜ = β·Ỹₜ₋₁ + (1 − β)·Yₜ, β = ${fmt(D.meta.beta, 1)}`,
+    "Для каждого месяца — свой профиль МО. Эволюционный KEFRiN смешивает профиль месяца с прошлым: типы не дрожат от случайных колебаний, а настоящие смены видны. Сами типы отслеживаем по схеме MONIC: выживание, расщепление, слияние между месяцами."],
+  ["Проверка", `6 индексов · ${D.methods.length} методов · внешние данные`,
+    `Шесть индексов конкурса, сравнение ${D.methods.length} методов${S ? ` на ${S.n} seed` : ""}, устойчивость на бутстрапе и проверка данными, которые в расчет не входили: Росстат, перепись, пригороды из отчета лаборатории.`],
+].map(([h, c, t], i) => `<li class="step"><span class="n">${i + 1}</span><h3>${h}</h3><code>${esc(c)}</code><p>${t}</p></li>`).join("");
+
+/* лист: качество — что меряют индексы, тип против базы, надежность */
+$("icvi-table").innerHTML = `<thead><tr><th>Индекс</th><th>Что меряет</th><th>Лучше</th></tr></thead><tbody>` + [
+  ["SW, силуэт", "насколько МО ближе к своему типу, чем к соседнему (по тратам)", "больше"],
+  ["CH, Калински–Харабаш", "разброс между типами к разбросу внутри типов (по тратам)", "больше"],
+  ["S_Dbw", "разброс внутри типов и плотность «между» типами (по тратам)", "меньше"],
+  ["AVI", "доля веса связей типа, которая остается внутри типа (по сети)", "больше"],
+  ["AVU", "насколько типы связаны между собой (по сети)", "меньше"],
+  ["MQ", "модулярность Q: связей внутри типов больше, чем при случайной раскладке (по сети)", "больше"],
+].map(([a, b, c]) => `<tr><td>${a}</td><td>${b}</td><td>${c}</td></tr>`).join("") + "</tbody>";
+{
+  // показатель: название в таблице и короткое — для списков в тексте; SBER — индексы СберИндекса, остальное — Росстат
+  const SBER = new Set(["market_access", "mobility_km"]);
+  const EXT = [["log_population", "население", "население"], ["market_access", "доступность рынков", "доступность рынков"],
+    ["emp_mining", "занятость в добыче", "добыча"], ["emp_market_services", "занятость в рыночных услугах", "рыночные услуги"],
+    ["mobility_km", "мобильность жителей (только Северо-Запад)", "мобильность"], ["emp_industry", "занятость в промышленности", "промышленность"],
+    ["urban_share", "доля горожан", "доля горожан"], ["emp_agri", "занятость в сельском хозяйстве", "сельское хозяйство"],
+    ["emp_public", "занятость в бюджетном секторе", "бюджетный сектор"], ["log_wage", "зарплата", "зарплата"]].filter(([k]) => D.ext[k]);
+  const andJoin = (a) => a.length > 1 ? `${a.slice(0, -1).join(", ")} и ${a[a.length - 1]}` : a.join("");
+  // итог по 95%-интервалу разницы «тип минус база»: выше нуля — сильнее, ниже — слабее, иначе — на уровне
+  const verdict = (k) => D.ext[k][2][0] > 0 ? "win" : D.ext[k][2][1] < 0 ? "lose" : "tie";
+  const by = (v) => EXT.filter(([k]) => verdict(k) === v).map(([, , a]) => a);
+  const [win, tie, lose] = [by("win"), by("tie"), by("lose")];
+  $("ext-lead").textContent = `η² — доля различий между МО, которую объясняет разбиение. Показателей ${EXT.length}: ${EXT.filter(([k]) => !SBER.has(k)).length} Росстата и ${EXT.filter(([k]) => SBER.has(k)).length} индекса СберИндекса, в расчет не входили; база — группы по уровню трат. ` +
+    `Тип сильнее базы: ${andJoin(win)}` + (tie.length ? `; вровень: ${andJoin(tie)}` : "") + (lose.length ? `; слабее: ${andJoin(lose)}` : "") + ".";
+  more("ext-lead", ["Если тип не лучше базы, он ничего не добавляет к простому «богаче — беднее».",
+    "«Сильнее» и «слабее» — когда 95%-интервал разницы «тип минус база» не включает ноль (бутстрап МО, разбиения фиксированы)."]);
+  const mark = { win: "сильнее", tie: "на уровне", lose: "слабее" };
+  $("ext-table").innerHTML = `<thead><tr><th>Показатель</th><th>Источник</th><th>${D.meta.K} типов</th><th>${D.meta.K} групп по уровню трат</th><th>Тип против базы</th></tr></thead><tbody>` +
+    EXT.map(([k, n]) => { const [a, b] = D.ext[k], v = verdict(k); return `<tr><td>${n}</td><td>${SBER.has(k) ? "СберИндекс" : "Росстат"}</td><td>${v === "win" ? `<b>${fmt(a, 2)}</b>` : fmt(a, 2)}</td><td>${v === "lose" ? `<b>${fmt(b, 2)}</b>` : fmt(b, 2)}</td><td>${mark[v]}</td></tr>`; }).join("") + "</tbody>";
+  $("ext-note").textContent = `Как читать: уровень трат — это почти доход, поэтому зарплату и бюджетный сектор он объясняет лучше любой типологии. ` +
+    `Тип добавляет то, чего один уровень не видит: размер, положение и отрасли. Поэтому «сильнее» не по всем показателям — ожидаемый и честный итог.`;
+}
+function altPair() {
+  const P = D.rob.alt_pair;
+  if (!P) return null;
+  const rows = Object.entries(P.crosstab).map(([c, r]) => { const v = Object.values(r); return [c, Math.max(...v) / v.reduce((a, b) => a + b, 0)]; });
+  return { K: P.K, alpha: P.alpha, ari: P.ari, kept: rows.filter(([, x]) => x >= 0.85).length, split: rows.filter(([, x]) => x < 0.85).map(([c]) => c) };
+}
+const AP = altPair();
+const typeLabel = (c) => { const t = TYPES.find((x) => x.code === c); return t ? `${c} «${t.short}»` : c; };
+{
+  const R = D.rob;
+  $("rob-list").innerHTML = [
+    `Итоговая модель с другим seed (${R.n_seeds} ${plural(R.n_seeds, "перезапуск", "перезапуска", "перезапусков")}): ARI с итоговыми типами ${fmt(R.seed_min, 2)}–${fmt(R.seed_max, 2)} (1 — то же разбиение) — типология воспроизводится.`,
+    `Сеть «ближайшие по дороге» вместо границ: ARI ${fmt(R.road, 2)} — выбор физической сети почти не важен.`,
+    `Профиль ${D.meta.profile_year_prev} года вместо ${D.meta.profile_year}: ARI ${fmt(R.y2023, 2)}, тип совпадает у ${pct(R.y2023_same)} МО, при объединении сельских типов (${R.rural.join(", ")}) — ARI ${fmt(R.y2023_macro, 2)}: ядро устойчиво, сельские типы размыты.`,
+    `Только структура трат, без уровня: ARI ${fmt(R.struct, 2)} — уровень трат важен.`,
+    `Без районов Москвы и Петербурга: ARI ${fmt(R.no_msk, 2)} — освободившийся тип перераспределяет остальные (K фиксирован).`,
+    `Соседнее число типов: ${Object.entries(R.k_alt).map(([k, v]) => `K = ${k} — ARI ${fmt(v, 2)}`).join(", ")}` +
+      (D.kalpha && Object.keys(R.k_alt).every((k) => !D.kalpha.stable.includes(Number(k))) ? "; ни одно из них не проходит правило устойчивости при итоговом α." : "."),
+    ...(AP ? [`Второй согласованный вариант — сначала вес сети, потом K: K = ${AP.K} при α = ${fmt(AP.alpha, 2)}. ARI с итоговыми типами ${fmt(AP.ari, 2)}: ` +
+      `${AP.kept} из ${D.meta.K} типов сохраняются почти целиком${AP.split.length ? `, ${AP.split.join(", ")} распадается между соседними` : ""}.`] : []),
+  ].map((x) => `<li>${x}</li>`).join("");
+}
+
+const NTW = (Object.values(D.mo).find((m) => m.tw) || { tw: [] }).tw.length;
+$("use-list").innerHTML = [
+  ["Статистика по месту работы против места жительства",
+    "Показывает, где официальные показатели занижают пригороды: по типу поселения они село, а зарплата их жителей засчитывается городу. Нужно тем, кто распределяет поддержку по «сельскости» или по зарплате.",
+    "читать зарплату Росстата вместе с тратами СберИндекса; пример — Иркутский район на первом экране."],
+  ["Похожие территории в других регионах",
+    `Для каждого МО — ${NTW} МО из других регионов с самым похожим профилем трат («двойники»). Их зарплаты по Росстату тоже близки — в ${fmt(D.twins.wage_r / D.twins.wage_t, 1)} раза ближе, чем у случайных МО, хотя зарплата в подбор не входила. ` +
+    "Муниципалитет может сравнивать себя не со средней Россией, а с похожими: искать у них применимый опыт и смотреть, быстрее ли растут его траты.",
+    `найдите свой МО на карте — паспорт покажет двойников и рост трат против них с поправкой на рост своего региона (без нее ${pct(D.twins.r2)} разницы дает сам регион; ` +
+    `например, ${esc(D.twins.ex.name)}: медленнее двойников растут ${pct(D.twins.ex.share_below_twins)} МО). Крайние случаи — в отчете (раздел 9).`],
+].map(([h, t, how]) => `<li><b>${h}</b><span>${t}</span><span><span class="lbl">Как:</span> ${how}</span></li>`).join("");
+
+const consistent = D.kalpha && D.kalpha.K === D.meta.K && Math.abs(D.kalpha.alpha - D.meta.alpha) < 1e-9;
+$("lim-list").innerHTML = [
+  ["Траты — модельная оценка",
+    "СберИндекс оценивает траты по безналичным операциям и модели с «экономическими характеристиками территорий»: наличные не видны, на селе доля онлайна может быть завышена, а проверка по Росстату не полностью независима. " +
+    "Для «бубликов» с центром в городе модель «домашней локации» может отчасти смешивать жителей района и города."],
+  ["Эффект «бубликов» — в основном у столиц",
+    `По профилю трат «бублики» столиц регионов ближе к своему городу в ${Math.round(D.cap.capital.ring * D.cap.capital.n)} случаях из ${D.cap.capital.n}, у остальных городов — ${pct(D.cap.other.ring)} против ${pct(D.cap.other.ctrl)} у контроля, различие незначимо (${pv(D.cap.other.p)}). ` +
+    (D.cap.other.census && D.cap.other.census.p_value < 0.05 ? `Механизм там все же виден: по переписи из таких «бубликов» на работу в другой населенный пункт ездят чаще на ${fmt(D.cap.other.census.diff_pp)} п. п.` : "")],
+  ["Не вся страна",
+    (PT ? `${PT.absent.length} ${plural(PT.absent.length, "региона", "регионов", "регионов")} в данных СберИндекса нет совсем, у ${D.meta.n_gap} МО ряды неполные — почти не представлены республики Северного Кавказа. ` +
+      `Типы строим по ${fmt(D.meta.n_mo)} МО с полной панелью, еще ${PT.typed} получили тип по ближайшему профилю трат (проверка — ${pct(PT.acc6)}); остальные не заполняем: ни соседи, ни Росстат тип надежно не угадывают (${pct(PT.neigh)} и ${pct(PT.rosstat)}).`
+      : `Нет ${missingRegions} ${plural(missingRegions, "региона", "регионов", "регионов")}, у ${D.meta.n_gap} МО неполные ряды; типы строим по ${fmt(D.meta.n_mo)} МО с полной панелью.`)],
+  ["Два года данных",
+    `${NM} ${plural(NM, "месяц", "месяца", "месяцев")} — два годовых цикла: сезон и тренд трудно разделить, сельские типы ${D.rob.rural.join(", ")} между годами перемешиваются. ` +
+    `Сезонности в сменах отдельных МО почти нет (${fmt(D.season.same_month_both_years)} совпадений по месяцу при ${fmt(D.season.expected_if_random)} случайных), но размер сельских типов по сезону колеблется.`],
+  ...(CEN ? [["Перепись 2010 года",
+    `Последняя перепись с местом работы по районам: охват — ${CEN.n_reg} ${plural(CEN.n_reg, "регион", "региона", "регионов")}, и она старше трат на ${censusGap} лет: поздние пригороды в ней не видны${hiddenOk ? "" : " — возможно, поэтому не подтвердились скрытые спутники"}. ` +
+    "Для «бубликов» вывод держится: они окружают тот же центр, что и в 2010 году. Налоговый след (НДФЛ в местных бюджетах) механизм не подтвердил."]] : []),
+  ["Скрытые спутники — кандидаты",
+    `Индекс спутника различает пригороды умеренно (AUC ${fmt(F.auc, 2)})${CEN && !hiddenOk ? ", перепись их не подтвердила" : ""}, а список зависит от порога. ` +
+    "Поэтому это кандидаты с вероятностью по бутстрапу; районы у города другого региона (например, у Магнитогорска) не рассматриваем: их не с чем сравнить внутри своего региона."],
+  ...(consistent && AP ? [[`Число типов: ${D.meta.K} или ${AP.K}`,
+    `Порядок задан заранее, как в методе ClustGeo: сначала K по воспроизводимости, затем той же проверкой — вес сети α; в обратном порядке согласованной получается пара K = ${AP.K}, α = ${fmt(AP.alpha, 2)}. ` +
+    `Данные одни не выбирают между вариантами: ${AP.kept} из ${D.meta.K} типов в них почти совпадают, а ${AP.split.map(typeLabel).join(", ")} при K = ${AP.K} ${AP.split.length > 1 ? "распадаются" : "распадается"} между соседями.`]] :
+    D.kalpha && !consistent ? [["Число типов и вес сети не согласованы",
+      `При итоговом α = ${fmt(D.meta.alpha, 1)} правило устойчивости дает K = ${D.kalpha.K}, а не ${D.meta.K}; соседние K показаны в «Надежности».`]] : []),
+  ...(FM && FM.p >= FM.alpha ? [["Нельзя доказать, что KEFRiN лучше всех",
+    `${BEST.name} — первый по среднему месту среди ${D.methods.length} методов, но тест Фридмана различие не подтверждает (${pv(FM.p)}), а рейтинг к тому же наклонен в его пользу: вес сети подобран по связности той же сети, базовые методы не настраивались. ` +
+    "KEFRiN выбран не за место в рейтинге, а за устройство (траты + сеть) и устойчивость."]] : []),
+].map(([h, text]) => `<li><b>${h}</b><span>${text}</span></li>`).join("");
+
+/* старт: графики под ширину экрана, карта в рабочем состоянии, выбран пример «бублика» */
+const CHARTS = [aggChart, alphaChart, stayChart, censusChart, mpChart, flowChart];
+let lastW = innerWidth, redraw = null;
+CHARTS.forEach((f) => f());
+addEventListener("resize", () => {
+  clearTimeout(redraw);
+  redraw = setTimeout(() => {
+    if (innerWidth === lastW) return;
+    lastW = innerWidth;
+    CHARTS.forEach((f) => f());
+    applyView();   // штриховка карты — под новую ширину
+    if (state.sel) select(state.sel, { fromSearch: true, keepView: true });   // перерисовать паспорт, не трогая поиск и масштаб
+  }, 150);
+});
+viewsBar(); controls(); legendTypes(); paint();
+const start = (SH && D.mo[SH.district_id] ? String(SH.district_id) : null) || ids.find((id) => D.mo[id] && D.mo[id].ring && D.mo[id].t);
+if (start) select(start);
+</script>
+</body>
+</html>

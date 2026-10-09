@@ -1,0 +1,31 @@
+# Python 3.11. Точные версии; полный снимок окружения: requirements.lock.txt
+# torch ставится в сборке для CPU с индекса PyTorch
+--extra-index-url https://download.pytorch.org/whl/cpu
+pandas==3.0.6
+numpy==2.4.6
+pyarrow==25.0.1
+geopandas==1.2.0
+pyogrio==0.13.0
+shapely==2.1.2
+pyproj==3.7.2
+openpyxl==3.1.5
+xlrd==2.0.1
+requests==2.34.2
+certifi==2026.7.22
+pyyaml==6.0.3
+beautifulsoup4==4.15.0
+lxml==6.1.3
+pypdf==6.19.0
+scikit-learn==1.9.1
+pytest==9.1.1
+scipy==1.17.1
+networkx==3.6.1
+python-igraph==1.0.0
+leidenalg==0.12.0
+matplotlib==3.11.2
+jinja2==3.1.6
+markdown-it-py==4.2.0
+# PDF отчета печатает Chromium через Playwright (необязательно: без него остаются report.md и report.html)
+playwright==1.63.0
+s-dbw==0.4.0
+torch==2.14.1+cpu

@@ -1,0 +1,714 @@
+{
+ "definition": "Этап 4: как правило ребра меняет кластеризацию — KEFRiN на всех шести сетях этапа 2.\n\nУсловие конкурса просит показать влияние правила ребра на кластеризацию. Для каждой сети (configs/base.yaml:\nedge_rules.networks) повторяем главный эксперимент (scripts/run_kefrin_sweep.py): тот же K, тот же перебор веса сети α\nи то же правило выбора α (максимум AVI на своей сети при потере силуэта не больше sweep.sw_loss_max, ARI с регионами\nне выше sweep.region_ari_max, без мелких типов и с той же устойчивостью, что при выборе K: бутстрап-ARI не ниже\nmethods.stability_ari_min и Жаккар каждого типа не ниже methods.stability_jaccard_min).\nФизическая сеть берется из главного эксперимента (outputs/stage2/kefrin_sweep.json), остальные считаются здесь.\nЧтобы не считать бутстрап для всех α, сначала для каждого α считаются дешевые условия правила, а бутстрап — по кандидатам\nв порядке убывания AVI, пока один не пройдет порог устойчивости. Выбранный α тот же, что при полном переборе.\nНа выбранном α для каждой сети:\n  SW, CH, S_Dbw — компактность по тратам;\n  AVI и Q на своей сети и на физической (общий масштаб для сравнения сетей);\n  ARI с итоговой типологией и с регионами, доля «бубликов» в типе своего города против контроля, бутстрап-ARI.",
+ "K": 6,
+ "networks": {
+  "physical": {
+   "rule": "граница × exp(−км/τ), пары «город + район» вес 1 (главная, независима от признаков)",
+   "alpha": 0.6,
+   "admissible": true,
+   "SW": 0.2205,
+   "CH": 674.9,
+   "S_Dbw": 0.6306,
+   "AVI_own": 0.5585,
+   "Q_own": 0.386,
+   "AVI_phys": 0.5585,
+   "Q_phys": 0.386,
+   "ari_final": 1.0,
+   "ari_regions": 0.079,
+   "ring_same_type": 0.569,
+   "control_same_type": 0.343,
+   "bootstrap_ari": 0.891,
+   "sizes": [
+    132,
+    348,
+    296,
+    403,
+    437,
+    400
+   ],
+   "sweep": [
+    {
+     "alpha": 0.0,
+     "SW": 0.221,
+     "AVI_own": 0.5359,
+     "ari_regions": 0.078,
+     "bootstrap_ari": 0.955
+    },
+    {
+     "alpha": 0.1,
+     "SW": 0.2211,
+     "AVI_own": 0.5432,
+     "ari_regions": 0.078,
+     "bootstrap_ari": 0.951
+    },
+    {
+     "alpha": 0.2,
+     "SW": 0.2206,
+     "AVI_own": 0.5428,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.933
+    },
+    {
+     "alpha": 0.3,
+     "SW": 0.2209,
+     "AVI_own": 0.5514,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.943
+    },
+    {
+     "alpha": 0.4,
+     "SW": 0.2208,
+     "AVI_own": 0.5508,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.93
+    },
+    {
+     "alpha": 0.5,
+     "SW": 0.2208,
+     "AVI_own": 0.5569,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.917
+    },
+    {
+     "alpha": 0.6,
+     "SW": 0.2205,
+     "AVI_own": 0.5585,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.891
+    },
+    {
+     "alpha": 0.7,
+     "SW": 0.2184,
+     "AVI_own": 0.5698,
+     "ari_regions": 0.083,
+     "bootstrap_ari": 0.825
+    },
+    {
+     "alpha": 0.75,
+     "SW": 0.2291,
+     "AVI_own": 0.5919,
+     "ari_regions": 0.074,
+     "bootstrap_ari": 0.672
+    },
+    {
+     "alpha": 0.8,
+     "SW": 0.2135,
+     "AVI_own": 0.6116,
+     "ari_regions": 0.081,
+     "bootstrap_ari": 0.633
+    },
+    {
+     "alpha": 0.85,
+     "SW": 0.2101,
+     "AVI_own": 0.6146,
+     "ari_regions": 0.086,
+     "bootstrap_ari": 0.479
+    },
+    {
+     "alpha": 0.9,
+     "SW": 0.2315,
+     "AVI_own": 0.8159,
+     "ari_regions": 0.054,
+     "bootstrap_ari": 0.492
+    },
+    {
+     "alpha": 0.95,
+     "SW": 0.0877,
+     "AVI_own": 0.8754,
+     "ari_regions": 0.041,
+     "bootstrap_ari": 0.467
+    }
+   ]
+  },
+  "cosine": {
+   "rule": "kNN по косинусу годового профиля 2024 (структура + уровень)",
+   "alpha": 0.6,
+   "admissible": true,
+   "SW": 0.2203,
+   "CH": 670.3,
+   "S_Dbw": 0.6326,
+   "AVI_own": 0.8342,
+   "Q_own": 0.6596,
+   "AVI_phys": 0.5422,
+   "Q_phys": 0.3853,
+   "ari_final": 0.903,
+   "ari_regions": 0.078,
+   "ring_same_type": 0.523,
+   "control_same_type": 0.325,
+   "bootstrap_ari": 0.919,
+   "sizes": [
+    139,
+    318,
+    290,
+    442,
+    430,
+    397
+   ],
+   "sweep": [
+    {
+     "alpha": 0.0,
+     "SW": 0.221,
+     "AVI_own": 0.7993,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.1,
+     "SW": 0.2216,
+     "AVI_own": 0.8039,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.2,
+     "SW": 0.2211,
+     "AVI_own": 0.8072,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.3,
+     "SW": 0.2211,
+     "AVI_own": 0.8091,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.4,
+     "SW": 0.2206,
+     "AVI_own": 0.8153,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.5,
+     "SW": 0.2206,
+     "AVI_own": 0.8225,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.6,
+     "SW": 0.2203,
+     "AVI_own": 0.8342,
+     "ari_regions": 0.078,
+     "bootstrap_ari": 0.919
+    },
+    {
+     "alpha": 0.7,
+     "SW": 0.217,
+     "AVI_own": 0.852,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.767
+    },
+    {
+     "alpha": 0.75,
+     "SW": 0.2161,
+     "AVI_own": 0.8611,
+     "ari_regions": 0.08,
+     "bootstrap_ari": 0.726
+    },
+    {
+     "alpha": 0.8,
+     "SW": 0.214,
+     "AVI_own": 0.8773,
+     "ari_regions": 0.072,
+     "bootstrap_ari": 0.658
+    },
+    {
+     "alpha": 0.85,
+     "SW": 0.2004,
+     "AVI_own": 0.8917,
+     "ari_regions": 0.066,
+     "bootstrap_ari": 0.605
+    },
+    {
+     "alpha": 0.9,
+     "SW": 0.1812,
+     "AVI_own": 0.8979,
+     "ari_regions": 0.059,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.95,
+     "SW": 0.1515,
+     "AVI_own": 0.9014,
+     "ari_regions": 0.035,
+     "bootstrap_ari": null
+    }
+   ]
+  },
+  "corr": {
+   "rule": "kNN по корреляции помесячных изменений относительного уровня трат",
+   "alpha": 0.75,
+   "admissible": true,
+   "SW": 0.207,
+   "CH": 641.0,
+   "S_Dbw": 0.8678,
+   "AVI_own": 0.5572,
+   "Q_own": 0.3922,
+   "AVI_phys": 0.5849,
+   "Q_phys": 0.4017,
+   "ari_final": 0.719,
+   "ari_regions": 0.081,
+   "ring_same_type": 0.554,
+   "control_same_type": 0.336,
+   "bootstrap_ari": 0.856,
+   "sizes": [
+    125,
+    372,
+    253,
+    452,
+    433,
+    381
+   ],
+   "sweep": [
+    {
+     "alpha": 0.0,
+     "SW": 0.221,
+     "AVI_own": 0.4409,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.1,
+     "SW": 0.2208,
+     "AVI_own": 0.4511,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.2,
+     "SW": 0.221,
+     "AVI_own": 0.4555,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.3,
+     "SW": 0.2198,
+     "AVI_own": 0.4633,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.4,
+     "SW": 0.2179,
+     "AVI_own": 0.4847,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.5,
+     "SW": 0.2158,
+     "AVI_own": 0.504,
+     "ari_regions": 0.081,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.6,
+     "SW": 0.216,
+     "AVI_own": 0.5279,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.7,
+     "SW": 0.2141,
+     "AVI_own": 0.5456,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.75,
+     "SW": 0.207,
+     "AVI_own": 0.5572,
+     "ari_regions": 0.081,
+     "bootstrap_ari": 0.856
+    },
+    {
+     "alpha": 0.8,
+     "SW": 0.2006,
+     "AVI_own": 0.5806,
+     "ari_regions": 0.078,
+     "bootstrap_ari": 0.818
+    },
+    {
+     "alpha": 0.85,
+     "SW": 0.1168,
+     "AVI_own": 0.6682,
+     "ari_regions": 0.065,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.9,
+     "SW": 0.0867,
+     "AVI_own": 0.7094,
+     "ari_regions": 0.07,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.95,
+     "SW": 0.0545,
+     "AVI_own": 0.8069,
+     "ari_regions": 0.051,
+     "bootstrap_ari": null
+    }
+   ]
+  },
+  "lagcorr": {
+   "rule": "kNN по максимуму лаговой корреляции изменений уровня (|лаг| ≤ 2)",
+   "alpha": 0.7,
+   "admissible": true,
+   "SW": 0.2107,
+   "CH": 658.4,
+   "S_Dbw": 0.7576,
+   "AVI_own": 0.4882,
+   "Q_own": 0.3264,
+   "AVI_phys": 0.5881,
+   "Q_phys": 0.4,
+   "ari_final": 0.822,
+   "ari_regions": 0.08,
+   "ring_same_type": 0.585,
+   "control_same_type": 0.378,
+   "bootstrap_ari": 0.898,
+   "sizes": [
+    125,
+    380,
+    255,
+    419,
+    439,
+    398
+   ],
+   "sweep": [
+    {
+     "alpha": 0.0,
+     "SW": 0.221,
+     "AVI_own": 0.4102,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.1,
+     "SW": 0.2209,
+     "AVI_own": 0.4189,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.2,
+     "SW": 0.2209,
+     "AVI_own": 0.421,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.3,
+     "SW": 0.2199,
+     "AVI_own": 0.4295,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.4,
+     "SW": 0.219,
+     "AVI_own": 0.4462,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.5,
+     "SW": 0.2168,
+     "AVI_own": 0.4639,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.6,
+     "SW": 0.2152,
+     "AVI_own": 0.4725,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.7,
+     "SW": 0.2107,
+     "AVI_own": 0.4882,
+     "ari_regions": 0.08,
+     "bootstrap_ari": 0.898
+    },
+    {
+     "alpha": 0.75,
+     "SW": 0.2095,
+     "AVI_own": 0.504,
+     "ari_regions": 0.079,
+     "bootstrap_ari": 0.829
+    },
+    {
+     "alpha": 0.8,
+     "SW": 0.143,
+     "AVI_own": 0.5808,
+     "ari_regions": 0.066,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.85,
+     "SW": 0.1363,
+     "AVI_own": 0.6223,
+     "ari_regions": 0.065,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.9,
+     "SW": 0.0964,
+     "AVI_own": 0.6769,
+     "ari_regions": 0.053,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.95,
+     "SW": 0.0744,
+     "AVI_own": 0.7863,
+     "ari_regions": 0.027,
+     "bootstrap_ari": null
+    }
+   ]
+  },
+  "dtw": {
+   "rule": "kNN по DTW нормированного ряда относительного уровня (окно 2)",
+   "alpha": 0.7,
+   "admissible": true,
+   "SW": 0.2055,
+   "CH": 646.8,
+   "S_Dbw": 0.7621,
+   "AVI_own": 0.5057,
+   "Q_own": 0.3688,
+   "AVI_phys": 0.5791,
+   "Q_phys": 0.3893,
+   "ari_final": 0.765,
+   "ari_regions": 0.082,
+   "ring_same_type": 0.431,
+   "control_same_type": 0.35,
+   "bootstrap_ari": 0.897,
+   "sizes": [
+    145,
+    371,
+    292,
+    412,
+    418,
+    378
+   ],
+   "sweep": [
+    {
+     "alpha": 0.0,
+     "SW": 0.221,
+     "AVI_own": 0.4163,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.1,
+     "SW": 0.2209,
+     "AVI_own": 0.4223,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.2,
+     "SW": 0.2212,
+     "AVI_own": 0.4322,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.3,
+     "SW": 0.2207,
+     "AVI_own": 0.437,
+     "ari_regions": 0.081,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.4,
+     "SW": 0.2197,
+     "AVI_own": 0.4506,
+     "ari_regions": 0.082,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.5,
+     "SW": 0.2177,
+     "AVI_own": 0.4595,
+     "ari_regions": 0.082,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.6,
+     "SW": 0.2154,
+     "AVI_own": 0.4754,
+     "ari_regions": 0.082,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.7,
+     "SW": 0.2055,
+     "AVI_own": 0.5057,
+     "ari_regions": 0.082,
+     "bootstrap_ari": 0.897
+    },
+    {
+     "alpha": 0.75,
+     "SW": 0.1944,
+     "AVI_own": 0.5392,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.8,
+     "SW": 0.1783,
+     "AVI_own": 0.5598,
+     "ari_regions": 0.082,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.85,
+     "SW": 0.0991,
+     "AVI_own": 0.6818,
+     "ari_regions": 0.064,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.9,
+     "SW": 0.0347,
+     "AVI_own": 0.7627,
+     "ari_regions": 0.063,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.95,
+     "SW": -0.019,
+     "AVI_own": 0.8285,
+     "ari_regions": 0.05,
+     "bootstrap_ari": null
+    }
+   ]
+  },
+  "road": {
+   "rule": "kNN ближайших по дороге, вес exp(−км/τ)",
+   "alpha": 0.6,
+   "admissible": true,
+   "SW": 0.2215,
+   "CH": 672.9,
+   "S_Dbw": 0.7167,
+   "AVI_own": 0.5275,
+   "Q_own": 0.3599,
+   "AVI_phys": 0.5717,
+   "Q_phys": 0.395,
+   "ari_final": 0.918,
+   "ari_regions": 0.084,
+   "ring_same_type": 0.508,
+   "control_same_type": 0.357,
+   "bootstrap_ari": 0.861,
+   "sizes": [
+    134,
+    332,
+    315,
+    398,
+    443,
+    394
+   ],
+   "sweep": [
+    {
+     "alpha": 0.0,
+     "SW": 0.221,
+     "AVI_own": 0.4986,
+     "ari_regions": 0.078,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.1,
+     "SW": 0.2212,
+     "AVI_own": 0.5077,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.2,
+     "SW": 0.2209,
+     "AVI_own": 0.5081,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.3,
+     "SW": 0.2209,
+     "AVI_own": 0.5116,
+     "ari_regions": 0.079,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.4,
+     "SW": 0.2206,
+     "AVI_own": 0.513,
+     "ari_regions": 0.081,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.5,
+     "SW": 0.2213,
+     "AVI_own": 0.5189,
+     "ari_regions": 0.08,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.6,
+     "SW": 0.2215,
+     "AVI_own": 0.5275,
+     "ari_regions": 0.084,
+     "bootstrap_ari": 0.861
+    },
+    {
+     "alpha": 0.7,
+     "SW": 0.22,
+     "AVI_own": 0.5848,
+     "ari_regions": 0.082,
+     "bootstrap_ari": 0.78
+    },
+    {
+     "alpha": 0.75,
+     "SW": 0.2044,
+     "AVI_own": 0.5347,
+     "ari_regions": 0.086,
+     "bootstrap_ari": 0.658
+    },
+    {
+     "alpha": 0.8,
+     "SW": 0.2212,
+     "AVI_own": 0.6162,
+     "ari_regions": 0.074,
+     "bootstrap_ari": 0.778
+    },
+    {
+     "alpha": 0.85,
+     "SW": 0.1986,
+     "AVI_own": 0.6271,
+     "ari_regions": 0.092,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.9,
+     "SW": 0.0587,
+     "AVI_own": 0.8132,
+     "ari_regions": 0.067,
+     "bootstrap_ari": null
+    },
+    {
+     "alpha": 0.95,
+     "SW": 0.0685,
+     "AVI_own": 0.8932,
+     "ari_regions": 0.039,
+     "bootstrap_ari": null
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,240 @@
+{
+ "from_step": "external",
+ "total_seconds": 4687.7,
+ "cpu_count": 4,
+ "python": "3.11.15",
+ "platform": "Linux-6.18.44-fc-v80-x86_64-with-glibc2.39",
+ "steps": [
+  {
+   "step": "external",
+   "script": "scripts/fetch_external.py",
+   "seconds": 2.3,
+   "cpu_seconds": 0.5,
+   "peak_rss_mb": 17.0
+  },
+  {
+   "step": "inventory",
+   "script": "scripts/inventory.py",
+   "seconds": 41.9,
+   "cpu_seconds": 43.7,
+   "peak_rss_mb": 1669.0
+  },
+  {
+   "step": "panel",
+   "script": "scripts/build_panel.py",
+   "seconds": 14.8,
+   "cpu_seconds": 16.3,
+   "peak_rss_mb": 1398.0
+  },
+  {
+   "step": "probes",
+   "script": "scripts/probes/p1_ring_pairs.py",
+   "seconds": 11.9,
+   "cpu_seconds": 12.5,
+   "peak_rss_mb": 1479.0
+  },
+  {
+   "step": "probes",
+   "script": "scripts/probes/p2_ring_level.py",
+   "seconds": 5.6,
+   "cpu_seconds": 6.7,
+   "peak_rss_mb": 1328.0
+  },
+  {
+   "step": "probes",
+   "script": "scripts/probes/p3_belt_archipelago.py",
+   "seconds": 6.9,
+   "cpu_seconds": 8.5,
+   "peak_rss_mb": 1554.0
+  },
+  {
+   "step": "networks",
+   "script": "scripts/run_networks.py",
+   "seconds": 17.0,
+   "cpu_seconds": 19.6,
+   "peak_rss_mb": 1439.0
+  },
+  {
+   "step": "select_k",
+   "script": "scripts/select_k.py",
+   "seconds": 163.3,
+   "cpu_seconds": 608.6,
+   "peak_rss_mb": 394.0
+  },
+  {
+   "step": "sweep",
+   "script": "scripts/run_kefrin_sweep.py",
+   "seconds": 337.2,
+   "cpu_seconds": 1260.2,
+   "peak_rss_mb": 1430.0
+  },
+  {
+   "step": "compare",
+   "script": "scripts/canus_tuning.py",
+   "seconds": 824.8,
+   "cpu_seconds": 1117.0,
+   "peak_rss_mb": 803.0
+  },
+  {
+   "step": "compare",
+   "script": "scripts/run_compare.py",
+   "seconds": 215.5,
+   "cpu_seconds": 509.4,
+   "peak_rss_mb": 1591.0
+  },
+  {
+   "step": "compare",
+   "script": "scripts/verify_implementations.py",
+   "seconds": 48.5,
+   "cpu_seconds": 54.7,
+   "peak_rss_mb": 543.0
+  },
+  {
+   "step": "compare",
+   "script": "scripts/edge_rules.py",
+   "seconds": 493.4,
+   "cpu_seconds": 1854.5,
+   "peak_rss_mb": 1440.0
+  },
+  {
+   "step": "compare",
+   "script": "scripts/icvi_panel.py",
+   "seconds": 126.9,
+   "cpu_seconds": 492.0,
+   "peak_rss_mb": 313.0
+  },
+  {
+   "step": "compare",
+   "script": "scripts/methods_seeds.py",
+   "seconds": 1520.1,
+   "cpu_seconds": 2667.2,
+   "peak_rss_mb": 996.0
+  },
+  {
+   "step": "dynamics",
+   "script": "scripts/run_dynamics.py",
+   "seconds": 88.7,
+   "cpu_seconds": 310.1,
+   "peak_rss_mb": 1477.0
+  },
+  {
+   "step": "interpret",
+   "script": "scripts/interpret_types.py",
+   "seconds": 16.8,
+   "cpu_seconds": 17.3,
+   "peak_rss_mb": 247.0
+  },
+  {
+   "step": "interpret",
+   "script": "scripts/check_k_alpha.py",
+   "seconds": 163.1,
+   "cpu_seconds": 609.6,
+   "peak_rss_mb": 401.0
+  },
+  {
+   "step": "interpret",
+   "script": "scripts/agglomerations.py",
+   "seconds": 8.9,
+   "cpu_seconds": 10.9,
+   "peak_rss_mb": 1377.0
+  },
+  {
+   "step": "interpret",
+   "script": "scripts/space_dynamics.py",
+   "seconds": 2.7,
+   "cpu_seconds": 3.5,
+   "peak_rss_mb": 283.0
+  },
+  {
+   "step": "interpret",
+   "script": "scripts/robustness.py",
+   "seconds": 33.0,
+   "cpu_seconds": 119.4,
+   "peak_rss_mb": 473.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/functional_cities.py",
+   "seconds": 188.9,
+   "cpu_seconds": 187.6,
+   "peak_rss_mb": 1388.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/cash_check.py",
+   "seconds": 7.2,
+   "cpu_seconds": 7.9,
+   "peak_rss_mb": 547.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/monthly_network.py",
+   "seconds": 54.4,
+   "cpu_seconds": 188.9,
+   "peak_rss_mb": 1447.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/twins.py",
+   "seconds": 2.5,
+   "cpu_seconds": 3.2,
+   "peak_rss_mb": 531.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/patterns_rules.py",
+   "seconds": 195.3,
+   "cpu_seconds": 192.6,
+   "peak_rss_mb": 228.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/fiscal_check.py",
+   "seconds": 11.0,
+   "cpu_seconds": 13.2,
+   "peak_rss_mb": 1368.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/commute_check.py",
+   "seconds": 19.2,
+   "cpu_seconds": 19.7,
+   "peak_rss_mb": 586.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/lab_check.py",
+   "seconds": 1.8,
+   "cpu_seconds": 2.5,
+   "peak_rss_mb": 234.0
+  },
+  {
+   "step": "extras",
+   "script": "scripts/assign_partial.py",
+   "seconds": 16.6,
+   "cpu_seconds": 17.1,
+   "peak_rss_mb": 357.0
+  },
+  {
+   "step": "figures",
+   "script": "scripts/make_figures.py",
+   "seconds": 24.0,
+   "cpu_seconds": 24.4,
+   "peak_rss_mb": 767.0
+  },
+  {
+   "step": "report",
+   "script": "scripts/build_report.py",
+   "seconds": 3.2,
+   "cpu_seconds": 2.6,
+   "peak_rss_mb": 184.0
+  },
+  {
+   "step": "landing",
+   "script": "scripts/build_landing.py",
+   "seconds": 15.5,
+   "cpu_seconds": 16.2,
+   "peak_rss_mb": 785.0
+  }
+ ]
+}

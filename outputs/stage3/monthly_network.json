@@ -1,0 +1,109 @@
+{
+ "definition": "Этап 3b, E2: сеть по месяцам и качество типов во времени.\n\nДинамическая атрибутированная сеть G_t = (V, E, W_t, X_t): узлы и ребра — физическая сеть (граница × расстояние,\nне зависит от трат), вес ребра в месяце t умножается на сходство соседей в этом месяце:\nW_t(i, j) = w_phys(i, j) · exp(−‖x_i(t) − x_j(t)‖² / 2h²) (src/mo/networks.py: monthly_layer).\nЧто считаем по месяцам:\n  средний вес и среднее сходство соседей (сближаются ли соседи), устойчивость весов (ранговая корреляция весов\n  ребер соседних месяцев), доля «граничных» ребер между разными типами (помесячные типы эволюционного KEFRiN);\n  сходство «бублик — город» против «обычный район — город» (держится ли находка каждый месяц);\n  шесть ICVI конкурса по месяцам (SW, CH, S_Dbw по признакам месяца; AVI, AVU, Q на физической сети и на W_t)\n  против случайной перестановки меток;\n  эволюционный KEFRiN на W_t (те же α*, β*) против основного варианта с постоянной сетью: ARI по месяцам, доля смен.",
+ "h": 1.8603,
+ "K": 6,
+ "alpha": 0.6,
+ "beta": 0.5,
+ "n_edges": 5166,
+ "neighbors_similarity": {
+  "mean_sim_first_months": 0.5887,
+  "mean_sim_last_months": 0.5765,
+  "spearman_with_time": -0.489,
+  "w_rank_corr_consecutive_mean": 0.972,
+  "w_rank_corr_first_last": 0.925,
+  "boundary_edge_share_mean": 0.469,
+  "boundary_edge_share_range": [
+   0.45,
+   0.483
+  ]
+ },
+ "ring_vs_control_by_month": {
+  "n_ring_edges": 65,
+  "n_control_edges": 286,
+  "sim_ring_mean": 0.6672,
+  "sim_control_mean": 0.5253,
+  "months_ring_gt_control": 24,
+  "months": 24,
+  "perm_pairs_mean_sim": {
+   "diff": 0.1418256145680573,
+   "p_value": 0.0004997501249375312,
+   "n_perm": 2000
+  }
+ },
+ "icvi_by_month": {
+  "SW": {
+   "mean": 0.2025,
+   "min": 0.1904,
+   "max": 0.2115,
+   "z_mean": 30.5,
+   "z_min": 20.0
+  },
+  "CH": {
+   "mean": 581.6826,
+   "min": 520.8018,
+   "max": 639.0731,
+   "z_mean": 1753.4,
+   "z_min": 1209.4
+  },
+  "S_Dbw": {
+   "mean": 0.8909,
+   "min": 0.7182,
+   "max": 1.0909,
+   "z_mean": -12.2,
+   "z_min": -22.6
+  },
+  "AVI@phys": {
+   "mean": 0.5861,
+   "min": 0.5567,
+   "max": 0.6083,
+   "z_mean": 82.7,
+   "z_min": 57.4
+  },
+  "AVU@phys": {
+   "mean": 0.4585,
+   "min": 0.4429,
+   "max": 0.4686,
+   "z_mean": -24.5,
+   "z_min": -36.9
+  },
+  "Q@phys": {
+   "mean": 0.4019,
+   "min": 0.3883,
+   "max": 0.4224,
+   "z_mean": 79.9,
+   "z_min": 57.2
+  },
+  "AVI@month": {
+   "mean": 0.6559,
+   "min": 0.6305,
+   "max": 0.6765,
+   "z_mean": 78.3,
+   "z_min": 53.2
+  },
+  "AVU@month": {
+   "mean": 0.4745,
+   "min": 0.4626,
+   "max": 0.4872,
+   "z_mean": -14.1,
+   "z_min": -20.2
+  },
+  "Q@month": {
+   "mean": 0.4604,
+   "min": 0.4507,
+   "max": 0.4736,
+   "z_mean": 74.2,
+   "z_min": 51.2
+  }
+ },
+ "evolutionary_kefrin_monthly_network": {
+  "ari_with_main_by_month_mean": 0.984,
+  "ari_with_main_min": 0.96,
+  "same_type_share_mean": 0.993,
+  "changed_share_mean": 0.0616,
+  "changed_share_mean_main": 0.0616,
+  "sw_month_mean": 0.2027,
+  "sw_month_mean_main": 0.2025,
+  "never_changed_share": 0.543,
+  "never_changed_share_main": 0.549
+ }
+}

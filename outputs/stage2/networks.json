@@ -1,0 +1,134 @@
+{
+ "rules": {
+  "physical": "граница × exp(−км/τ), пары «город + район» вес 1 (главная, независима от признаков)",
+  "cosine": "kNN по косинусу годового профиля 2024 (структура + уровень)",
+  "corr": "kNN по корреляции помесячных изменений относительного уровня трат",
+  "lagcorr": "kNN по максимуму лаговой корреляции изменений уровня (|лаг| ≤ 2)",
+  "dtw": "kNN по DTW нормированного ряда относительного уровня (окно 2)",
+  "road": "kNN ближайших по дороге, вес exp(−км/τ)"
+ },
+ "knn_k": 8,
+ "networks": {
+  "physical": {
+   "edges": 5166,
+   "mean_degree": 5.12,
+   "isolated": 0,
+   "components": 6,
+   "share_within_region": 0.801,
+   "edge_km_median": 66.7,
+   "transitivity": 0.37,
+   "ring_pairs_covered": 1.0
+  },
+  "cosine": {
+   "edges": 10768,
+   "mean_degree": 10.68,
+   "isolated": 0,
+   "components": 1,
+   "share_within_region": 0.215,
+   "edge_km_median": 778.5,
+   "transitivity": 0.359,
+   "ring_pairs_covered": 0.077
+  },
+  "corr": {
+   "edges": 12397,
+   "mean_degree": 12.3,
+   "isolated": 0,
+   "components": 1,
+   "share_within_region": 0.261,
+   "edge_km_median": 768.1,
+   "transitivity": 0.195,
+   "ring_pairs_covered": 0.292
+  },
+  "lagcorr": {
+   "edges": 12110,
+   "mean_degree": 12.01,
+   "isolated": 0,
+   "components": 1,
+   "share_within_region": 0.226,
+   "edge_km_median": 961.5,
+   "transitivity": 0.164,
+   "ring_pairs_covered": 0.262
+  },
+  "dtw": {
+   "edges": 12869,
+   "mean_degree": 12.77,
+   "isolated": 0,
+   "components": 1,
+   "share_within_region": 0.181,
+   "edge_km_median": 1108.9,
+   "transitivity": 0.205,
+   "ring_pairs_covered": 0.108
+  },
+  "road": {
+   "edges": 9987,
+   "mean_degree": 9.91,
+   "isolated": 10,
+   "components": 13,
+   "share_within_region": 0.797,
+   "edge_km_median": 79.5,
+   "transitivity": 0.56,
+   "ring_pairs_covered": 0.985
+  }
+ },
+ "timing_s": {
+  "physical": 4.9,
+  "cosine": 0.1,
+  "corr": 0.1,
+  "lagcorr": 0.1,
+  "dtw": 4.9
+ },
+ "physical_info": {
+  "tau_km": 67.65,
+  "isolated_linked_by_road": 42
+ },
+ "jaccard": {
+  "physical": {
+   "physical": 1.0,
+   "cosine": 0.035,
+   "corr": 0.032,
+   "lagcorr": 0.027,
+   "dtw": 0.022,
+   "road": 0.394
+  },
+  "cosine": {
+   "physical": 0.035,
+   "cosine": 1.0,
+   "corr": 0.028,
+   "lagcorr": 0.026,
+   "dtw": 0.021,
+   "road": 0.042
+  },
+  "corr": {
+   "physical": 0.032,
+   "cosine": 0.028,
+   "corr": 1.0,
+   "lagcorr": 0.401,
+   "dtw": 0.071,
+   "road": 0.044
+  },
+  "lagcorr": {
+   "physical": 0.027,
+   "cosine": 0.026,
+   "corr": 0.401,
+   "lagcorr": 1.0,
+   "dtw": 0.066,
+   "road": 0.035
+  },
+  "dtw": {
+   "physical": 0.022,
+   "cosine": 0.021,
+   "corr": 0.071,
+   "lagcorr": 0.066,
+   "dtw": 1.0,
+   "road": 0.029
+  },
+  "road": {
+   "physical": 0.394,
+   "cosine": 0.042,
+   "corr": 0.044,
+   "lagcorr": 0.035,
+   "dtw": 0.029,
+   "road": 1.0
+  }
+ }
+}

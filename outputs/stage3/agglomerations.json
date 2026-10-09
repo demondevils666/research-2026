@@ -1,0 +1,163 @@
+{
+ "definition": "Этап 3, шаг 2: «город больше своих границ» — формальные проверки и масштаб.\n\nПары «бублик» (район вокруг города с общим центром) — город; контроль — обычные районы, граничащие с городским\nокругом своего региона (src/mo/agglo.py). Три независимых измерения:\n  1) профиль трат: ближе ли район к своему городу, чем к районам своего региона (проба P1, outputs/probes/p1_*.json);\n  2) синхронность: корреляция помесячных изменений относительного уровня трат район—город (23 изменения),\n     сравнение с контролем (перестановочный тест) и со случайными парами «район — город» из других регионов;\n  3) место работы против места жительства: связь отношения трат район/город с отношением зарплат (Росстат, по месту\n     работы) у «бубликов» и у контроля, бутстрап-ДИ и перестановочный тест разницы.\nМасштаб: сколько людей живет в «бубликах» (Росстат 2023, все 146 пар справочника) и какая у них доля горожан;\nкуда итоговая типология относит «бублики» по сравнению с их городами.",
+ "profile_closeness": {
+  "n_ring": 64,
+  "n_control": 283,
+  "share_closer_ring": 0.766,
+  "share_closer_ring_ci95": [
+   0.656,
+   0.859
+  ],
+  "share_closer_control": 0.512,
+  "share_closer_control_ci95": [
+   0.452,
+   0.569
+  ],
+  "perm_share_diff": {
+   "diff": 0.2533,
+   "p_value": 0.0015,
+   "n_perm": 2000
+  },
+  "by_city_status": {
+   "region_capital": {
+    "n_ring": 20,
+    "share_closer_ring": 1.0,
+    "share_closer_control": 0.421
+   },
+   "other_city": {
+    "n_ring": 44,
+    "share_closer_ring": 0.659,
+    "share_closer_control": 0.546
+   }
+  },
+  "control_any_region": {
+   "n_control": 351,
+   "share_closer_control": 0.476
+  }
+ },
+ "comovement": {
+  "series": "помесячные изменения относительного уровня трат (23 значения), корреляция Пирсона",
+  "mean_corr_ring": 0.508,
+  "mean_corr_control": 0.297,
+  "mean_corr_random_other_region": 0.155,
+  "median_corr_ring": 0.517,
+  "median_corr_control": 0.296,
+  "median_corr_random_other_region": 0.146,
+  "ring_ci95_mean": [
+   0.425,
+   0.589
+  ],
+  "control_ci95_mean": [
+   0.257,
+   0.342
+  ],
+  "perm_ring_vs_control": {
+   "diff": 0.21076681632275202,
+   "p_value": 0.0004997501249375312,
+   "n_perm": 2000
+  },
+  "perm_ring_vs_random": {
+   "diff": 0.3530189443190558,
+   "p_value": 0.0004997501249375312,
+   "n_perm": 2000
+  },
+  "share_corr_gt_0_5": {
+   "ring": 0.523,
+   "control": 0.301,
+   "random_other_region": 0.21
+  },
+  "share_pairs_in_corr_knn": {
+   "control": 0.15,
+   "ring": 0.292,
+   "random_expected": 0.008
+  }
+ },
+ "workplace_vs_residence": {
+  "control": {
+   "n": 286,
+   "corr_spend_ratio_vs_wage_ratio": 0.476,
+   "ci95": [
+    0.381,
+    0.564
+   ],
+   "median_spend_pct": 85.4,
+   "median_wage_pct": 87.8,
+   "share_wage_below_80pct": 0.318,
+   "share_spend_above_wage": 0.381,
+   "share_spend_above_wage_20pp": 0.066
+  },
+  "ring": {
+   "n": 65,
+   "corr_spend_ratio_vs_wage_ratio": -0.243,
+   "ci95": [
+    -0.454,
+    0.008
+   ],
+   "median_spend_pct": 88.3,
+   "median_wage_pct": 93.1,
+   "share_wage_below_80pct": 0.215,
+   "share_spend_above_wage": 0.431,
+   "share_spend_above_wage_20pp": 0.108
+  },
+  "perm_diff_ring_minus_control": {
+   "diff": -0.719,
+   "p_value": 0.0005
+  },
+  "interpretation": "Росстат считает зарплату по месту работы (организации на территории МО), СберИндекс — траты жителей МО. Если жители района работают в городе, местная зарплата не связана с их тратами."
+ },
+ "scale": {
+  "ring_pairs_total": 146,
+  "ring_pairs_in_panel": 65,
+  "ring_population_mln": 5.66,
+  "ring_population_known_n": 142,
+  "ring_urban_share_weighted": 0.107,
+  "ring_rural_population_mln": 4.99,
+  "city_population_mln": 24.6,
+  "ring_to_city_population_ratio_median": 0.332
+ },
+ "typology": {
+  "ring_same_type_as_city": 0.569,
+  "crosstab_city_by_ring": {
+   "T1": {
+    "T1": 5,
+    "T2": 4,
+    "T3": 6
+   },
+   "T2": {
+    "T2": 1,
+    "T5": 1
+   },
+   "T3": {
+    "T2": 1,
+    "T3": 20,
+    "T4": 7,
+    "T5": 4
+   },
+   "T4": {
+    "T3": 1,
+    "T4": 10,
+    "T5": 2
+   },
+   "T5": {
+    "T5": 1,
+    "T6": 2
+   }
+  },
+  "ring_types": {
+   "T3": 27,
+   "T4": 17,
+   "T5": 8,
+   "T2": 6,
+   "T1": 5,
+   "T6": 2
+  },
+  "control_types": {
+   "T4": 82,
+   "T3": 69,
+   "T5": 60,
+   "T6": 54,
+   "T2": 18,
+   "T1": 3
+  }
+ }
+}
